@@ -1,0 +1,9 @@
+import {initialProfile} from "@/lib/initialProfile";
+
+const setupPage = async () => 
+{
+	const profile = await initialProfile();
+	return (<div></div>);
+};
+
+export default setupPage;
