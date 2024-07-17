@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
-// You might want to replace these with actual icons
 const ChatIcon = () => <span>💬</span>;
 const NotesIcon = () => <span>📝</span>;
 const SyllabusIcon = () => <span>📚</span>;
@@ -41,7 +40,7 @@ const SemesterPage: React.FC = () =>
 	};
 
 	return (
-		<div className="p-6 bg-blue-900 text-white min-h-screen">
+		<div className="p-6 text-white min-h-screen">
 		<div className="flex justify-between items-center mb-6">
 		<div className="flex space-x-4">
 		<div className="relative">

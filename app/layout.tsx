@@ -3,14 +3,6 @@ import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import {cn} from "@/lib/utils";
 
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
-} from '@clerk/nextjs';
-
 
 const font = Open_Sans({ subsets: ["latin"] });
 
@@ -22,13 +14,11 @@ export const metadata: Metadata = {
 export default function RootLayout({ children, }: Readonly<{ children: React.ReactNode; }>)
 {
   return (
-	<ClerkProvider>
     <html lang="en" suppressHydrationWarning>
       <body className={font.className}>
 	  	{children}
 	  </body>
     </html>
-	</ClerkProvider>
   );
 }
 

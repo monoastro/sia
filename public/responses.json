@@ -1,0 +1,18 @@
+userData =
+{
+    "statusCode": 201,
+    "message": "User created successfully, OTP sent to your email",
+    "data": {
+        "user": [
+            {
+                "user_id": "10cf4a40-0f35-45f5-81c5-d0d2641211fa",
+                "username": "bernhardturing",
+                "email": "jenish.078bei018@tcioe.edu.np",
+                "dob": "2001-09-11T00:00:00.000Z",
+                "profile_pic": "https://electrocord.blob.core.windows.net/images/default.png",
+                "is_admin": true
+            }
+        ]
+    },
+    "success": true
+};
