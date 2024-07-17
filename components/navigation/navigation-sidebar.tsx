@@ -12,7 +12,7 @@ export const Sidebar = () => {
         <NavigationItem
           id={10}
           name="dashboard"
-          imageUrl="/1.png"
+          imageUrl="/shandi.svg"
         />
       <NavigationAction/>
       <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />

@@ -12,7 +12,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="hidden lg:flex flex-1 items-center justify-center p-8">
         <div className="relative w-full h-full">
           <Image
-            src="/emma.svg"
+            src="/shandi.svg"
             alt="SIA"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
