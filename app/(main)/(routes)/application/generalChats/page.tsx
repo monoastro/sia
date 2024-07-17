@@ -24,9 +24,9 @@ const GeneralChatsPage: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col h-screen bg-blue-900 text-white">
+    <div className="flex flex-col h-screen text-white">
       {/* Top bar */}
-      <div className="bg-blue-950 p-4 flex justify-between items-center">
+      <div className="p-4 flex justify-between items-center">
         <div className="relative">
           <button
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -36,7 +36,7 @@ const GeneralChatsPage: React.FC = () => {
             <ChevronDownIcon className="w-5 h-5 ml-2" />
           </button>
           {isDropdownOpen && (
-            <div className="absolute top-full left-0 mt-1 bg-blue-800 rounded shadow-lg z-10">
+            <div className="absolute top-full left-0 mt-1 rounded shadow-lg z-10">
               {channels.map((channel) => (
                 <button
                   key={channel}
@@ -75,7 +75,7 @@ const GeneralChatsPage: React.FC = () => {
       </div>
 
       {/* Chat input */}
-      <form onSubmit={handleSendMessage} className="bg-blue-950 p-4">
+      <form onSubmit={handleSendMessage} className="p-4">
         <div className="flex items-center">
           <input
             type="text"

@@ -1,10 +1,9 @@
-import { UserButton } from "@clerk/nextjs";
 import Link from 'next/link'
 
-export default function landingPage() {
+export default function landingPage()
+{
   return (
 	  <div>
-	  <UserButton className="" afterSignOutUrl="/" />
 	  <h1 className="text-4xl place-content-center font-bold text-center mt-10">Welcome to SIA</h1>
 	  <p className="text-center mt-10"> The premier platform for all your academic needs.</p>
 		  <div className="flex justify-center mt-10">
