@@ -45,7 +45,7 @@ const RoutinePage: React.FC = () => {
   const generateTimeSlots = () => {
     const slots = [];
     const start = moment('10:15 AM', 'h:mm A');
-    const end = moment('4:55 PM', 'h:mm A');
+    const end = moment('4:05 PM', 'h:mm A');
 
     while (start <= end) {
       const endTime = start.clone().add(interval, 'minutes');
@@ -70,6 +70,14 @@ const RoutinePage: React.FC = () => {
       return routineDay === day && currentTime >= routineStartTime && currentTime < routineEndTime;
     });
   };
+
+  const getRowSpan = (routine) => {
+    const startTime = moment(routine.start_time, 'HH:mm:ss');
+    const endTime = moment(routine.end_time, 'HH:mm:ss');
+    const diff = endTime.diff(startTime, 'minutes');
+    return diff / interval;
+  }
+  const renderedRoutines = new Set();
 
   return (
     <div className="h-screen flex flex-col bg-blue-900 text-white overflow-hidden">
@@ -101,18 +109,28 @@ const RoutinePage: React.FC = () => {
                 </TableCell>
                 {daysOfWeek.map((day, colIndex) => {
                   const routine = getRoutineForTimeSlot(day, slot.start);
-                  const routineClass = routine
-                    ? routine.category === 'Lab'
-                      ? 'bg-red-500'
-                      : 'bg-green-500'
-                    : '';
-                  return (
-                    <TableCell
-                      key={colIndex}
-                      className={`text-center border border-white ${routineClass}`}
-                      style={{ height: rowHeight }}
-                    ></TableCell>
+                  if (routine) {
+                    const routineId = `${routine.id}`
+                      if (!renderedRoutines.has(routineId)) {
+                        renderedRoutines.add(routineId);
+                        const rowSpan = getRowSpan(routine);
+                        const routineClass = routine.category === 'Lab' ? 'bg-red-500' : 'bg-green-500';
+                        return (
+                          <TableCell
+                            key={colIndex}
+                            rowSpan={rowSpan}
+                            className={`text-center border border-white ${routineClass}`}
+                          >
+                            {routine.name} - {routine.category} - {routine.grp}
+                          </TableCell>
+                        );
+                  }
+                  return null;
+                }
+                else {
+                  return ( <TableCell key={colIndex} className="text-center border border-white"></TableCell>
                   );
+                  }
                 })}
               </TableRow>
             ))}
