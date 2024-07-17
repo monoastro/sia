@@ -1,3 +1,4 @@
+//done
 "use client";
 
 import React, { useState } from 'react';
@@ -45,8 +46,9 @@ const LoginPage = () => {
 		{
 			const response = await axios.request(config);
 
-			console.log('Login successful:', response.data.data.token);
+			console.log('Login successful. Login Token(I don\'t like this):', response.data.data.token);
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
+
 
 			setCookie('auth_token', response.data.data.token, {
 				maxAge:  response.data.data.expiresIn,
