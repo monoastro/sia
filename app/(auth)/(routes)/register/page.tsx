@@ -92,11 +92,11 @@ const RegisterPage = () => {
 		<CardHeader className="text-center">
 		<CardTitle className="font-bold text-3xl">Welcome!</CardTitle>
 		<CardTitle>Register for SIA</CardTitle>
-			</CardHeader>
+		</CardHeader>
 
 		<CardContent>
 		<form className="space-y-4" onSubmit={handleSubmit}>
-		<div className="w-full">
+		<div className="grid grid-cols-2 gap-2">
 		<Input
 		type="text"
 		id="firstName"
