@@ -6,6 +6,8 @@ import Image from 'next/image';
 import { deleteCookie } from 'cookies-next';
 import axios from 'axios';
 
+import {getUserInfo} from "@/lib/utils";
+
 const ApplicationHome = () => {
 	const [username, setUsername] = useState("Anonymous User");
 	const [profilePicture, setProfilePicture] = useState("/shandi.svg");
@@ -19,20 +21,23 @@ const ApplicationHome = () => {
 
 	useEffect(() => {
 		//ideally this would be an api call to get the user information since user information may change
-		const userInformation = JSON.parse(localStorage.getItem('userInformation'));
-		if (userInformation) {
+		const userInformation = getUserInfo();
+		if (userInformation) 
+		{
 			setUsername(userInformation.username);
 			//setProfilePicture(userInformation.profile_pic);
 		}
-		else {
+		else 
+		{
 			router.push('/');
 		}
 	}, [router]);
 
 	//tell bibek to make the token better such that it can only gives the user id and not the whole user object
+	//also add an api endpoint to get the user information from token or user id
 	const test = () =>
 	{
-		console.log(JSON.parse(localStorage.getItem('userInformation')));
+		console.log(getUserInfo());
 
 		console.log('Username:', username);
 		console.log('Profile Picture:', profilePicture);
