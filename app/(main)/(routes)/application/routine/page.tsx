@@ -16,20 +16,20 @@ const RoutinePage: React.FC = () => {
   );
   const [routines, setRoutines] = useState([]);
 
+  const fetchRoutines = async () => {
+	  try {
+		  const response = await fetch('https://electrocord.onrender.com/api/v1/routines/');
+		  const data = await response.json();
+		  if (data.statusCode === 201) {
+			  setRoutines(data.data);
+		  } else {
+			  console.error('Failed to fetch routines:', data.message);
+		  }
+	  } catch (error) {
+		  console.error('Error fetching routines:', error);
+	  }
+  };
   useEffect(() => {
-    const fetchRoutines = async () => {
-      try {
-        const response = await fetch('https://electrocord.onrender.com/api/v1/routines/');
-        const data = await response.json();
-        if (data.statusCode === 201) {
-          setRoutines(data.data);
-        } else {
-          console.error('Failed to fetch routines:', data.message);
-        }
-      } catch (error) {
-        console.error('Error fetching routines:', error);
-      }
-    };
 
     fetchRoutines();
   }, []);

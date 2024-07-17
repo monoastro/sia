@@ -19,9 +19,11 @@ const OtpVerificationPage = () => {
 
   useEffect(() => {
     const storedEmail = localStorage.getItem('registrationEmail');
-    if (storedEmail) {
+    if (storedEmail)
+	{
       setEmail(storedEmail);
-    } else {
+    }
+	else {
       router.push('/register');
     }
   }, [router]);
@@ -45,10 +47,12 @@ const OtpVerificationPage = () => {
       data: verificationData
     };
 
-    try {
+    try
+	{
       const response = await axios.request(config);
       console.log(JSON.stringify(response.data));
-      if (response.data.statusCode === 200) {
+      if (response.data.statusCode === 200) 
+		{
         console.log('Account activated successfully');
         localStorage.removeItem('registrationEmail');
         router.push('/login');
