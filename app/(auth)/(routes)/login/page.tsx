@@ -46,6 +46,7 @@ const LoginPage = () => {
 
 		try
 		{
+			console.log("Requesting electrocord for login");
 			const response = await axios.request(config);
 
 			console.log('Login successful. Login Token(I don\'t like this):', response.data.data.token);
