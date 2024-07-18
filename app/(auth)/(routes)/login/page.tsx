@@ -1,7 +1,7 @@
 //done
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Card,
@@ -25,7 +25,8 @@ const LoginPage = () => {
 	const router = useRouter();
 	
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e : FormEvent<HTMLFormElement>) =>
+	{
 		e.preventDefault();
 
 		const userData = JSON.stringify({
@@ -33,7 +34,8 @@ const LoginPage = () => {
 			password
 		});
 
-		const config = {
+		const config =
+		{
 			method: 'post',
 			url: 'https://electrocord.onrender.com/api/v1/auth/signin/',
 			headers: { 
@@ -50,7 +52,8 @@ const LoginPage = () => {
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
 
 
-			setCookie('auth_token', response.data.data.token, {
+			setCookie('auth_token', response.data.data.token,
+			{
 				maxAge:  response.data.data.expiresIn,
 				path: '/',
 				secure: process.env.NODE_ENV === 'production',
@@ -59,7 +62,8 @@ const LoginPage = () => {
 
 			router.push('/application/dashboard');
 		} 
-		catch (error) {
+		catch (error) 
+		{
 			console.error('Error:', error);
 			alert('Login failed. Please try again.');
 		}

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import {
   Card,
   CardContent,
@@ -16,7 +16,7 @@ const ForgotPasswordPage = () =>
 	const [email, setEmail] = useState('');
 	const [isSubmitted, setIsSubmitted] = useState(false);
 
-	const handleSubmit = (e) => 
+	const handleSubmit = (e : FormEvent<HTMLFormElement>) => 
 	{
 		e.preventDefault();
 

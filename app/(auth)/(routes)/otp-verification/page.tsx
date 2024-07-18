@@ -22,13 +22,13 @@ const OtpVerificationPage = () => {
 	{
 		const storedEmail = localStorage.getItem('registrationEmail');
 		if (storedEmail)
-			{
-				setEmail(storedEmail);
-			}
-			else 
-				{
-					router.push('/register');
-				}
+		{
+			setEmail(storedEmail);
+		}
+		else 
+		{
+			router.push('/register');
+		}
 	}, [router]);
 
 	const handleSubmit = async (e: React.FormEvent) => {
@@ -40,7 +40,8 @@ const OtpVerificationPage = () => {
 			request_type: "signup"
 		});
 
-		const config = {
+		const config =
+		{
 			method: 'post',
 			maxBodyLength: Infinity,
 			url: 'https://electrocord.onrender.com/api/v1/auth/activate/',
@@ -55,16 +56,19 @@ const OtpVerificationPage = () => {
 			const response = await axios.request(config);
 			//console.log(JSON.stringify(response.data));
 			if (response.data.statusCode === 200) 
-				{
-					console.log('Account activated successfully');
-					localStorage.removeItem('registrationEmail');
-					router.push('/login');
-				} else {
-					alert('Account activation failed!');
-				}
-		} catch (error) {
+			{
+				console.log('Account activated successfully');
+				localStorage.removeItem('registrationEmail');
+				router.push('/login');
+			}
+			else
+			{
+				alert('Account activation failed!');
+			}
+		}
+		catch (error : any) 
+		{
 			console.error('Error during account activation:', error);
-			alert(`An error occurred during account activation: ${error.response?.data?.detail || error.message}`);
 		}
 	};
 
