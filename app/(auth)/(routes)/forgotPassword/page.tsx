@@ -20,7 +20,8 @@ const ForgotPasswordPage = () =>
 	{
 		e.preventDefault();
 
-		//Bibek API call
+
+
 		setIsSubmitted(true);
 	};
 

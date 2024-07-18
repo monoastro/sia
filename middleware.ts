@@ -1,30 +1,35 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// List of public routes that don't require authentication
 const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/register']
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl
-  
-  // Check if the requested path is a public route
-  if (publicRoutes.includes(pathname)) {
-    return NextResponse.next()
-  }
+export const middleware = (request: NextRequest) =>
+{
+	const { pathname } = request.nextUrl;
+	const authToken = request.cookies.get('chocolate-chip');
 
-  // Check for the presence of the auth_token cookie
-  const authToken = request.cookies.get('auth_token')
+	console.log("[Path: ", pathname, "]");
 
-  // If auth_token is not present, redirect to login page
-  if (!authToken) {
-    return NextResponse.redirect(new URL('/login', request.url))
-  }
+	if (publicRoutes.includes(pathname))
+	{
+		if(authToken && pathname!=='/')
+		{
+			return NextResponse.redirect(new URL('/application/dashboard', request.url));
+		}
+		return NextResponse.next();
+	}
 
-  // If auth_token is present, allow the request to proceed
-  return NextResponse.next()
-}
 
-// Specify which routes this middleware should run on
-export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+	if (!authToken)
+	{
+		return NextResponse.redirect(new URL('/login', request.url));
+	}
+
+	return NextResponse.next();
+};
+
+//routes this middleware should run on
+export const config = 
+{
+	matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }
