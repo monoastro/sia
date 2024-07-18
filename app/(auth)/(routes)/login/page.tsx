@@ -73,7 +73,7 @@ const LoginPage = () => {
 		<CardTitle>Login to SIA</CardTitle>
 		</CardHeader>
 
-		<CardContent className="justify-center w-1/2 mx-auto">
+		<CardContent className="justify-center w-2/3 mx-auto">
 		<form className="space-y-4" onSubmit={handleSubmit}>
 		<div>
 		<Input
@@ -105,15 +105,16 @@ const LoginPage = () => {
 		<Link href="/forgotPassword">Forgot your password?</Link>
 		</p>
 
-		<div className="w-full flex justify-center mx-auto">
-		<Button type="submit" className="bg-blue-600 font-semibold hover:bg-indigo-600">
+		<div className="w-full flex justify-center">
+		<Button type="submit" className="w-1/2 rounded bg-blue-600 font-semibold text-sm hover:bg-indigo-600">
 		LOG IN
 		</Button>
 		</div>
+
 		</form>
 		</CardContent>
 
-		<CardFooter className="justify-left w-1/2 mx-auto">
+		<CardFooter className="justify-start w-2/3 mx-auto">
 		<p className="font-semibold text-sm text-blue-600 hover:underline">
 		<Link href="/register">Register your college id?</Link>
 		</p>
