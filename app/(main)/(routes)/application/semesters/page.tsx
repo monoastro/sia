@@ -7,8 +7,20 @@ const NotesIcon = () => <span>📝</span>;
 const SyllabusIcon = () => <span>📚</span>;
 const QuestionPapersIcon = () => <span>📄</span>;
 
-//fuck this; imma chatgpt this shit
+interface Subjects
+{
+    'Semester 1': string[];
+    'Semester 2': string[];
+    'Semester 3': string[];
+    'Semester 4': string[];
+    'Semester 5': string[];
+    'Semester 6': string[];
+    'Semester 7': string[];
+    'Semester 8': string[];
+}
+
 const semesters = ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6', 'Semester 7', 'Semester 8'];
+//fuck this; imma chatgpt this shit
 const subjects = {
   'Semester 1': ['Math', 'Physics', 'Chemistry'],
   'Semester 2': ['Programming', 'English', 'Economics'],
@@ -22,19 +34,23 @@ const subjects = {
 
 const SemesterPage: React.FC = () =>
 {
-	const [selectedSemester, setSelectedSemester] = useState(semesters[0]);
-	const [selectedSubject, setSelectedSubject] = useState(subjects[selectedSemester][0]);
-	const [selectedTab, setSelectedTab] = useState('Notes');
-	const [isSemesterDropdownOpen, setIsSemesterDropdownOpen] = useState(false);
-	const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState(false);
+	const [selectedSemester, setSelectedSemester] = useState<keyof Subjects>('Semester 1');
+	const initialSubject = subjects[selectedSemester]?.[0] || ''; // potential undefined or null
+	const [selectedSubject, setSelectedSubject] = useState<string>(initialSubject);
+	const [selectedTab, setSelectedTab] = useState<string>('Notes');
+	const [isSemesterDropdownOpen, setIsSemesterDropdownOpen] = useState<boolean>(false);
+	const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState<boolean>(false);
 
-	const handleSemesterChange = (semester: string) => {
+
+	const handleSemesterChange = (semester: keyof Subjects) => {
 		setSelectedSemester(semester);
-		setSelectedSubject(subjects[semester][0]);
+		const initialSubject = subjects[semester]?.[0] || ''; // again, potentially undefined or null
+		setSelectedSubject(initialSubject);
 		setIsSemesterDropdownOpen(false);
 	};
 
-	const handleSubjectChange = (subject: string) => {
+	const handleSubjectChange = (subject: keyof Subjects) =>
+	{
 		setSelectedSubject(subject);
 		setIsSubjectDropdownOpen(false);
 	};

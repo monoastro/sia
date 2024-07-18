@@ -1,7 +1,7 @@
 //done
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import {
@@ -34,7 +34,7 @@ const RegisterPage = () => {
 		}
 	}, [shouldRedirect, router]);
 
-	const handleSubmit = async (e) =>
+	const handleSubmit = async (e : FormEvent<HTMLFormElement>) =>
 	{
 		e.preventDefault();
 
@@ -54,7 +54,8 @@ const RegisterPage = () => {
 			is_admin: true
 		});
 
-		const config = {
+		const config = 
+		{
 			method: 'post',
 			maxBodyLength: Infinity,
 			url: 'https://electrocord.onrender.com/api/v1/auth/signup/',
@@ -79,7 +80,7 @@ const RegisterPage = () => {
 				alert('Registration failed!');
 			}
 		} 
-		catch (error)
+		catch (error : any)
 		{
 			console.error('Error during registration:', error);
 			console.log('Response data:', error.response?.data);
