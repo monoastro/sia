@@ -49,11 +49,10 @@ const LoginPage = () => {
 			console.log("Requesting electrocord for login");
 			const response = await axios.request(config);
 
-			console.log('Login successful. Login Token(I don\'t like this):', response.data.data.token);
+			console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
 
-
-			setCookie('auth_token', response.data.data.token,
+			setCookie('chocolate-chip', response.data.data.token,
 			{
 				maxAge:  response.data.data.expiresIn,
 				path: '/',

@@ -14,23 +14,26 @@ const ApplicationHome = () => {
 
 	const router = useRouter();
 
-	const handleLogout = () => {
-		deleteCookie('auth_token');
-		router.push('/');
+	const handleLogout = () =>
+	{
+		deleteCookie('chocolate-chip');
+		router.push('/login');
 	};
 
-	useEffect(() => {
+	useEffect(() =>
+	{
 		//ideally this would be an api call to get the user information since user information may change
 		const userInformation = getUserInfo();
-		if (userInformation) 
+		if (!userInformation) 
 		{
-			setUsername(userInformation.username);
-			//setProfilePicture(userInformation.profile_pic);
+			router.push('/login');
 		}
-		else 
-		{
-			router.push('/');
-		}
+		//hmm does code after router execute?
+		//console.log("helloUwU");
+		//nope it doesn't so I can put it outside like this
+		
+		setUsername(userInformation.username);
+		//setProfilePicture(userInformation.profile_pic);
 	}, [router]);
 
 	//tell bibek to make the token better such that it can only gives the user id and not the whole user object

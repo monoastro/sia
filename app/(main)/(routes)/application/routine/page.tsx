@@ -130,9 +130,11 @@ const RoutinePage: React.FC = () =>
 			</TableCell>
 			{daysOfWeek.map((day, colIndex) => {
 				const routine = getRoutineForTimeSlot(day, slot.start);
-				if (routine) {
+				if (routine)
+				{
 					const routineId = `${routine.id}`
-					if (!renderedRoutines.has(routineId)) {
+					if (!renderedRoutines.has(routineId))
+					{
 						renderedRoutines.add(routineId);
 						const rowSpan = getRowSpan(routine);
 						const routineClass = routine.category === 'Lab' ? 'bg-red-500' : 'bg-green-500';
@@ -148,9 +150,9 @@ const RoutinePage: React.FC = () =>
 					}
 					return null;
 				}
-				else {
-					return ( <TableCell key={colIndex} className="text-center border border-white"></TableCell>
-						   );
+				else
+				{
+					return ( <TableCell key={colIndex} className="text-center border border-white"></TableCell>);
 				}
 			})}
 			</TableRow>
