@@ -34,53 +34,53 @@ const mockAnnouncements: Record<AnnouncementType, Announcement[]> = {
 };
 
 const AnnouncementsPage: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<AnnouncementType>('General');
+	const [activeTab, setActiveTab] = useState<AnnouncementType>('General');
 
-  const tabs: AnnouncementType[] = ['General', 'Class', 'Assignments', 'Assessments'];
+	const tabs: AnnouncementType[] = ['General', 'Class', 'Assignments', 'Assessments'];
 
-  return (
-    <div>
-      <h1 className="text-3xl font-bold mb-6">Announcements</h1>
-      
-      {/* Tabs */}
-      <div className="flex mb-6">
-        {tabs.map((tab) => (
-          <button
-            key={tab}
-            className={`px-4 py-2 mr-2 font-semibold ${
-              activeTab === tab
-                ? 'text-blue-500 border-b-2 border-blue-500'
-                : 'text-gray-500 hover:text-gray-700'
-            }`}
-            onClick={() => setActiveTab(tab)}
-          >
-            {tab} Announcements
-          </button>
-        ))}
-      </div>
+	return (
+		<div>
+		<h1 className="text-3xl font-bold mb-6">Announcements</h1>
 
-      <div>
-        {[...mockAnnouncements[activeTab]].reverse().map((announcement) => (
-          <div key={announcement.id} className="flex items-start mb-4">
-            <Image
-              src={announcement.profilePicture}
-              alt={`${announcement.username}'s profile`}
-              width={40}
-              height={40}
-              className="rounded-full mr-4"
-            />
-            <div>
-              <div className="flex items-center mb-1">
-                <span className="font-semibold mr-2">{announcement.username}</span>
-                <span className="text-sm text-gray-500">{announcement.timestamp}</span>
-              </div>
-              <p>{announcement.content}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+		{/* Tabs */}
+		<div className="flex mb-6">
+		{tabs.map((tab) => (
+			<button
+			key={tab}
+			className={`px-4 py-2 mr-2 font-semibold ${
+				activeTab === tab
+					? 'text-blue-500 border-b-2 border-blue-500'
+					: 'text-gray-500 hover:text-gray-700'
+			}`}
+			onClick={() => setActiveTab(tab)}
+			>
+			{tab} Announcements
+			</button>
+		))}
+		</div>
+
+		<div>
+		{[...mockAnnouncements[activeTab]].reverse().map((announcement) => (
+			<div key={announcement.id} className="flex items-start mb-4">
+			<Image
+			src={announcement.profilePicture}
+			alt={`${announcement.username}'s profile`}
+			width={40}
+			height={40}
+			className="rounded-full mr-4"
+			/>
+			<div>
+			<div className="flex items-center mb-1">
+			<span className="font-semibold mr-2">{announcement.username}</span>
+			<span className="text-sm text-gray-500">{announcement.timestamp}</span>
+			</div>
+			<p>{announcement.content}</p>
+			</div>
+			</div>
+		))}
+		</div>
+		</div>
+	);
 };
 
 export default AnnouncementsPage;
