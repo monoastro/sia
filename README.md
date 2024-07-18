@@ -4,7 +4,7 @@
 Front end of DBMS project made with [Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## How it looks
-Just click the link listed below bruh.
+Just click the link listed on the side or below bruh.
 If you are too lazy to click the link, here's a little preview of the website.
 
 ![loginPage](public/loginPage.png)
@@ -37,5 +37,5 @@ To learn more about Next.js, take a look at the following resources:
 
 ## Deployed website
 
-This project is deployed @ [Vercel](https://sia-nextjs.vercel.app/)
+This project is deployed @ [Vercel](https://sia-electrocord.vercel.app/)
 
