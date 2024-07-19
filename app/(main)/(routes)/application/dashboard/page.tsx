@@ -14,11 +14,11 @@ const ApplicationHome = () => {
 
 	const router = useRouter();
 
-	const handleLogout = async () => //making this async because of middleware is checks the cookie faster than the cookie is deleted
+	const handleLogout = () =>
 	{
 		deleteCookie('chocolate-chip');
 		console.log("Logging out...");
-		await router.push('/login');
+		router.push('/login');
 	};
 
 	useEffect(() =>
