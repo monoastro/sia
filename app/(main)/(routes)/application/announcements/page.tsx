@@ -16,20 +16,20 @@ interface Announcement {
 //bibek logic here
 const mockAnnouncements: Record<AnnouncementType, Announcement[]> = {
   General: [
-    { id: '1', content: 'General Announcement 1', username: 'Admin1', profilePicture: '/static/shandi.svg', timestamp: '2023-07-14 10:00' },
-    { id: '2', content: 'General Announcement 2', username: 'Mod1', profilePicture: '/static/shandi.svg', timestamp: '2023-07-15 15:30' },
+    { id: '1', content: 'General Announcement 1', username: 'Admin1', profilePicture: '/static/emma.svg', timestamp: '2023-07-14 10:00' },
+    { id: '2', content: 'General Announcement 2', username: 'Mod1', profilePicture: '/static/emma.svg', timestamp: '2023-07-15 15:30' },
   ],
   Class: [
-    { id: '3', content: 'Class Announcement 1', username: 'Teacher1', profilePicture: '/static/shandi.svg', timestamp: '2023-07-12 09:15' },
-    { id: '4', content: 'Class Announcement 2', username: 'Teacher2', profilePicture: '/static/shandi.svg', timestamp: '2023-07-13 14:45' },
+    { id: '3', content: 'Class Announcement 1', username: 'Teacher1', profilePicture: '/static/emma.svg', timestamp: '2023-07-12 09:15' },
+    { id: '4', content: 'Class Announcement 2', username: 'Teacher2', profilePicture: '/static/emma.svg', timestamp: '2023-07-13 14:45' },
   ],
   Assignments: [
-    { id: '5', content: 'Assignment 1 due next week', username: 'Teacher1', profilePicture: '/static/shandi.svg', timestamp: '2023-07-10 11:00' },
-    { id: '6', content: 'New assignment posted', username: 'Teacher2', profilePicture: '/static/shandi.svg', timestamp: '2023-07-11 16:20' },
+    { id: '5', content: 'Assignment 1 due next week', username: 'Teacher1', profilePicture: '/static/emma.svg', timestamp: '2023-07-10 11:00' },
+    { id: '6', content: 'New assignment posted', username: 'Teacher2', profilePicture: '/static/emma.svg', timestamp: '2023-07-11 16:20' },
   ],
   Assessments: [
-    { id: '7', content: 'Upcoming quiz on Chapter 5', username: 'Teacher1', profilePicture: '/static/shandi.svg', timestamp: '2023-07-08 10:30' },
-    { id: '8', content: 'Exam schedule posted', username: 'Admin1', profilePicture: '/static/shandi.svg', timestamp: '2023-07-09 13:45' },
+    { id: '7', content: 'Upcoming quiz on Chapter 5', username: 'Teacher1', profilePicture: '/static/emma.svg', timestamp: '2023-07-08 10:30' },
+    {a id: '8', content: 'Exam schedule posted', username: 'Admin1', profilePicture: '/static/emma.svg', timestamp: '2023-07-09 13:45' },
   ],
 };
 

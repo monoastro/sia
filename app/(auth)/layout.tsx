@@ -13,8 +13,8 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
       <div className="hidden lg:flex flex-1 items-center justify-center p-8">
         <div className="relative w-full h-full">
           <Image
-            src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/shandi.svg"
-            alt="/"
+            src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg"
+            alt="EMotional support aniMAl"
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             style={{

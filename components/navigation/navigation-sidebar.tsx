@@ -12,7 +12,7 @@ export const Sidebar : React.FC = () => {
         <NavigationItem
           id="10"
           name="dashboard"
-          imageUrl="/static/shandi.svg"
+          imageUrl="/static/emma.svg"
         />
       <Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
       <ScrollArea className="flex-1 w-full">
