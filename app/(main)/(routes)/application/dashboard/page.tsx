@@ -10,7 +10,7 @@ import {getUserInfo} from "@/lib/utils";
 
 const ApplicationHome = () => {
 	const [username, setUsername] = useState("Anonymous User");
-	const [profilePicture, setProfilePicture] = useState("/shandi.svg");
+	const [profilePicture, setProfilePicture] = useState("/static/shandi.svg");
 
 	const router = useRouter();
 
