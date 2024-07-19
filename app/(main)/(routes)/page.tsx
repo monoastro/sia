@@ -12,7 +12,7 @@ export default function landingPage()
 	  </div>
 	  <div className="flex justify-center mt-10">
 	  <p className="text-center">Already have an account? 
-	  <Link href="/login" className="text-blue-500 hover:underline"> Log in </Link>
+	  <a href="/login" className="text-blue-500 hover:underline"> Log in </a>
 	  </p>
 		</div>
 	  </div>

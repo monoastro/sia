@@ -10,19 +10,13 @@ export const middleware = (request: NextRequest) =>
 
 	console.log("[Path: ", pathname, "]");
 
-	if (publicRoutes.includes(pathname))
+	if(!publicRoutes.includes(pathname))
 	{
-		if(authToken && pathname!=='/')
-		{
-			return NextResponse.redirect(new URL('/application/dashboard', request.url));
-		}
-		return NextResponse.next();
+		if(!authToken) return NextResponse.redirect(new URL('/login', request.url));
 	}
-
-
-	if (!authToken)
+	else
 	{
-		return NextResponse.redirect(new URL('/login', request.url));
+		if(authToken && pathname!=='/') return NextResponse.redirect(new URL('/application/dashboard', request.url));
 	}
 
 	return NextResponse.next();
