@@ -29,10 +29,7 @@ const LoginPage = () => {
 	{
 		e.preventDefault();
 
-		const userData = JSON.stringify({
-			email,
-			password
-		});
+		const userData = JSON.stringify({ email, password });
 
 		const config =
 		{
@@ -50,6 +47,7 @@ const LoginPage = () => {
 			const response = await axios.request(config);
 
 			console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
+			localStorage.setItem("token", response.data.data.token);
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
 
 			setCookie('chocolate-chip', response.data.data.token,
