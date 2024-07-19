@@ -41,7 +41,8 @@ const RoutinePage: React.FC = () =>
 				console.error('Failed to fetch routines:', data.message);
 			}
 		}
-		catch (error) {
+		catch (error)
+		{
 			console.error('Error fetching routines:', error);
 		}
 	};
