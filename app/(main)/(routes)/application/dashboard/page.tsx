@@ -14,12 +14,11 @@ const ApplicationHome = () => {
 
 	const router = useRouter();
 
-	const handleLogout = () =>
+	const handleLogout = async () => //making this async because of middleware is checks the cookie faster than the cookie is deleted
 	{
 		deleteCookie('chocolate-chip');
 		console.log("Logging out...");
-
-		router.push('/login');
+		await router.push('/login');
 	};
 
 	useEffect(() =>
@@ -30,9 +29,6 @@ const ApplicationHome = () => {
 		{
 			router.push('/login');
 		}
-		//hmm does code after router execute?
-		//console.log("helloUwU");
-		//nope it doesn't so I can put it outside like this
 		
 		setUsername(userInformation.username);
 		//setProfilePicture(userInformation.profile_pic);
@@ -49,9 +45,9 @@ const ApplicationHome = () => {
 	}
 
 	return (
-		<div className="min-h-screen  flex flex-col items-center justify-center">
-		<div className="p-8 text-center">
+		<div className="min-h-screen  flex flex-col items-center justify-center p-8 text-center">
 		<h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
+
 		<div className="mb-4">
 		<Image
 		src={profilePicture}
@@ -61,18 +57,12 @@ const ApplicationHome = () => {
 		className="rounded-full mx-auto"
 		/>
 		</div>
+
 		<p className="text-xl mb-4">Hello, {username}!</p>
 
-
-		<button
-		onClick={handleLogout}
-		className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors"
-		>
-		Log Out
-		</button>
-
+		<button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors" > Log Out </button>
 		<button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
-		</div>
+
 		</div>
 	);
 };
