@@ -27,34 +27,38 @@ const RoutinePage: React.FC = () =>
 	const [routines, setRoutines] = useState<Routine[]>([]);
 
 
-const fetchRoutines = async () => {
-  const url = 'https://electrocord.onrender.com/api/v1/routines/';
-  const token = localStorage.getItem('token');
+	const fetchRoutines = async () => {
+		const token = localStorage.getItem('token');
 
-  try {
-    const response = await fetch(url, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token ? { 'token': token } : {}) //apparently it doesn't like the fact that token can be null
-      }
-    });
+		try {
+			const headers = new Headers();
+			if (token) {
+				headers.append("Authorization", `Bearer ${token}`);
+			}
 
-    const data = await response.json();
+			const requestOptions: RequestInit = {
+				method: "GET",
+				headers: headers,
+				redirect: "follow"
+			};
 
-    if (response.ok) {
-      if (data.statusCode === 201) {
-        setRoutines(data.data);
-      } else {
-        console.error('Failed to fetch routines:', data.message);
-      }
-    } else {
-      console.error('Failed to fetch routines:', response.statusText);
-    }
-  } catch (error) {
-    console.error('Error fetching routines:', error);
-  }
-};
+			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/", requestOptions);
+
+			if (response.ok) {
+				const data = await response.json();
+				if (data.statusCode === 201) {
+					setRoutines(data.data);
+				} else {
+					console.error('Failed to fetch routines:', data.message);
+				}
+			} else {
+				console.error('Failed to fetch routines:', response.statusText);
+			}
+		} catch (error) {
+			console.error('Error fetching routines:', error);
+		}
+	};
+
 
 	useEffect(() => 
 	{
