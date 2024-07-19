@@ -29,7 +29,7 @@ const mockAnnouncements: Record<AnnouncementType, Announcement[]> = {
   ],
   Assessments: [
     { id: '7', content: 'Upcoming quiz on Chapter 5', username: 'Teacher1', profilePicture: '/static/emma.svg', timestamp: '2023-07-08 10:30' },
-    {a id: '8', content: 'Exam schedule posted', username: 'Admin1', profilePicture: '/static/emma.svg', timestamp: '2023-07-09 13:45' },
+    { id: '8', content: 'Exam schedule posted', username: 'Admin1', profilePicture: '/static/emma.svg', timestamp: '2023-07-09 13:45' },
   ],
 };
 
