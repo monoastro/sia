@@ -18,7 +18,6 @@ const ApplicationHome = () => {
 	{
 		deleteCookie('chocolate-chip');
 		console.log("Logging out...");
-		console.log(getCookie('chocolate-chip'));
 
 		router.push('/login');
 	};
