@@ -1,5 +1,5 @@
 ## SIA (Social Interaction Application/(platform for Academia) - we're still figuring out the name)
-![shandi](public/static/shandi.svg)	
+![emma](public/static/emma.svg)	
 
 Front end of DBMS project made with [Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
