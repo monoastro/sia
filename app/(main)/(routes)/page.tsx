@@ -8,7 +8,7 @@ export default function LandingPage() {
       <p className="text-center mt-10">The premier platform for all your academic needs.</p>
 
       <div className="flex justify-center m-20">
-        <Image src="/static/emma.svg" alt="SIA Logo" width={300} height={300} className="image-spin" />
+        <Image src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg" alt="SIA Logo" width={300} height={300} className="image-spin" />
       </div>
 
       <div className="flex justify-center mt-20">
