@@ -20,6 +20,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) => {
             style={{
               objectFit: 'contain'
             }}
+			className="image-scale"
           />
         </div>
       </div>
