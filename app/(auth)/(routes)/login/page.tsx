@@ -46,7 +46,6 @@ const LoginPage = () => {
 		{
 			console.log("Requesting electrocord for login");
 			const response = await axios.request(config);
-
 			console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
 			localStorage.setItem("token", response.data.data.token);
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));

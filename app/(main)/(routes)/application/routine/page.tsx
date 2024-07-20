@@ -10,6 +10,9 @@ import {
 } from "@/components/ui/table";
 
 import { saveAs } from 'file-saver';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 interface Routine
 {
@@ -27,6 +30,8 @@ const RoutinePage: React.FC = () =>
 	const startOfWeek = moment().startOf('week');
 	const daysOfWeek = Array.from({ length: 7 }).map((_, index) => startOfWeek.clone().add(index, 'days').format('dddd'));
 	const [routines, setRoutines] = useState<Routine[]>([]);
+    const [isDownloadToggled, setIsDownloadToggled] = useState<boolean>(false);
+	const [activeSemester, setActiveSemester] = useState<string>('5th');
 
 
 	const fetchRoutines = async () =>
@@ -34,22 +39,22 @@ const RoutinePage: React.FC = () =>
 		try
 		{
 			const token = localStorage.getItem("token");
+
 			if (!token)
 			{
 				throw new Error("No token found in localStorage");
 			}
+			console.log(token);
+
 			const config: RequestInit =
 			{
 				method: "GET",
-				headers: {
-					"Authorization": `Bearer ${token}`
+				headers:
+				{
+					"token": token,
 				},
 			};
 			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/", config);
-			if (!response.ok)
-			{
-				throw new Error(`HTTP error! Status: ${response.status}`);
-			}
 
 			const data = await response.json();
 
@@ -74,7 +79,7 @@ const RoutinePage: React.FC = () =>
 		fetchRoutines();
 	}, []);
 
-	const handleDownload = () => 
+	const downloadAsCSV = () => 
 	{
 		const csvContent = 
 		"ID,Day,Start Time,End Time,Name,Category,Group\n"
@@ -85,6 +90,33 @@ const RoutinePage: React.FC = () =>
 
 		const blob = new Blob([decodeURIComponent(encodeURI(csvContent))], { type: "text/csv;charset=utf-8;" });
 		saveAs(blob, "routines.csv");
+	}
+
+	const downloadAsPDF = () =>
+	{
+		const pdf = new jsPDF();
+		pdf.setFontSize(18);
+		pdf.text(`Routine for ${activeSemester} Semester`, 14, 22);
+
+		const columns = ["Day", "Start Time", "End Time", "Name", "Category", "Group"];
+
+		const rows = routines.map(routine => [
+			routine.day,
+			moment(routine.start_time, 'HH:mm:ss').format('h:mm A'),
+			moment(routine.end_time, 'HH:mm:ss').format('h:mm A'),
+			routine.name,
+			routine.category,
+			routine.grp
+		]);
+
+		pdf.autoTable({
+			head: [columns],
+			body: rows,
+			startY: 30,
+			theme: 'striped',
+		});
+
+		pdf.save('routine.pdf');
 	}
 
 	const interval = 50; // Interval in minutes
@@ -132,16 +164,31 @@ const RoutinePage: React.FC = () =>
 	const renderedRoutines = new Set();
 
 	return (
-		<div className="h-screen flex flex-col bg-blue-900 text-white overflow-hidden">
+		<div className="h-screen flex flex-col text-white overflow-hidden">
+		<div className="relative">
 		<div className="flex justify-center items-center p-4">
+		<h1 className="text-3xl font-bold">Routine for Semester 5</h1>
+
 		<button
-		onClick={() => handleDownload()}
-		className="bg-blue-800 text-white px-4 py-2 rounded"
-		style={{ position: 'absolute', top: '1rem', right: '1rem' }}
-		>
+		onClick={() => setIsDownloadToggled(!isDownloadToggled)}
+		className="text-white px-4 py-2 rounded flex items-center hover:bg-indigo-900"
+		style={{ position: 'absolute', top: '1rem', right: '1rem' }} >
 		Download
+		<ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
-		<h1 className="text-2xl font-bold">ROUTINE FOR 5th SEMESTER</h1>
+
+        {isDownloadToggled && (
+          <div className="absolute top-full right-0 mt-1 w-48 rounded z-10 ">
+		  {/* i think this might be the most amount of class I've written for a single div */}
+            <button onClick={downloadAsCSV} className="rounded block w-full text-center text-white px-4 py-2 bg-indigo-800 hover:border-2 hover:border-lime-500">
+              Download as CSV
+            </button>
+            <button onClick={downloadAsPDF} className="rounded block w-full text-center text-white bg-indigo-800 px-4 py-2 hover:border-2 hover:border-lime-500">
+              Download as PDF
+            </button>
+          </div>
+        )}
+		</div>
 		</div>
 		<div className="flex-grow p-4 overflow-x-auto">
 		<Table className="w-full table-fixed border-collapse border border-white">

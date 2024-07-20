@@ -33,15 +33,14 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 		className={cn(
 			"absolute left-0 bg-indigo-500 rounded-full transition-all w-[4px]",
 			params?.id !== id && "group-hover:h-[20px]",
-			params?.id === id ? "h-[36px]" : "h-[8px]"
+			params?.id === id ? "h-[36px]" : "h-[0px]"
 		)}
 		/>
 
 		<div
 		className={cn(
 			"relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden bg-white",
-			params?.id === id &&
-				"bg-primary/10 text-primary rounded-[16px]"
+			params?.id === id && "bg-primary/10 text-primary rounded-[16px]"
 		)}
 		>
 		<Image fill src={imageUrl} alt="Tabs" />
