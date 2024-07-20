@@ -33,7 +33,7 @@ const LoginPage = () => {
 
 		const config =
 		{
-			method: 'post',
+			method: 'POST',
 			url: 'https://electrocord.onrender.com/api/v1/auth/signin/',
 			headers: { 
 				'Content-Type': 'application/json'
