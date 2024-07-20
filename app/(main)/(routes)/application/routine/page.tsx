@@ -9,6 +9,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+import { saveAs } from 'file-saver';
+
 interface Routine
 {
     id: number;
@@ -31,17 +33,26 @@ const RoutinePage: React.FC = () =>
 	{
 		try
 		{
-			const requestOptions: RequestInit =
+			const token = localStorage.getItem("token");
+			if (!token)
+			{
+				throw new Error("No token found in localStorage");
+			}
+			const config: RequestInit =
 			{
 				method: "GET",
-				headers:
-				{
-					"Authorization": `Bearer ${localStorage.getItem("token")}`
+				headers: {
+					"Authorization": `Bearer ${token}`
 				},
 			};
+			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/", config);
+			if (!response.ok)
+			{
+				throw new Error(`HTTP error! Status: ${response.status}`);
+			}
 
-			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/", requestOptions);
 			const data = await response.json();
+
 			if (data.statusCode === 201)
 			{
 				setRoutines(data.data);
@@ -50,10 +61,10 @@ const RoutinePage: React.FC = () =>
 			{
 				console.error('Failed to fetch routines:', data.message);
 			}
-		}
+		} 
 		catch (error)
 		{
-			console.error('Caught error fetching routines:', error);
+			console.error('Error:', error);
 		}
 	};
 
@@ -63,9 +74,17 @@ const RoutinePage: React.FC = () =>
 		fetchRoutines();
 	}, []);
 
-	const handleDownload = () => {
-		// Implement download routine
-		console.log("Downloading routine...");
+	const handleDownload = () => 
+	{
+		const csvContent = 
+		"ID,Day,Start Time,End Time,Name,Category,Group\n"
+		+ routines.map(routine =>
+		{
+			return `${routine.id},${routine.day},${routine.start_time},${routine.end_time},${routine.name},${routine.category},${routine.grp}`
+		}).join("\n");
+
+		const blob = new Blob([decodeURIComponent(encodeURI(csvContent))], { type: "text/csv;charset=utf-8;" });
+		saveAs(blob, "routines.csv");
 	}
 
 	const interval = 50; // Interval in minutes
