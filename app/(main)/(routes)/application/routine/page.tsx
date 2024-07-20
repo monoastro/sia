@@ -27,35 +27,33 @@ const RoutinePage: React.FC = () =>
 	const [routines, setRoutines] = useState<Routine[]>([]);
 
 
-	const fetchRoutines = async () => {
-		const token = localStorage.getItem('token');
-
-		try {
-			const headers = new Headers();
-			if (token) {
-				headers.append("Authorization", `Bearer ${token}`);
-			}
-
-			const requestOptions: RequestInit = {
+	const fetchRoutines = async () =>
+	{
+		try
+		{
+			const requestOptions: RequestInit =
+			{
 				method: "GET",
-				headers: headers,
-				redirect: "follow"
+				headers:
+				{
+					"Authorization": `Bearer ${localStorage.getItem("token")}`
+				},
 			};
 
 			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/", requestOptions);
-
-			if (response.ok) {
-				const data = await response.json();
-				if (data.statusCode === 201) {
-					setRoutines(data.data);
-				} else {
-					console.error('Failed to fetch routines:', data.message);
-				}
-			} else {
-				console.error('Failed to fetch routines:', response.statusText);
+			const data = await response.json();
+			if (data.statusCode === 201)
+			{
+				setRoutines(data.data);
 			}
-		} catch (error) {
-			console.error('Error fetching routines:', error);
+			else
+			{
+				console.error('Failed to fetch routines:', data.message);
+			}
+		}
+		catch (error)
+		{
+			console.error('Caught error fetching routines:', error);
 		}
 	};
 
