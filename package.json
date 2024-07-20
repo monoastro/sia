@@ -24,6 +24,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cookies-next": "^4.2.1",
+    "file-saver": "^2.0.5",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.395.0",
     "moment": "^2.30.1",
