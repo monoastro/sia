@@ -39,11 +39,13 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 
 		<div
 		className={cn(
-			"relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden bg-white",
+			"relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden bg-blue-600",
 			params?.id === id && "bg-primary/10 text-primary rounded-[16px]"
 		)}
 		>
-		<Image fill src={imageUrl} alt="Tabs" />
+		<Image fill src={imageUrl} alt="Tabs" 
+		className="transition-transform transform group-hover:scale-110 group-hover:rotate-3"
+		/>
 		</div>
 
 		</button>

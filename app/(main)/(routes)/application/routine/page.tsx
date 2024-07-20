@@ -11,7 +11,7 @@ import {
 
 import { saveAs } from 'file-saver';
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
 interface Routine
@@ -109,7 +109,7 @@ const RoutinePage: React.FC = () =>
 			routine.grp
 		]);
 
-		pdf.autoTable({
+		autoTable(pdf, {
 			head: [columns],
 			body: rows,
 			startY: 30,
