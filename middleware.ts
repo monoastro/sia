@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
+import { getUserInfo } from "@/lib/utils"
 
 const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/register']
 
@@ -8,7 +9,7 @@ export const middleware = (request: NextRequest) =>
 	const { pathname } = request.nextUrl;
 	const authToken = request.cookies.get('token');
 
-	console.log("[Path: ", pathname, "]");
+	//console.log("[Path: ", pathname, "]");
 
 	//two redirects are defined 
 	//if the route is not public and the user is not authenticated, redirect to login
