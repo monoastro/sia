@@ -1,6 +1,6 @@
 //done
 "use client";
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   Card,
@@ -64,7 +64,7 @@ const OtpVerificationPage = () =>
 	};
 
 
-	const handleRegenerate = async (e : FormEvent<HTMLFormElement>) =>
+	const handleRegenerate = async (e: React.MouseEvent<HTMLAnchorElement>) =>
 	{
 		const regenData = JSON.stringify(
 		{ 
@@ -115,9 +115,6 @@ const OtpVerificationPage = () =>
 
 		</form>
 
-		{/* Resend OTP, let's just make it a link */}
-
-	
 		</CardContent>
 
 		<div className="flex justify-center">

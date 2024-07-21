@@ -4,8 +4,11 @@ import Image from 'next/image'
 export default function LandingPage() {
   return (
     <div>
-      <h1 className="text-4xl place-content-center font-bold text-center mt-10">Welcome to SIA</h1>
+      <h1 className="text-5xl place-content-center font-bold text-center mt-10">Welcome to SIA
+	  <p className="text-base"> Powered by Electrocord</p>
+	  </h1>
       <p className="text-center mt-10">The premier platform for all your academic needs.</p>
+
 
       <div className="flex justify-center m-20">
         <Image src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg" alt="SIA Logo" width={300} height={300} className="image-spin" />
