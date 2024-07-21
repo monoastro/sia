@@ -164,7 +164,7 @@ const RoutinePage: React.FC = () =>
 		<div className="h-screen flex flex-col text-white overflow-hidden">
 
 		<div className="relative">
-		<div className="flex justify-center items-center p-4">
+		<div className="flex justify-center items-center px-4 py-2">
 		<h1 className="text-3xl font-bold">Routine for Semester {activeSemester}</h1>
 
 		<button

@@ -33,7 +33,6 @@ const LoginPage = () => {
 		const config =
 		{
 			method: 'post',
-			maxBodyLength: Infinity,
 			url: 'https://electrocord.onrender.com/api/v1/auth/signin/',
 			headers: 
 			{ 
@@ -46,11 +45,12 @@ const LoginPage = () => {
 		try
 		{
 			console.log("Requesting electrocord for login");
-			const response = await axios.request(config);
+			const response = await axios(config);
 
 			localStorage.setItem("token", response.data.data.token);
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
 
+			//hijacking the cookie
 			setCookie('token', `token=${response.data.data.token}`,
 			{
 				maxAge:  response.data.data.expiresIn,
@@ -59,6 +59,7 @@ const LoginPage = () => {
 				sameSite: "none"
 			});
 			console.log(`Cookie: ${document.cookie}`);
+
 			router.push('/application/dashboard');
 		} 
 		catch (error) 
