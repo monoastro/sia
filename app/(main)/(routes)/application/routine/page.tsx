@@ -167,7 +167,7 @@ const RoutinePage: React.FC = () =>
 		<div className="h-screen flex flex-col text-white overflow-hidden">
 		<div className="relative">
 		<div className="flex justify-center items-center p-4">
-		<h1 className="text-3xl font-bold">Routine for Semester 5</h1>
+		<h1 className="text-3xl font-bold">Routine for Semester {activeSemester}</h1>
 
 		<button
 		onClick={() => setIsDownloadToggled(!isDownloadToggled)}
