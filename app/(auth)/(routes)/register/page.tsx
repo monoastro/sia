@@ -27,7 +27,6 @@ const RegisterPage = () => {
 	const router = useRouter();
 
 
-
 	const handleSubmit = async (e : FormEvent<HTMLFormElement>) =>
 	{
 		e.preventDefault();
@@ -42,7 +41,7 @@ const RegisterPage = () => {
 			username,
 			fullname: `${firstName} ${lastName}`,
 			email,
-			dob: '2003-09-11',
+			dob: '2001-09-11',
 			password1: password,
 			password2: confirmPassword,
 			is_admin: false

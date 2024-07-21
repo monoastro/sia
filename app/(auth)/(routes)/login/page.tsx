@@ -53,7 +53,7 @@ const LoginPage = () => {
 		catch (error) 
 		{
 			console.error('Failed to login. Please try again.');
-			console.log('Error:', error);
+			alert('Error:', error);
 		}
 	};
 	return (
