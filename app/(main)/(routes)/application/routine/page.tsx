@@ -45,14 +45,13 @@ const RoutinePage: React.FC = () =>
 				throw new Error("No token found in localStorage");
 			}
 			console.log("This is called twice for some reason");
+			
 
 			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/",
 			{
 				method: "GET",
 				credentials : "include",
-				headers: {
-					"Content-Type": "application/json",
-				},
+
 			});
 
 			const data = await response.json();

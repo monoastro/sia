@@ -6,10 +6,13 @@ const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/r
 export const middleware = (request: NextRequest) =>
 {
 	const { pathname } = request.nextUrl;
-	const authToken = request.cookies.get('chocolate-chip');
+	const authToken = request.cookies.get('token');
 
 	console.log("[Path: ", pathname, "]");
 
+	//two redirects are defined 
+	//if the route is not public and the user is not authenticated, redirect to login
+	//if the route is public and the user is authenticated, redirect to dashboard with the exception of the home page
 	if(!publicRoutes.includes(pathname))
 	{
 		if(!authToken) return NextResponse.redirect(new URL('/login', request.url));
