@@ -56,7 +56,7 @@ const LoginPage = () => {
 				maxAge:  response.data.data.expiresIn,
 				path: '/',
 				secure: true, 
-				sameSite: 'None'
+				sameSite: "none"
 			});
 			console.log(`Cookie: ${document.cookie}`);
 			router.push('/application/dashboard');
