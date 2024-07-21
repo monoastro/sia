@@ -48,9 +48,13 @@ const LoginPage = () => {
 			const response = await axios.request(config);
 			console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
 			localStorage.setItem("token", response.data.data.token);
+			//parse the jwt to extract user information
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
 
-			setCookie('chocolate-chip', response.data.data.token,
+
+			//let's log the cookie
+			//this doesn't fucking work
+			setCookie('token', response.data.data.token,
 			{
 				maxAge:  response.data.data.expiresIn,
 				path: '/',
@@ -58,6 +62,7 @@ const LoginPage = () => {
 				sameSite: 'strict'
 			});
 
+			console.log(`Cookie: ${document.cookie}`);
 			router.push('/application/dashboard');
 		} 
 		catch (error) 
