@@ -14,6 +14,8 @@ import { jsPDF } from 'jspdf';
 import autoTable from 'jspdf-autotable';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
+import { getAPI } from '@/lib/api';
+
 interface Routine
 {
     id: number;
@@ -38,31 +40,9 @@ const RoutinePage: React.FC = () =>
 	{
 		try
 		{
-			const token = localStorage.getItem("token");
-
-			if (!token)
-			{
-				throw new Error("No token found in localStorage");
-			}
 			console.log("This is called twice for some reason");
-			
-
-			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/",
-			{
-				method: "GET",
-				credentials : "include",
-			});
-
-			const data = await response.json();
-
-			if (data.statusCode === 201)
-			{
-				setRoutines(data.data);
-			}
-			else
-			{
-				console.error('Failed to fetch routines:', data.message);
-			}
+			const data = await getAPI('routines');
+			setRoutines(data);
 		} 
 		catch (error)
 		{

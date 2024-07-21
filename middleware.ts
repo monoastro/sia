@@ -7,7 +7,8 @@ const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/r
 export const middleware = (request: NextRequest) =>
 {
 	const { pathname } = request.nextUrl;
-	const authToken = request.cookies.get('token');
+	const cookie = request.cookies.get('token');
+	//check if cookie is valid
 
 	//console.log("[Path: ", pathname, "]");
 
@@ -16,11 +17,15 @@ export const middleware = (request: NextRequest) =>
 	//if the route is public and the user is authenticated, redirect to dashboard with the exception of the home page
 	if(!publicRoutes.includes(pathname))
 	{
-		if(!authToken) return NextResponse.redirect(new URL('/login', request.url));
+		if(!cookie) 
+		{
+			console.error("Cookie expired or not found");
+			return NextResponse.redirect(new URL('/login', request.url));
+		}
 	}
 	else
 	{
-		if(authToken && pathname!=='/') return NextResponse.redirect(new URL('/application/dashboard', request.url));
+		if(cookie && pathname!=='/') return NextResponse.redirect(new URL('/application/dashboard', request.url));
 	}
 
 	return NextResponse.next();

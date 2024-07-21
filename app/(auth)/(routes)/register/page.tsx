@@ -14,6 +14,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import { postAPI } from '@/lib/api';
 
 const RegisterPage = () => {
 	const [firstName, setFirstName] = useState('');
@@ -23,16 +24,9 @@ const RegisterPage = () => {
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 
-	const [shouldRedirect, setShouldRedirect] = useState(false);
 	const router = useRouter();
 
-	useEffect(() =>
-	{
-		if (shouldRedirect) 
-		{
-			router.push('/otp-verification');
-		}
-	}, [shouldRedirect, router]);
+
 
 	const handleSubmit = async (e : FormEvent<HTMLFormElement>) =>
 	{
@@ -51,41 +45,18 @@ const RegisterPage = () => {
 			dob: '2003-09-11',
 			password1: password,
 			password2: confirmPassword,
-			is_admin: true
+			is_admin: false
 		});
-
-		const config = 
-		{
-			method: 'post',
-			maxBodyLength: Infinity,
-			url: 'https://electrocord.onrender.com/api/v1/auth/signup/',
-			headers: { 
-				'Content-Type': 'application/json'
-			},
-			data: userData
-		};
 
 		try
 		{
-			const response = await axios(config);
-			if (response.data.statusCode === 201)
-			{
-				console.log(response.data.data.user);
-				localStorage.setItem('registrationEmail', response.data.data.user[0].email);
-
-				setShouldRedirect(true);
-			}
-			else
-			{
-				alert('Registration failed!');
-			}
+			const data = await postAPI('auth/signup', userData);
+			localStorage.setItem('registrationEmail', data.user[0].email);
+			router.push('/otp-verification');
 		} 
-		catch (error : any)
+		catch (error)
 		{
-			console.error('Error during registration:', error);
-			console.log('Response data:', error.response?.data);
-			console.log('User data:', userData);
-			alert(`An error occurred during registration: ${error.response?.data?.detail || error.message}`);
+			console.error('Error:', error);
 		}
 	};
 
