@@ -16,7 +16,7 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
 {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={font.className}>
+      <body className="blue-gradient {font.className}">
 	  	{children}
 		<SpeedInsights />
 	  </body>

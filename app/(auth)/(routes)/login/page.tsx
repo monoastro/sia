@@ -54,7 +54,7 @@ const LoginPage = () => {
 			{
 				maxAge:  response.data.data.expiresIn,
 				path: '/',
-				secure: process.env.NODE_ENV === 'production',
+				secure: true, 
 				sameSite: 'strict'
 			});
 

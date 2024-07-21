@@ -44,17 +44,16 @@ const RoutinePage: React.FC = () =>
 			{
 				throw new Error("No token found in localStorage");
 			}
-			console.log(token);
+			console.log("This is called twice for some reason");
 
-			const config: RequestInit =
+			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/",
 			{
 				method: "GET",
-				headers:
-				{
-					"token": token,
+				credentials : "include",
+				headers: {
+					"Content-Type": "application/json",
 				},
-			};
-			const response = await fetch("https://electrocord.onrender.com/api/v1/routines/", config);
+			});
 
 			const data = await response.json();
 
@@ -165,31 +164,33 @@ const RoutinePage: React.FC = () =>
 
 	return (
 		<div className="h-screen flex flex-col text-white overflow-hidden">
+
 		<div className="relative">
 		<div className="flex justify-center items-center p-4">
 		<h1 className="text-3xl font-bold">Routine for Semester {activeSemester}</h1>
 
 		<button
 		onClick={() => setIsDownloadToggled(!isDownloadToggled)}
-		className="text-white px-4 py-2 rounded flex items-center hover:bg-indigo-900"
+		className="text-white px-4 py-2 rounded flex text-center hover:bg-indigo-900"
 		style={{ position: 'absolute', top: '1rem', right: '1rem' }} >
 		Download
 		<ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
 
-        {isDownloadToggled && (
-          <div className="absolute top-full right-0 mt-1 w-48 rounded z-10 ">
-		  {/* i think this might be the most amount of class I've written for a single div */}
-            <button onClick={downloadAsCSV} className="rounded block w-full text-center text-white px-4 py-2 bg-indigo-800 hover:border-2 hover:border-lime-500">
-              Download as CSV
-            </button>
-            <button onClick={downloadAsPDF} className="rounded block w-full text-center text-white bg-indigo-800 px-4 py-2 hover:border-2 hover:border-lime-500">
-              Download as PDF
-            </button>
-          </div>
-        )}
+		{isDownloadToggled && (
+			<div className="absolute top-full right-0 mt-1 w-48 rounded z-10 ">
+			{/* i think this might be the most amount of class I've written for a single div */}
+			<button onClick={downloadAsCSV} className="rounded block w-full text-center text-white px-4 py-2 bg-indigo-800 hover:border-2 hover:border-indigo-500">
+			Download as CSV
+			</button>
+			<button onClick={downloadAsPDF} className="rounded block w-full text-center text-white bg-indigo-800 px-4 py-2 hover:border-2 hover:border-indigo-500">
+			Download as PDF
+			</button>
+			</div>
+		)}
 		</div>
 		</div>
+
 		<div className="flex-grow p-4 overflow-x-auto">
 		<Table className="w-full table-fixed border-collapse border border-white">
 		<TableHeader>
@@ -209,29 +210,29 @@ const RoutinePage: React.FC = () =>
 			{daysOfWeek.map((day, colIndex) => {
 				const routine = getRoutineForTimeSlot(day, slot.start);
 				if (routine)
-				{
-					const routineId = `${routine.id}`
-					if (!renderedRoutines.has(routineId))
 					{
-						renderedRoutines.add(routineId);
-						const rowSpan = getRowSpan(routine);
-						const routineClass = routine.category === 'Lab' ? 'bg-red-500' : 'bg-green-500';
-						return (
-							<TableCell
-							key={colIndex}
-							rowSpan={rowSpan}
-							className={`text-center border border-white ${routineClass}`}
-							>
-							{routine.name} - {routine.category} - {routine.grp}
-							</TableCell>
-						);
+						const routineId = `${routine.id}`
+						if (!renderedRoutines.has(routineId))
+							{
+								renderedRoutines.add(routineId);
+								const rowSpan = getRowSpan(routine);
+								const routineClass = routine.category === 'Lab' ? 'bg-red-500' : 'bg-green-500';
+								return (
+									<TableCell
+									key={colIndex}
+									rowSpan={rowSpan}
+									className={`text-center border border-white ${routineClass}`}
+									>
+									{routine.name} - {routine.category} - {routine.grp}
+									</TableCell>
+								);
+							}
+							return null;
 					}
-					return null;
-				}
-				else
-				{
-					return ( <TableCell key={colIndex} className="text-center border border-white"></TableCell>);
-				}
+					else
+						{
+							return ( <TableCell key={colIndex} className="text-center border border-white"></TableCell>);
+						}
 			})}
 			</TableRow>
 		))}
