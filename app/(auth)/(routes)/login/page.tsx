@@ -16,7 +16,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { setCookie } from 'cookies-next';
 
-axios.defaults.withCredentials = true;
+import { postAPI } from '@/lib/api';
 
 const LoginPage = () => {
 	const [email, setEmail] = useState('');
@@ -27,50 +27,34 @@ const LoginPage = () => {
 	const handleSubmit = async (e : FormEvent<HTMLFormElement>) =>
 	{
 		e.preventDefault();
-
 		const userData = JSON.stringify({ email, password });
-
-		const config =
-		{
-			method: 'post',
-			url: 'https://electrocord.onrender.com/api/v1/auth/signin/',
-			headers: 
-			{ 
-				'Content-Type': 'application/json'
-			},
-			data: userData,
-			withCredentials: true
-		};
 
 		try
 		{
 			console.log("Requesting electrocord for login");
-			const response = await axios(config);
+			const data = await postAPI('auth/signin', userData);
 
-			localStorage.setItem("token", response.data.data.token);
-			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
+			localStorage.setItem("token", data.token);
+			localStorage.setItem("userInformation", atob(data.token.split('.')[1]));
+			// console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
 
 			//hijacking the cookie
-			setCookie('token', `token=${response.data.data.token}`,
+			setCookie('token', `token=${data.token}`,
 			{
-				maxAge:  response.data.data.expiresIn,
+				maxAge:  data.expiresIn,
 				path: '/',
 				secure: true, 
 				sameSite: "none"
 			});
-			console.log(`Cookie: ${document.cookie}`);
+			console.log(`Hijacked Cookie: ${document.cookie}`);
 
 			router.push('/application/dashboard');
 		} 
 		catch (error) 
 		{
 			console.error('Error:', error);
-			alert('Login failed. Please try again.');
 		}
 	};
-			/*
-			   console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
-			*/
 	return (
 		<Card className="w-full max-w-9xl p-6 bg-blue-100">
 

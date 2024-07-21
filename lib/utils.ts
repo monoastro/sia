@@ -17,9 +17,6 @@ const getUserInfo = () =>
 	return null;
 }
 
-
-
-
 export { cn, getUserInfo }
 
 // <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
