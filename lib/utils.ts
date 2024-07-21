@@ -1,11 +1,13 @@
 import { type ClassValue, clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
+import axios from "axios"
 
-export function cn(...inputs: ClassValue[]) {
+function cn(...inputs: ClassValue[])
+{
   return twMerge(clsx(inputs))
 }
 
-export function getUserInfo()
+const getUserInfo = () =>
 {
 	if (typeof window !== "undefined" && typeof localStorage !== "undefined")
 	{
@@ -15,6 +17,10 @@ export function getUserInfo()
 	return null;
 }
 
+
+
+
+export { cn, getUserInfo }
 
 // <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
 

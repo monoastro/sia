@@ -67,7 +67,7 @@ const RegisterPage = () => {
 
 		try
 		{
-			const response = await axios.request(config);
+			const response = await axios(config);
 			if (response.data.statusCode === 201)
 			{
 				console.log(response.data.data.user);

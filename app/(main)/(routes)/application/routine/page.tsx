@@ -51,7 +51,6 @@ const RoutinePage: React.FC = () =>
 			{
 				method: "GET",
 				credentials : "include",
-
 			});
 
 			const data = await response.json();

@@ -16,8 +16,7 @@ import Link from 'next/link';
 import axios from 'axios';
 import { setCookie } from 'cookies-next';
 
-
-
+axios.defaults.withCredentials = true;
 
 const LoginPage = () => {
 	const [email, setEmail] = useState('');
@@ -34,34 +33,31 @@ const LoginPage = () => {
 		const config =
 		{
 			method: 'post',
+			maxBodyLength: Infinity,
 			url: 'https://electrocord.onrender.com/api/v1/auth/signin/',
 			headers: 
 			{ 
 				'Content-Type': 'application/json'
 			},
-			data: userData
+			data: userData,
+			withCredentials: true
 		};
 
 		try
 		{
 			console.log("Requesting electrocord for login");
 			const response = await axios.request(config);
-			console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
+
 			localStorage.setItem("token", response.data.data.token);
-			//parse the jwt to extract user information
 			localStorage.setItem("userInformation", atob(response.data.data.token.split('.')[1]));
 
-
-			//let's log the cookie
-			//this doesn't fucking work
-			setCookie('token', response.data.data.token,
+			setCookie('token', `token=${response.data.data.token}`,
 			{
 				maxAge:  response.data.data.expiresIn,
 				path: '/',
 				secure: true, 
-				sameSite: 'strict'
+				sameSite: 'None'
 			});
-
 			console.log(`Cookie: ${document.cookie}`);
 			router.push('/application/dashboard');
 		} 
@@ -71,7 +67,9 @@ const LoginPage = () => {
 			alert('Login failed. Please try again.');
 		}
 	};
-
+			/*
+			   console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
+			*/
 	return (
 		<Card className="w-full max-w-9xl p-6 bg-blue-100">
 
