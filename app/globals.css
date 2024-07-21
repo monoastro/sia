@@ -78,12 +78,17 @@ body,
   }
 }
 
-body
+.blue-gradient
 {
   background: linear-gradient(to right, #1a237e, #000000);
   color: #ffffff;
 }
 
+.light-blue-gradient
+{
+  background: linear-gradient(to right, #1e88e5, #64b5f6);
+  color: #ffffff;
+}
 
 @layer base {
 	:root {
