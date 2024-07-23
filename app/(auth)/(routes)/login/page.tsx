@@ -52,8 +52,8 @@ const LoginPage = () => {
 		} 
 		catch (error) 
 		{
-			console.error('Failed to login. Please try again.');
-			alert(`Error: ${error}`);
+			alert('Failed to login. Please try again.');
+			console.error(`Error: ${error}`);
 		}
 	};
 	return (

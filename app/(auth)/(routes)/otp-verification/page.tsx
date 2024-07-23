@@ -55,8 +55,8 @@ const OtpVerificationPage = () =>
 			console.error('Error:', error);
 			localStorage.removeItem('registrationEmail');
 			setDumbassCounter(dumbassCounter + 1);
-			//console.log(dumbassCounter);
-			if (dumbassCounter > 2) // ah the many wonders of react, where 2 means it checks for 3
+			console.log(dumbassCounter);
+			if (dumbassCounter > 2) // ah the many wonders of react, where 2 means it checks for 3 because for some reason it only increments after this function exits
 			{
 				router.push('/register');
 			}
@@ -119,7 +119,7 @@ const OtpVerificationPage = () =>
 
 		<div className="flex justify-center">
 		<a href="#" onClick={handleRegenerate} className="font-semibold text-sm text-blue-600 hover:underline">
-		Re-send OTP
+		Re-send OTP?
 		</a>
 		</div>
 
