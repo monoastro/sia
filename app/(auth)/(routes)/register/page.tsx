@@ -26,8 +26,8 @@ import {
 import { postAPI } from '@/lib/api';
 
 const months : string[] = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
-const days = Array.from({ length: 31 }, (_, i) => i + 1);
-const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
+const days : number[] = Array.from({ length: 31 }, (_, i) => i + 1);
+const years : number[] = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 
 const adminEmails : string[] = 
 [
