@@ -13,7 +13,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import Link from 'next/link';
-import axios from 'axios';
 import { setCookie } from 'cookies-next';
 
 import { postAPI } from '@/lib/api';
@@ -36,7 +35,7 @@ const LoginPage = () => {
 
 			localStorage.setItem("token", data.token);
 			localStorage.setItem("userInformation", atob(data.token.split('.')[1]));
-			// console.log('Login successful. Login Token(Sajen doesn\'t like this method):', response.data.data.token);
+			//console.log(`Login successful.\nLogin Token(Sajen doesn\'t like this method): ${data.token}\n\n`);
 
 			//hijacking the cookie
 			setCookie('token', `token=${data.token}`,

@@ -45,7 +45,9 @@ const OtpVerificationPage = () =>
 
 		try
 		{
+			console.log("Verifying OTP");
 			const data = await postAPI('auth/activate/', verificationData);
+			console.log("OTP verified successfully, you may now login");
 			localStorage.removeItem('registrationEmail');
 			router.push('/login');
 		}
