@@ -1,5 +1,10 @@
-## SIA (Social Interaction Application/(platform for Academia) - we're still figuring out the name)
-![emma](public/static/emma.svg)	
+# SIA (Social Interaction Application/(platform for Academia) - we're still figuring out the name)
+<p align="center">
+    <img 
+    src="public/static/emma.svg"
+    alt="Emma" 
+    />
+</p>
 
 Front end of DBMS project made with [Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -10,16 +15,14 @@ If you are too lazy to click the link, here's a little preview of the website.
 ![loginPage](public/loginPage.png)
 ## Getting Started
 
-First, run the development server:
+First, install the necessary packages using the npm as:
+```bash
+npm i
+```
+Complex command, I know. Now then, let's run the development server:
 
 ```bash
 npm run dev
-[#](#) or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
