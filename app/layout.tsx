@@ -24,16 +24,3 @@ export default function RootLayout({ children, }: Readonly<{ children: React.Rea
   );
 }
 
-/*
- * meh mid themes
- 
-
-import { ThemeProvider } from "@/components/providers/theme-provider";
-	  <ThemeProvider
-	  	attribute="class"
-		defaultTheme="dark"
-		forcedTheme="dark"
-		enableSystem={false}
-		storageKey="sia-theme">
-	  </ThemeProvider>
-*/

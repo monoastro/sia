@@ -141,7 +141,7 @@ const RoutinePage: React.FC = () =>
 	const renderedRoutines = new Set();
 
 	return (
-		<div className="h-screen flex flex-col text-white overflow-hidden">
+		<div className="h-full flex flex-col text-white overflow-hidden w-full">
 
 		<div className="relative">
 		<div className="flex justify-center items-center px-4 py-2">

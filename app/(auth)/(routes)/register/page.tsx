@@ -3,7 +3,6 @@
 
 import React, { useState, FormEvent } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
 import {
   Card,
   CardContent,
@@ -14,15 +13,37 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+//all of these imports are for the date picker 80-20 rule strikes again
+import { Calendar as CalendarIcon } from "lucide-react"
+import { cn } from "@/lib/utils"
+import { Calendar } from "@/components/ui/calendar"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover"
+
 import { postAPI } from '@/lib/api';
 
-const RegisterPage = () => {
+const months : string[] = [ 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December' ];
+const days = Array.from({ length: 31 }, (_, i) => i + 1);
+const years = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
+
+const adminEmails : string[] = 
+[
+	"jenish.078bei018@tcioe.edu.np"
+];
+
+const RegisterPage = () => 
+{
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');
 	const [username, setUsername] = useState('');
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
+	const [date, setDate] = useState<{ year: string; month: string; day: string}>({ year: '', month: '', day: '', });
+	const [openPopover, setOpenPopover] = useState<string | null>(null);
 
 	const router = useRouter();
 
@@ -41,14 +62,16 @@ const RegisterPage = () => {
 			username,
 			fullname: `${firstName} ${lastName}`,
 			email,
-			dob: '2001-09-11',
+			dob: `${date.year}-${months.indexOf(date.month) + 1}-${date.day}`,
 			password1: password,
 			password2: confirmPassword,
-			is_admin: false
+			is_admin: adminEmails.includes(email) //make bibek put this admin check in the backend
 		});
+		
 
 		try
 		{
+			console.log("Sending registration data to electrocord")
 			const data = await postAPI('auth/signup', userData);
 			localStorage.setItem('registrationEmail', data.user[0].email);
 			router.push('/otp-verification');
@@ -57,6 +80,12 @@ const RegisterPage = () => {
 		{
 			console.error('Error:', error);
 		}
+	};
+
+
+	const handleDateSelect = (type: string, value: string) => 
+	{
+		setDate((prevDate) => ({ ...prevDate, [type]: value }));
 	};
 
 	return (
@@ -141,6 +170,96 @@ const RegisterPage = () => {
 		value={confirmPassword}
 		onChange={(e) => setConfirmPassword(e.target.value)}
 		/>
+		</div>
+
+		<div className="grid grid-cols-3 gap-2 w-full">
+
+		<Popover open={openPopover === 'month'} onOpenChange={(open) => setOpenPopover(open ? 'month' : null)}>
+		<PopoverTrigger asChild>
+		<Button
+		variant={"outline"}
+		className={cn("justify-start text-left font-normal", !date && "text-muted-foreground")}
+		onClick={() => setOpenPopover(openPopover === 'month' ? null : 'month')}
+		>
+		<CalendarIcon className="mr-2 h-3.5 w-3.5" />
+		{date?.month || <p className="text-slate-500">Month</p>}
+		</Button>
+		</PopoverTrigger>
+		<PopoverContent className="w-auto p-0">
+		<div className="max-h-48 overflow-y-auto">
+		{months.map((month) => (
+			<div
+			key={month}
+			onClick={() => {
+				handleDateSelect('month', month.toString());
+				setOpenPopover(null); // Close popover
+			}}
+			className="cursor-pointer hover:bg-indigo-200"
+			>
+			{month}
+			</div>
+		))}
+		</div>
+		</PopoverContent>
+		</Popover>
+
+		<Popover open={openPopover === 'day'} onOpenChange={(open) => setOpenPopover(open ? 'day' : null)}>
+		<PopoverTrigger asChild>
+		<Button
+		variant={"outline"}
+		className={cn("justify-start text-left font-normal", !date && "text-muted-foreground")}
+		onClick={() => setOpenPopover(openPopover === 'day' ? null : 'day')}
+		>
+		<CalendarIcon className="mr-2 h-3.5 w-3.5" />
+		{date?.day || <p className="text-slate-500">Day</p>}
+		</Button>
+		</PopoverTrigger>
+		<PopoverContent className="w-auto p-0">
+		<div className="max-h-48 overflow-y-auto">
+		{days.map((day) => (
+			<div
+			key={day}
+			onClick={() => {
+				handleDateSelect('day', day.toString());
+				setOpenPopover(null);
+			}}
+			className="cursor-pointer hover:bg-indigo-200"
+			>
+			{day}
+			</div>
+		))}
+		</div>
+		</PopoverContent>
+		</Popover>
+
+		<Popover open={openPopover === 'year'} onOpenChange={(open) => setOpenPopover(open ? 'year' : null)}>
+		<PopoverTrigger asChild>
+		<Button
+		variant={"outline"}
+		className={cn("justify-start text-left font-normal", !date && "text-muted-foreground")}
+		onClick={() => setOpenPopover(openPopover === 'year' ? null : 'year')}
+		>
+		<CalendarIcon className="mr-2 h-3.5 w-3.5" />
+		{date?.year || <p className="text-slate-500">Year</p>}
+		</Button>
+		</PopoverTrigger>
+		<PopoverContent className="w-auto p-0">
+		<div className="max-h-48 overflow-y-auto">
+		{years.map((year) => (
+			<div
+			key={year}
+			onClick={() => {
+				handleDateSelect('year', year.toString());
+				setOpenPopover(null);
+			}}
+			className="cursor-pointer hover:bg-indigo-200"
+			>
+			{year}
+			</div>
+		))}
+		</div>
+		</PopoverContent>
+		</Popover>
 		</div>
 
 		<Button type="submit" className="w-full bg-blue-600 font-semibold hover:bg-indigo-600">

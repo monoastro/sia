@@ -7,10 +7,12 @@ import { deleteCookie } from 'cookies-next';
 import axios from 'axios';
 
 import {getUserInfo} from "@/lib/utils";
+import {defpfpURL} from "@/lib/data";
 
 const ApplicationHome = () => {
 	const [username, setUsername] = useState("Anonymous User");
-	const [profilePicture, setProfilePicture] = useState("/static/emma.svg");
+	//I want to use defpfpURL but for some reason this can't parse the src if I use it
+	const [profilePicture, setProfilePicture] = useState("https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg");
 
 	const router = useRouter();
 
@@ -31,7 +33,7 @@ const ApplicationHome = () => {
 		}
 		
 		setUsername(userInformation.username);
-		//setProfilePicture(userInformation.profile_pic);
+		setProfilePicture(userInformation.profile_pic);
 	}, [router]);
 
 	//tell bibek to make the token better such that it can only gives the user id and not the whole user object
