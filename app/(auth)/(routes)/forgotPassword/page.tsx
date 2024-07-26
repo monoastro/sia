@@ -31,7 +31,7 @@ const ForgotPasswordPage = () =>
 		try
 		{
 			console.log("Requesting electrocord for reset password otp.");
-			//postAPI('auth/reset', data);
+			postAPI('auth/reset', data);
 			console.log("Requested for an otp successfully.");
 		}
 		catch(error)
@@ -42,16 +42,22 @@ const ForgotPasswordPage = () =>
 		setIsSubmitted(true);
 	};
 
-	const handleOTPSubmit = (e : FormEvent<HTMLFormElement>) =>
+	const handleOTPSubmit = async (e : FormEvent<HTMLFormElement>) =>
 	{
 		e.preventDefault();
-		const data = JSON.stringify({ email, OTP, newPassword, confirmNewPassword });
+		const data = JSON.stringify({ 
+			email: email, 
+			password1: newPassword, 
+			password2 :confirmNewPassword,
+			request_type: "reset",
+			otp_code: OTP, 
+		});
 		console.log(data);
 		try
 		{
 			console.log("Requesting electrocord to set new password.");
-			//uhh which endpoint am I supposed to use for this?
-			//postAPI('auth/', data);
+			const res = await postAPI('auth/change', data);
+			console.log(res);
 			console.log("Password reset successfully.");
 			router.push('/login');
 		}

@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { getUserInfo } from "@/lib/utils"
 
 const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/register']
 

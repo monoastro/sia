@@ -67,7 +67,6 @@ const RegisterPage = () =>
 			password2: confirmPassword,
 			is_admin: adminEmails.includes(email) //make bibek put this admin check in the backend
 		});
-		
 
 		try
 		{

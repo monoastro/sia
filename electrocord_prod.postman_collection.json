@@ -1,0 +1,1247 @@
+{
+	"info": {
+		"_postman_id": "f7bc3e8c-1169-4de6-a332-6b7ab279c186",
+		"name": "electrocord_prod",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "24021591"
+	},
+	"item": [
+		{
+			"name": "home",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "signUp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\" : \"dinanath\",\n    \"fullname\" : \"Bibek Poudel\",\n    \"email\" : \"dinanath.078bei010@tcioe.edu.np\",\n    \"dob\" : \"2003-04-27\",\n    \"password1\" : \"random\",\n    \"password2\" : \"random\",\n    \"is_admin\":true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/auth/signup/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signup",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "activateAcc",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"user_id\":\"764f516f-9803-4214-bacb-3916a474bad6\", \n    \"otp_code\":\"858240\",\n    \"request_type\":\"signup\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/auth/activate/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"activate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "regenerateOtp",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"dinanath.078bei010@tcioe.edu.np\",\n    \"request_type\":\"signup\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/auth/regenerate/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"regenerate",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "changePass",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"dinanath.078bei010@tcioe.edu.np\",\n    \"old_password\":\"bibek@tcioe\",\n    \"password1\":\"random\",\n    \"password2\":\"random\",\n    \"request_type\":\"change\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/auth/change/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"change",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "requestReset",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"dinanath.078bei010@tcioe.edu.np\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/auth/reset/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"reset",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "resetPassChange",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\":\"dinanath.078bei010@tcioe.edu.np\",\n    \"old_password\":\"random\",\n    \"password1\":\"random1\",\n    \"password2\":\"random1\",\n    \"request_type\":\"reset\"\n    // \"opt_code\":\"304320\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/auth/change/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"change",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\" : \"dinanath.078bei010@tcioe.edu.np\",\n    \"password\" : \"bibek@tcioe\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/auth/signin/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"signin",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/users/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSemesterByID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/semesters/260127ee-4c9e-48bc-84cf-9d0f7f213da0",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"semesters",
+						"260127ee-4c9e-48bc-84cf-9d0f7f213da0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSemesters",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/semesters/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"semesters",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSemester",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"semester\":7,\n    \"description\" : \"Our First Semester\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/semesters/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"semesters",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateSemester",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"semester\":8,\n    \"description\" : \"Eight Updated Semester\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/semesters/7545f7a9-030d-4add-8ac4-352b9d56c543",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"semesters",
+						"7545f7a9-030d-4add-8ac4-352b9d56c543"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "testRouteUpload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uploads",
+							"description": "Hello",
+							"type": "file",
+							"src": [
+								"/home/kree/Downloads/test/tes5.jpg",
+								"/home/kree/Downloads/test/testvid.mp4",
+								"/home/kree/Downloads/test/test.pdf"
+							]
+						}
+					]
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/test/upload",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"test",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "attachmentUpload",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "uploads",
+							"description": "Hello",
+							"type": "file",
+							"src": "/home/kree/Downloads/test/test.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/attachments/upload",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"attachments",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getChats",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/chats/rooms/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"chats",
+						"rooms",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createChat",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"programming\",\n    \"type\": \"text\",\n    \"category\" : \"general\",\n    \"description\" : \"Hello World\",\n    \"general_category\":\"general\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/chats/rooms/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"chats",
+						"rooms",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteChat",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/chats/rooms/260127ee-4c9e-48bc-84cf-9d0f7f213da0",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"chats",
+						"rooms",
+						"260127ee-4c9e-48bc-84cf-9d0f7f213da0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateChat",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n \"name\" :\"General Chat\",\n \"description\" :\"Hello World Updated\"   \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/chats/rooms/5395b951-abfe-46f1-bc8f-5cb50d1174e6/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"chats",
+						"rooms",
+						"5395b951-abfe-46f1-bc8f-5cb50d1174e6",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMessages",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/messages/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getMessageById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "127.0.0.1:5000/api/v1/messages/5395b951-abfe-46f1-bc8f-5cb50d1174e6",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"v1",
+						"messages",
+						"5395b951-abfe-46f1-bc8f-5cb50d1174e6"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createMessage",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "attachments",
+							"type": "file",
+							"src": "/home/kree/Downloads/dbms_1.pdf"
+						},
+						{
+							"key": "chat_id",
+							"value": "265c0fb3-517e-435b-b95b-5e3c37eb02bd",
+							"type": "text"
+						},
+						{
+							"key": "sender_id",
+							"value": "764f516f-9803-4214-bacb-3916a474bad6",
+							"type": "text"
+						},
+						{
+							"key": "message",
+							"value": "This is my first message send through electrocord on this channel",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/messages/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateMessage",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "message",
+							"value": "recently updaed this messages",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/messages/2b2be0c1-2da4-46d8-b6b5-e6db7778b265",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"messages",
+						"2b2be0c1-2da4-46d8-b6b5-e6db7778b265"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createSubject",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\":\"Computer Architecture\",\n    \"semester_id\": \"260127ee-4c9e-48bc-84cf-9d0f7f213da0\",\n    \"syllabus\": \"In markdown\",\n    \"description\": \"This is the operating system subject.\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/subjects/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"subjects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateSubject",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"syllabus\": \"New Revised syllabus\",\n    \"description\": \"This is the operating system subject of BEI\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/subjects/aa9ee44a-b6a8-46d1-8603-2e519170e25c",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"subjects",
+						"aa9ee44a-b6a8-46d1-8603-2e519170e25c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubject",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/subjects/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"subjects",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getSubjectById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/subjects/aa9ee44a-b6a8-46d1-8603-2e519170e25c",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"subjects",
+						"aa9ee44a-b6a8-46d1-8603-2e519170e25c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteSubject",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/subjects/26fa5f69-ffa2-4a0d-a698-7565fde95123",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"subjects",
+						"26fa5f69-ffa2-4a0d-a698-7565fde95123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createResources",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "subject_id",
+							"value": "aa9ee44a-b6a8-46d1-8603-2e519170e25c",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "OS notes by AS sir",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Notes",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Notes provided by sir for exams.",
+							"type": "text"
+						},
+						{
+							"key": "resource",
+							"type": "file",
+							"src": "/home/kree/Downloads/test/tes5.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/resources",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateResource",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "OS notes by Anup Shakya Sir, chapter 3",
+							"type": "text"
+						},
+						{
+							"key": "category",
+							"value": "Notes",
+							"type": "text"
+						},
+						{
+							"key": "description",
+							"value": "Notes provided by sir for exams.",
+							"type": "text"
+						},
+						{
+							"key": "resource",
+							"type": "file",
+							"src": "/home/kree/Downloads/Chapter-03.ppt"
+						}
+					]
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/resources/f038e9b3-bdd9-44ad-8f86-179869ba0643",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"f038e9b3-bdd9-44ad-8f86-179869ba0643"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getResources",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/resources",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"resources"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getResourceById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/resources/dd55b198-897c-4c55-ab7f-ef8321fd799a",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"dd55b198-897c-4c55-ab7f-ef8321fd799a"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteResource",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/resources/98cf4de3-88d7-4607-baa3-611242757bba",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"resources",
+						"98cf4de3-88d7-4607-baa3-611242757bba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createRoutine",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"subject_id\":\"aa9ee44a-b6a8-46d1-8603-2e519170e25c\",\n    \"day\":\"Monday\",\n    \"grp\":\"Both\",\n    \"category\":\"Lecture\",\n    \"teacher\" :\"PA\",\n    \"start_time\":\"02:15\",\n    \"end_time\":\"03:15\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/routines/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"routines",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRoutine",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"day\":\"Monday\",\n    \"grp\":\"Both\",\n    \"category\":\"Lecture\",\n    \"teacher\" :\"AS\",\n    \"start_time\":\"03:15\",\n    \"end_time\":\"04:35\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/routines/e563f8b1-1a7f-4e51-9787-1542cbb87439",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"routines",
+						"e563f8b1-1a7f-4e51-9787-1542cbb87439"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRoutineById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/routines/e563f8b1-1a7f-4e51-9787-1542cbb87439",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"routines",
+						"e563f8b1-1a7f-4e51-9787-1542cbb87439"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getRoutines",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/routines/",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"routines",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteRoutine",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://electrocord.onrender.com/api/v1/routines/17ddd360-91e8-4bc0-ab70-3a9793ee2819",
+					"protocol": "https",
+					"host": [
+						"electrocord",
+						"onrender",
+						"com"
+					],
+					"path": [
+						"api",
+						"v1",
+						"routines",
+						"17ddd360-91e8-4bc0-ab70-3a9793ee2819"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

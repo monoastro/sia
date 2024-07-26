@@ -8,11 +8,12 @@ const MainLayout = ({ children }: { children: React.ReactNode }) =>
 {
 	const [areUsersVisible, setAreUsersVisible] = useState(true);
 	return (
+		<div className="grid grid-cols-3 gap-4">
 		<div className="h-full ">
-
 		<div className="hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
 		<Sidebar />
 		</div>
+
 
 		<main className="md:pl-[72px] h-full">
 		{children}
@@ -23,7 +24,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) =>
 			<UsersSidebar />
 			</div>
 		)}
-
+		</div>
 		</div>
 	);
 };
