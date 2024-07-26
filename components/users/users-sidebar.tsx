@@ -32,6 +32,7 @@ export const UsersSidebar: React.FC = () => {
 			<UserItem
 			id={user.id}
 			name={user.name}
+
 			imageUrl={user.imageUrl}
 			isAdmin={user.isAdmin}
 			/>
