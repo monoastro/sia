@@ -38,4 +38,4 @@ next-env.d.ts
 
 #the most dangerous file
 /lib/master_control.js
-electrocord_prod.postman_collection.json
+/electrocord_prod.postman_collection.json
