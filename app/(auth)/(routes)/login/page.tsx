@@ -32,7 +32,6 @@ const LoginPage = () => {
 		{
 			console.log("Requesting electrocord for login");
 			const data = await postAPI('auth/signin', userData);
-			
 
 			localStorage.setItem("token", data.token);
 			localStorage.setItem("userInformation", atob(data.token.split('.')[1]));

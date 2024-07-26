@@ -1,5 +1,5 @@
 //contains all of the get calls and base information stuff
-
+import { getAPI } from "@/lib/api";
 const defpfpLocal : string = "/static/emma.svg";
 const defpfpURL : string = "https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg";
 
@@ -31,6 +31,7 @@ const users : User[] = [
 	{ "id": "4", "imageUrl": "/static/emma.svg", "name": "Doe", "isAdmin": false },
 	{ "id": "5", "imageUrl": "/static/emma.svg", "name": "Smith", "isAdmin": false }
 ];
+
 
 
 
