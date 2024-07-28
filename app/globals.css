@@ -1,6 +1,6 @@
 @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+@tailwind components;
+@tailwind utilities;
 
 html,
 body,
@@ -10,88 +10,83 @@ body,
 
 .button
 {
-  @apply px-4 py-2 mr-2 text-white rounded focus:outline-none focus:ring-2;
+	@apply px-4 py-2 mr-2 text-white rounded focus:outline-none focus:ring-2;
 }
-
 .btn-blue
 {
-  @apply bg-blue-500 focus:ring-blue-600;
+	@apply bg-blue-500 focus:ring-blue-600;
 }
-
 .btn-red
 {
-  @apply bg-red-500 focus:ring-red-600;
+	@apply bg-red-500 focus:ring-red-600;
 }
-
 .btn-green
 {
-  @apply bg-green-500 focus:ring-green-600;
+	@apply bg-green-500 focus:ring-green-600;
 }
 
 .image-spin
 {
-  animation: scaleRotate 10s infinite;
+	animation: scaleRotate 10s infinite;
 }
-
 @keyframes scaleRotate
 {
-  0%
-  {
-    transform: scale(1.2) rotate(0deg);
-  }
+	0%
+	{
+		transform: scale(1.2) rotate(0deg);
+	}
 
-  50%
-  {
-	transform: scale(1.4) rotate(45deg);
-  }
+	50%
+	{
+		transform: scale(1.4) rotate(45deg);
+	}
 
-  75%
-  {
-	transform: scale(1.4) rotate(315deg);
-  }
-  100%
-  {
-    transform: scale(1.2) rotate(360deg);
-  }
+	75%
+	{
+		transform: scale(1.4) rotate(315deg);
+	}
+	100%
+	{
+		transform: scale(1.2) rotate(360deg);
+	}
 }
 
 .image-scale
 {
-  animation: scale 10s infinite;
+	animation: scale 10s infinite;
 }
-
 @keyframes scale
 {
-  0%
-  {
-	transform: scale(0.95);
-  }
+	0%
+	{
+		transform: scale(0.95);
+	}
 
-  50%
-  {
-	transform: scale(1.07);
-  }
+	50%
+	{
+		transform: scale(1.07);
+	}
 
-  100%
-  {
-	transform: scale(0.95);
-  }
+	100%
+	{
+		transform: scale(0.95);
+	}
 }
 
 .blue-gradient
 {
-  background: linear-gradient(to right, #1a237e, #000000);
-  color: #ffffff;
+	background: linear-gradient(to right, #1a237e, #000000);
+	color: #ffffff;
 }
-
 .light-blue-gradient
 {
-  background: linear-gradient(to right, #1e88e5, #64b5f6);
-  color: #ffffff;
+	background: linear-gradient(to right, #1e88e5, #64b5f6);
+	color: #ffffff;
 }
 
 @layer base {
-	:root {
+	:root 
+	{
 		--background: 0 0% 100%;
 		--foreground: 0 0% 3.9%;
 
@@ -123,7 +118,8 @@ body,
 		--radius: 0.5rem;
 	}
 
-	.dark {
+	.dark
+	{
 		--background: 0 0% 3.9%;
 		--foreground: 0 0% 98%;
 
@@ -158,7 +154,9 @@ body,
 	* {
 		@apply border-border;
 	}
-	body {
+	body 
+	{
 		@apply bg-background text-foreground;
 	}
 }
+

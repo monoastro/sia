@@ -1,7 +1,7 @@
 
-## NOT FIXED
+# NOT FIXED
 
-## FIXED
+# FIXED
 
 ## logout doesn't work
 / -> login -> dashboard -> / -> login (dashboard) -> logout

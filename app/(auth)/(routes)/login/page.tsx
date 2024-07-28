@@ -35,6 +35,8 @@ const LoginPage = () => {
 
 			localStorage.setItem("userInformation", atob(data.token.split('.')[1]));
 			//console.log(`Login successful.\nLogin Token(Sajen doesn\'t like this method): ${data.token}\n\n`);
+			
+			//apparently sending extra shit with the cookie causes the cookie not be sent
 
 			//hijacking the cookie
 			setCookie('token', `token=${data.token}`,
@@ -51,7 +53,7 @@ const LoginPage = () => {
 		catch (error) 
 		{
 			alert('Failed to login. Please try again.');
-			console.error(`Error: ${error}`);
+			console.error(error);
 		}
 	};
 	return (

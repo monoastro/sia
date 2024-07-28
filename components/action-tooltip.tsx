@@ -16,19 +16,15 @@ interface ActionTooltipProps {
   align?: "start" | "center" | "end";
 }
 
-export function ActionTooltip({
-	label,
-	children,
-	side,
-	align,
-}: ActionTooltipProps) {
+export function ActionTooltip({ label, children, side, align, }: ActionTooltipProps)
+{
   return (
     <TooltipProvider>
       <Tooltip delayDuration={50}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent side={side} align={align}>
-          <p className="font-semibold text-sm capitalize">
-            {label.toLowerCase()}
+          <p className="font-semibold text-sm">
+            {label}
           </p>
         </TooltipContent>
       </Tooltip>

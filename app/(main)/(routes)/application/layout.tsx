@@ -6,45 +6,27 @@ import {useState} from "react";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => 
 {
+	//use this in a button somewhere
 	const [areUsersVisible, setAreUsersVisible] = useState(true);
 	return (
-		<div className="h-full ">
-		<div className="hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
+		<div className="h-full flex">
+
+		<div className="hidden md:flex h-full w-[72px] flex-shrink-0">
 		<Sidebar />
 		</div>
 
-
-		<main className="md:pl-[72px] h-full">
+		<main className="flex-grow overflow-hidden">
 		{children}
 		</main>
 
-		{/*
 		{areUsersVisible && (
-			<div className="hidden md:flex h-full w-[240px] z-30 flex-col fixed inset-y-0 right-0">
+			<div className="hidden md:flex h-full w-[240px] flex-shrink-0 ml-3">
 			<UsersSidebar />
 			</div>
 		)}
-		*/}
+
 		</div>
 	);
 };
 
 export default MainLayout;
-
-
-/*
-
-const mainLayout = ({ children }: { children: React.ReactNode }) => {
-  return (
-    <div className="h-full">
-      <div className="hidden md:flex h-full w-[72px] z-30 flex-col fixed inset-y-0">
-        <Sidebar/>
-      </div>
-      <main className="md:pl-[72px] h-full">
-        {children}
-      </main>
-    </div>
-  );
-};
-
-*/

@@ -11,7 +11,7 @@ const getAPI = async (endpoint : string) =>
 			withCredentials: true
 		});
 		const { statusCode, data, message } = response.data;
-		if(statusCode === 201)
+		if(statusCode === 200 || statusCode === 201)
 		{
 			return data;
 		}
