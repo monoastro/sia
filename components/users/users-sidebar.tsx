@@ -1,46 +1,76 @@
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import React from "react";
+import React, { useEffect, useState} from "react";
 import { UserItem } from "@/components/users/user-item";
-import { users } from "@/lib/data";
+import { getAPI } from "@/lib/api";
 
-export const UsersSidebar: React.FC = () => {
+
+interface User
+{
+	user_id: string;
+	username: string;
+	email: string;
+	dob: string;
+	profile_pic: string;
+	is_admin: boolean;
+}
+
+export const UsersSidebar: React.FC = () =>
+{
+	const [admins, setAdmins] = useState<User[]>([]);
+	const [users, setUsers] = useState<User[]>([]);
+
+	useEffect(() => 
+	{
+		const fetchUsers = async () =>
+		{
+			try
+			{
+				const allUsers = await getAPI("users");
+				setAdmins(allUsers.filter((user: User) => user.is_admin));
+				setUsers(allUsers.filter((user: User) => !user.is_admin));
+			}
+			catch (error)
+			{
+				console.error(error);
+			}
+		};
+		fetchUsers();
+	}, []);
+
 	return (
-		<div className="space-y-4 flex flex-col items-center h-full text-primary w-full py-3">
-
-		<h2 className="text-lg font-bold text-indigo-600">Admins</h2>
-		<Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
-
+		<div className="space-y-4 flex flex-col items-center h-full w-full py-3 text-indigo-800">
 		<ScrollArea className="flex-1 w-full">
-		{users.filter(user => user.isAdmin).map(user => (
-			<div key={user.id} className="mb-4">
+		<div className="mb-4">
+		<div className="text-sm  font-semibold mb-2 mt-2">
+		Admins — {admins.length}
+		</div>
+		{admins.map((user) => (
+			<div key={user.user_id}>
 			<UserItem
-			id={user.id}
-			name={user.name}
-			imageUrl={user.imageUrl}
-			isAdmin={user.isAdmin}
+			id={user.user_id}
+			name={user.username}
+			imageUrl={user.profile_pic}
 			/>
 			</div>
 		))}
-		</ScrollArea>
+		</div>
 
-		<h2 className="text-lg text-indigo-600 font-bold">Users</h2>
-		<Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />
-		<ScrollArea className="flex-1 w-full">
-		{users.filter(user => !user.isAdmin).map(user => (
-			<div key={user.id} className="mb-4">
+
+		<div>
+		<div className="text-sm font-semibold mb-2">Users — {users.length}</div>
+		{users.map((user) => (
+			<div key={user.user_id}>
 			<UserItem
-			id={user.id}
-			name={user.name}
-
-			imageUrl={user.imageUrl}
-			isAdmin={user.isAdmin}
+			id={user.user_id}
+			name={user.username}
+			imageUrl={user.profile_pic}
 			/>
 			</div>
 		))}
+		</div>
 		</ScrollArea>
 
 		</div>
 	);
 };
-

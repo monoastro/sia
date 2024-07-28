@@ -1,41 +1,30 @@
 //contains all of the get calls and base information stuff
-import { getAPI } from "@/lib/api";
+
 const defpfpLocal : string = "/static/emma.svg";
 const defpfpURL : string = "https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg";
 
+//nav bar stuff
 type Tab = 
 {
 	name: string;
 	id: string;
 	imageUrl: string;
 };
-
 const tabs: Tab[] =
 [
-	{ name: "announcements", id: "1", imageUrl: "/static/emma.svg" },
-	{ name: "routine", id: "2", imageUrl: "/static/emma.svg" },
-	{ name: "semesters", id: "3", imageUrl: "/static/emma.svg" },
-	{ name: "generalChats", id: "4", imageUrl: "/static/emma.svg" }
+	{ "name": "Announcements", "id": "1", "imageUrl": "/static/emma.svg" },
+	{ "name": "Routine", 	   "id": "2", "imageUrl": "/static/emma.svg" },
+	{ "name": "Semesters", 	   "id": "3", "imageUrl": "/static/emma.svg" },
+	{ "name": "General Chats", "id": "4", "imageUrl": "/static/emma.svg" }
 ];
+const getActualRouteName : string[] = 
+[
+	"dashboard",
+	"announcements",
+	"routine",
+	"semesters",
+	"generalChats",
+]
 
-interface User {
-	id: string;
-	imageUrl: string;
-	name: string;
-	isAdmin: boolean;
-};
-const users : User[] = [
-	{ "id": "1", "imageUrl": "/static/emma.svg", "name": "Emma", "isAdmin": true },
-	{ "id": "2", "imageUrl": "/static/emma.svg", "name": "John", "isAdmin": false },
-	{ "id": "3", "imageUrl": "/static/emma.svg", "name": "Jane", "isAdmin": false },
-	{ "id": "4", "imageUrl": "/static/emma.svg", "name": "Doe", "isAdmin": false },
-	{ "id": "5", "imageUrl": "/static/emma.svg", "name": "Smith", "isAdmin": false }
-];
-
-
-
-
-
-
-export { tabs, defpfpLocal, defpfpURL, users };
+export { tabs, defpfpLocal, defpfpURL, getActualRouteName};
 

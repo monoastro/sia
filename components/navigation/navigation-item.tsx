@@ -6,6 +6,7 @@ import { useParams, useRouter } from "next/navigation";
 
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/action-tooltip";
+import { getActualRouteName } from "@/lib/data";
 
 interface NavigationItemProps {
   id: string;
@@ -20,7 +21,7 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 
 	const onClick = () => 
 	{
-		router.push(`/application/${name}`);
+		router.push(`/application/${getActualRouteName[parseInt(id)]}`);
 	};
 
 	return (

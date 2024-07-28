@@ -46,7 +46,7 @@ const RoutinePage: React.FC = () =>
 		} 
 		catch (error)
 		{
-			console.error('Error:', error);
+			console.error(error);
 		}
 	};
 
@@ -147,13 +147,13 @@ const RoutinePage: React.FC = () =>
 		<div className="flex justify-center items-center px-4 py-2">
 		<h1 className="text-3xl font-bold">Routine for Semester {activeSemester}</h1>
 
+		<div className="absolute top-0 right-0 mt-3">
 		<button
 		onClick={() => setIsDownloadToggled(!isDownloadToggled)}
-		className="text-white px-4 py-2 rounded flex text-center hover:bg-indigo-900"
-		style={{ position: 'absolute', top: '1rem', right: '1rem' }} >
-		Download
-		<ChevronDownIcon className="w-5 h-5 ml-2" />
+		className="text-white px-4 py-2 rounded flex text-center hover:bg-indigo-800">
+		Download <ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
+		</div>
 
 		{isDownloadToggled && (
 			<div className="absolute top-full right-0 mt-1 w-48 rounded z-10 ">
@@ -169,7 +169,7 @@ const RoutinePage: React.FC = () =>
 		</div>
 		</div>
 
-		<div className="flex-grow p-4 overflow-x-auto">
+		<div className="flex-grow p-2 overflow-x-auto">
 		<Table className="w-full table-fixed border-collapse border border-white">
 		<TableHeader>
 		<TableRow className="border border-white">

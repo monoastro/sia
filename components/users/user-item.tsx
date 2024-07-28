@@ -4,34 +4,32 @@ import React from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/action-tooltip";
+import { useRouter } from 'next/navigation';
 
 interface UserItemProps {
   id: string;
-  imageUrl: string;
   name: string;
-  isAdmin: boolean;
+  imageUrl: string;
 }
 
-export function UserItem({ id, imageUrl, name, isAdmin }: UserItemProps) {
+export function UserItem({ id, name, imageUrl }: UserItemProps)
+{
+	const router = useRouter();
+
+	const onClick = () => 
+	{
+	};
+
 	return (
-		<ActionTooltip side="left" align="center" label={name}>
-		<div className="group relative flex items-center">
-		<div
-		className={cn(
-			"relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] transition-all overflow-hidden bg-violet-800",
-			isAdmin ? "border-2 border-red-500" : "border-2 border-green-500"
-		)}
-		>
-		<Image
-		fill
-		src={imageUrl}
-		alt="User"
-		className="transition-transform transform group-hover:scale-110 group-hover:rotate-3"
-		/>
+		//<ActionTooltip side="left" align="center" label={name}>
+		<div className="hover:bg-indigo-500/10 rounded-lg transition-all">
+		<button onClick={onClick} className="group relative flex items-center w-full p-2 hover:bg-primary/10 rounded-lg transition-all">
+		<div className="relative flex h-[32px] w-[32px] rounded-full overflow-hidden mr-2">
+		<Image fill src={imageUrl} alt={name} />
 		</div>
-		<span className="ml-3 text-indigo-600">{name}</span>
+		<span className="text-sm font-medium">{name}</span>
+		</button>
 		</div>
-		</ActionTooltip>
+		//</ActionTooltip>
 	);
 }
-

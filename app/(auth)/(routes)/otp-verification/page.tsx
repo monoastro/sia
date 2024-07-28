@@ -30,6 +30,7 @@ const OtpVerificationPage = () =>
 		}
 		else 
 		{
+			alert("No email provided");
 			router.push('/register');
 		}
 	}, [router]);
@@ -54,7 +55,7 @@ const OtpVerificationPage = () =>
 		catch (error : any) 
 		{
 			setInsult('Invalid OTP, learn to type properly.');
-			console.error('Error:', error);
+			console.error(error);
 			localStorage.removeItem('registrationEmail');
 			setDumbassCounter(dumbassCounter + 1);
 			console.log(dumbassCounter);
@@ -81,7 +82,7 @@ const OtpVerificationPage = () =>
 		}
 		catch (error : any)
 		{
-			console.error('Error during OTP regeneration:', error);
+			console.error('Error during OTP regeneration.\n', error);
 		}
 	};
 
