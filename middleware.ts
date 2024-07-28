@@ -6,6 +6,7 @@ const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/r
 export const middleware = (request: NextRequest) =>
 {
 	const { pathname } = request.nextUrl;
+
 	const cookie = request.cookies.get('token');
 	//check if cookie is valid
 
@@ -35,3 +36,7 @@ export const config =
 {
 	matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
 }
+
+//instead of doing this in the frontend, let the server handle it by an api call
+//server will read the cookie, validate it, and return the user information
+//if the cookie is invalid, the server will return null
