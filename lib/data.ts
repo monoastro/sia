@@ -7,15 +7,15 @@ const defpfpURL : string = "https://raw.githubusercontent.com/monoastro/sia/main
 type Tab = 
 {
 	name: string;
-	id: string;
+	id: number;
 	imageUrl: string;
 };
 const tabs: Tab[] =
 [
-	{ "name": "Announcements", "id": "1", "imageUrl": "/static/emma.svg" },
-	{ "name": "Routine", 	   "id": "2", "imageUrl": "/static/emma.svg" },
-	{ "name": "Semesters", 	   "id": "3", "imageUrl": "/static/emma.svg" },
-	{ "name": "General Chats", "id": "4", "imageUrl": "/static/emma.svg" }
+	{ name: "Announcements", id: 1, imageUrl: "/static/emma.svg" },
+	{ name: "Routine", 	   id: 2, imageUrl: "/static/emma.svg" },
+	{ name: "Semesters", 	   id: 3, imageUrl: "/static/emma.svg" },
+	{ name: "General Chats", id: 4, imageUrl: "/static/emma.svg" }
 ];
 const getActualRouteName : string[] = 
 [

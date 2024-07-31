@@ -10,8 +10,8 @@ export const Sidebar : React.FC = () => {
 		{/*  style={{ backgroundColor: 'rgba(22, 31, 115, 1)' }} */}
 
 		<NavigationItem
-		id="0"
-		name="dashboard"
+		id={0}
+		name="Dashboard"
 		imageUrl="/static/emma.svg"
 		/>
 

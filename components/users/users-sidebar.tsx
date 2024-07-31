@@ -39,14 +39,14 @@ export const UsersSidebar: React.FC = () =>
 	}, []);
 
 	return (
-		<div className="space-y-4 flex flex-col items-center h-full w-full py-3 text-indigo-800">
+		<div className="space-y-4 flex flex-col items-center h-full w-full py-3 text-blue-700">
 		<ScrollArea className="flex-1 w-full">
 		<div className="mb-4">
-		<div className="text-sm  font-semibold mb-2 mt-2">
+		<div className="text-sm font-semibold mb-2 mt-2">
 		Admins — {admins.length}
 		</div>
 		{admins.map((user) => (
-			<div key={user.user_id}>
+			<div key={user.user_id} className="text-violet-600">
 			<UserItem
 			id={user.user_id}
 			name={user.username}
@@ -60,7 +60,7 @@ export const UsersSidebar: React.FC = () =>
 		<div>
 		<div className="text-sm font-semibold mb-2">Users — {users.length}</div>
 		{users.map((user) => (
-			<div key={user.user_id}>
+			<div key={user.user_id} className="text-blue-600">
 			<UserItem
 			id={user.user_id}
 			name={user.username}
