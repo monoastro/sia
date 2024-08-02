@@ -38,13 +38,7 @@ const ApplicationHome = () => {
 
 	//tell bibek to make the token better such that it can only gives the user id and not the whole user object
 	//also add an api endpoint to get the user information from token or user id
-	const test = () =>
-	{
-		console.log(getUserInfo());
 
-		console.log('Username:', username);
-		console.log('Profile Picture:', profilePicture);
-	}
 
 	return (
 		<div className="min-h-screen  flex flex-col items-center justify-center p-8 text-center">
@@ -64,10 +58,20 @@ const ApplicationHome = () => {
 		<p className="text-xl mb-4">Hello, {username}!</p>
 
 		<button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors" > Log Out </button>
-		<button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
 
 		</div>
 	);
 };
 
 export default ApplicationHome;
+/*
+ * <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
+ 	const test = () =>
+	{
+		console.log(getUserInfo());
+
+		console.log('Username:', username);
+		console.log('Profile Picture:', profilePicture);
+	}
+
+*/
