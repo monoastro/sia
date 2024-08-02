@@ -8,8 +8,7 @@ const getAPI = async (endpoint : string) =>
 	{
         const response = await axios.get(`${URL}${endpoint}`, 
 		{
-			withCredentials: true,
-			timeout: 5000
+			withCredentials: true
 		});
 		const { statusCode, data, message } = response.data;
 		if(statusCode === 200 || statusCode === 201)
@@ -33,7 +32,6 @@ const postAPI = async (endpoint : string, postData : any) =>
 	{
 		const response = await axios.post(`${URL}${endpoint}`, postData, 
 		{
-			timeout: 5000,
 			headers: 
 			{
 				'Content-Type': 'application/json'

@@ -60,7 +60,8 @@ const AnnouncementsPage: React.FC = () => {
 		</div>
 
 		<div>
-		{[...mockAnnouncements[activeTab]].reverse().map((announcement) => (
+		{
+			[...mockAnnouncements[activeTab]].reverse().map((announcement) => (
 			<div key={announcement.id} className="flex items-start mb-4">
 			<Image
 			src={announcement.profilePicture}

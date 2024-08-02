@@ -7,7 +7,8 @@ const NotesIcon = () => <span>📝</span>;
 const SyllabusIcon = () => <span>📚</span>;
 const QuestionPapersIcon = () => <span>📄</span>;
 
-interface Subjects {
+interface Subjects
+{
     'Semester 1': string[];
     'Semester 2': string[];
     'Semester 3': string[];
@@ -20,7 +21,8 @@ interface Subjects {
 
 const semesters: (keyof Subjects)[] = ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6', 'Semester 7', 'Semester 8'];
 
-const subjects: Subjects = {
+const subjects: Subjects = 
+{
     'Semester 1': ['Math', 'Physics', 'Chemistry'],
     'Semester 2': ['Programming', 'English', 'Economics'],
     'Semester 3': ['Biology', 'History', 'Geography'],
@@ -31,7 +33,8 @@ const subjects: Subjects = {
     'Semester 8': ['Engineering', 'Architecture', 'Design'],
 };
 
-const SemesterPage: React.FC = () => {
+const SemesterPage: React.FC = () => 
+{
     const [selectedSemester, setSelectedSemester] = useState<keyof Subjects>('Semester 1');
     const initialSubject = subjects[selectedSemester]?.[0] || ''; // Handle potential undefined or null
     const [selectedSubject, setSelectedSubject] = useState<string>(initialSubject);
@@ -55,14 +58,15 @@ const SemesterPage: React.FC = () => {
 		<div className="p-6 text-white min-h-screen">
 		<div className="flex justify-between items-center mb-6">
 		<div className="flex space-x-4">
-		<div className="relative">
 
+		<div className="relative">
 		<button
 		onClick={() => setIsSemesterDropdownOpen(!isSemesterDropdownOpen)}
 		className="bg-white text-blue-900 px-4 py-2 rounded flex items-center" >
 		{selectedSemester}
 		<ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
+
 		{isSemesterDropdownOpen && (
 			<div className="absolute top-full left-0 mt-1 bg-white text-blue-900 rounded shadow-lg z-10">
 			{semesters.map((semester) => (
@@ -77,6 +81,7 @@ const SemesterPage: React.FC = () => {
 			</div>
 		)}
 		</div>
+
 		<div className="relative">
 		<button
 		onClick={() => setIsSubjectDropdownOpen(!isSubjectDropdownOpen)}
