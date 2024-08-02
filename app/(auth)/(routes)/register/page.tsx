@@ -71,6 +71,7 @@ const RegisterPage = () =>
 		try
 		{
 			console.log("Sending registration data to electrocord")
+			console.log(userData);
 			const data = await postAPI('auth/signup', userData);
 			localStorage.setItem('registrationEmail', data.user[0].email);
 			router.push('/otp-verification');
