@@ -48,6 +48,7 @@ const RegisterPage = () =>
 	const router = useRouter();
 
 
+
 	const handleSubmit = async (e : FormEvent<HTMLFormElement>) =>
 	{
 		e.preventDefault();

@@ -1,6 +1,8 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+
+import { getAPI } from "@/lib/api";
 
 const ChatIcon = () => <span>💬</span>;
 const NotesIcon = () => <span>📝</span>;
@@ -53,6 +55,7 @@ const SemesterPage: React.FC = () =>
         setSelectedSubject(subject);
         setIsSubjectDropdownOpen(false);
     };
+
 
     return (
 		<div className="p-6 text-white min-h-screen">

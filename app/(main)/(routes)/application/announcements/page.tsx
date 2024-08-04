@@ -38,6 +38,11 @@ const AnnouncementsPage: React.FC = () => {
 
 	const tabs: AnnouncementType[] = ['General', 'Class', 'Assignments', 'Assessments'];
 
+	const fetchAnnouncements = () =>
+	{
+
+	}
+
 	return (
 		<div>
 		<h1 className="text-3xl font-bold mb-6">Announcements</h1>
