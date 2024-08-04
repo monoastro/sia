@@ -8,7 +8,7 @@ const getAPI = async (endpoint : string) =>
 	{
         const response = await axios.get(`${URL}${endpoint}`, 
 		{
-			withCredentials: true
+			withCredentials: true,
 		});
 		const { statusCode, data, message } = response.data;
 		if(statusCode === 200 || statusCode === 201)

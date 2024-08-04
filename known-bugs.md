@@ -1,6 +1,8 @@
 
 # NOT FIXED
 
+In the registration page, the months overflow out of the box
+
 # FIXED
 
 ## logout doesn't work
