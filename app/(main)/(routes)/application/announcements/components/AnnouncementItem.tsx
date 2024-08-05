@@ -1,6 +1,17 @@
 import React from 'react';
 import Image from 'next/image';
 
+interface Announcement {
+  announcement_id: string;
+  title: string;
+  message: string;
+  attachment: string | null;
+  category: string;
+  created_at: string;
+  updated_at: string;
+  username: string;
+  profile_pic: string;
+}
 interface AnnouncementItemProps {
   announcement: Announcement;
   handleDelete: (id: string) => void;
