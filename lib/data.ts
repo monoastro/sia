@@ -2,6 +2,7 @@
 
 const defpfpLocal : string = "/static/emma.svg";
 const defpfpURL : string = "https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg";
+const apiBaseUrl : string =  "https://electrocord.onrender.com";
 
 //nav bar stuff
 type Tab = 
@@ -26,5 +27,5 @@ const getActualRouteName : string[] =
 	"generalChats",
 ]
 
-export { tabs, defpfpLocal, defpfpURL, getActualRouteName};
+export { tabs, defpfpLocal, defpfpURL, getActualRouteName, apiBaseUrl};
 

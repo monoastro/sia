@@ -83,6 +83,11 @@ body,
 	background: linear-gradient(to right, #1e88e5, #64b5f6);
 	color: #ffffff;
 }
+.green-gradient
+{
+	background: linear-gradient(to right, #2e7d32, #388e3c);
+	color: #ffffff;
+}
 
 @layer base {
 	:root 
