@@ -13,7 +13,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { postAPI } from '@/lib/api';
 
-const OtpVerificationPage = () => 
+const OtpVerificationPage : React.FC = () => 
 {
 	const [otp, setOtp] = useState("");
 	const [email, setEmail] = useState("");

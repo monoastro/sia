@@ -6,7 +6,8 @@ import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/action-tooltip";
 import { useRouter } from 'next/navigation';
 
-interface UserItemProps {
+interface UserItemProps 
+{
   id: string;
   name: string;
   imageUrl: string;

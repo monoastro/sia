@@ -1,6 +1,7 @@
 "use client";
 import React, { useState, useEffect } from 'react';
 import { ChevronDownIcon } from '@heroicons/react/20/solid';
+import { Chat } from "@/components/Chat"
 
 import { getAPI } from "@/lib/api";
 
@@ -35,6 +36,24 @@ const subjects: Subjects =
     'Semester 8': ['Engineering', 'Architecture', 'Design'],
 };
 
+interface Channel
+{
+	id: string;
+	name: string;
+	type: string;
+	description: string;
+	category: string;
+	general_category: string;
+	created_at: string;
+	updated_at: string;
+};
+
+interface Semester
+{
+	id: string;
+	name: string;
+	subjects: string[];
+};
 const SemesterPage: React.FC = () => 
 {
     const [selectedSemester, setSelectedSemester] = useState<keyof Subjects>('Semester 1');
@@ -44,30 +63,51 @@ const SemesterPage: React.FC = () =>
     const [isSemesterDropdownOpen, setIsSemesterDropdownOpen] = useState<boolean>(false);
     const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState<boolean>(false);
 
-    const handleSemesterChange = (semester: keyof Subjects) => {
+	const [semesters, setSemesters] = useState<Semester[]>();
+	const [channels, setChannels] = useState<Channel[]>();
+
+
+
+	useEffect( () =>
+	{
+		const fetchChannels = async () =>
+		{
+			try
+			{
+				const allChannels = await getAPI("chats/rooms");
+				setChannels(allChannels.filter((channel : Channel) => channel.category === "subject"));
+			}
+			catch(error)
+			{
+				console.log("Error fetching channels:\n", error);
+			}
+		};
+		fetchChannels();
+
+		//some socket io shit here
+	}, []);
+
+    const handleSemesterChange = (semester: keyof Subjects) =>
+	{
         setSelectedSemester(semester);
         const initialSubject = subjects[semester]?.[0] || ''; // Handle potential undefined or null
         setSelectedSubject(initialSubject);
         setIsSemesterDropdownOpen(false);
     };
 
-    const handleSubjectChange = (subject: string) => {
-        setSelectedSubject(subject);
-        setIsSubjectDropdownOpen(false);
+    const handleSubjectChange = (subject: string) => 
+	{
+        setSelectedSubject(subject); setIsSubjectDropdownOpen(false);
     };
-
-
     return (
 		<div className="p-6 text-white min-h-screen">
 		<div className="flex justify-between items-center mb-6">
-		<div className="flex space-x-4">
 
+		<div className="flex space-x-4">
 		<div className="relative">
 		<button
-		onClick={() => setIsSemesterDropdownOpen(!isSemesterDropdownOpen)}
-		className="bg-white text-blue-900 px-4 py-2 rounded flex items-center" >
-		{selectedSemester}
-		<ChevronDownIcon className="w-5 h-5 ml-2" />
+		onClick={() => setIsSemesterDropdownOpen(!isSemesterDropdownOpen)} className="bg-white text-blue-900 px-4 py-2 rounded flex items-center" >
+		{selectedSemester} <ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
 
 		{isSemesterDropdownOpen && (
@@ -88,10 +128,8 @@ const SemesterPage: React.FC = () =>
 		<div className="relative">
 		<button
 		onClick={() => setIsSubjectDropdownOpen(!isSubjectDropdownOpen)}
-		className="bg-white text-blue-900 px-4 py-2 rounded flex items-center"
-		>
-		{selectedSubject}
-		<ChevronDownIcon className="w-5 h-5 ml-2" />
+		className="bg-white text-blue-900 px-4 py-2 rounded flex items-center" >
+		{selectedSubject} <ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
 		{isSubjectDropdownOpen && (
 			<div className="absolute top-full left-0 mt-1 bg-white text-blue-900 rounded shadow-lg z-10">
@@ -108,14 +146,31 @@ const SemesterPage: React.FC = () =>
 		)}
 		</div>
 		</div>
+
 		<div className="flex space-x-2">
-		<button onClick={() => setSelectedTab('Chat')} className={`p-2 rounded ${selectedTab === 'Chat' ? 'bg-indigo-600' : 'bg-indigo-500'}`}><ChatIcon /></button>
-		<button onClick={() => setSelectedTab('Notes')} className={`p-2 rounded ${selectedTab === 'Notes' ? 'bg-indigo-600' : 'bg-indigo-500'}`}><NotesIcon /></button>
-		<button onClick={() => setSelectedTab('Syllabus')} className={`p-2 rounded ${selectedTab === 'Syllabus' ? 'bg-indigo-600' : 'bg-indigo-500'}`}><SyllabusIcon /></button>
-		<button onClick={() => setSelectedTab('Question Papers')} className={`p-2 rounded ${selectedTab === 'Question Papers' ? 'bg-indigo-600' : 'bg-indigo-500'}`}><QuestionPapersIcon /></button>
+		<button
+		onClick={() => setSelectedTab('Chat')}
+		className={`p-2 rounded ${selectedTab === 'Chat' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
+		<ChatIcon />
+		</button>
+		<button
+		onClick={() => setSelectedTab('Notes')}
+		className={`p-2 rounded ${selectedTab === 'Notes' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
+		<NotesIcon />
+		</button>
+		<button
+		onClick={() => setSelectedTab('Syllabus')}
+		className={`p-2 rounded ${selectedTab === 'Syllabus' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
+		<SyllabusIcon />
+		</button>
+		<button
+		onClick={() => setSelectedTab('Question Papers')}
+		className={`p-2 rounded ${selectedTab === 'Question Papers' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
+		<QuestionPapersIcon />
+		</button>
 		</div>
+
 		</div>
-		<div className="bg-blue-800 p-4 rounded">
 		{selectedTab === 'Notes' && (
 			<div>
 			<h2 className="text-xl mb-4">Notes for {selectedSubject}</h2>
@@ -125,9 +180,13 @@ const SemesterPage: React.FC = () =>
 		)}
 		{selectedTab === 'Chat' && (
 			<div>
-			<h2 className="text-xl mb-4">Chat for {selectedSubject}</h2>
-			{/* Add a chat component here */}
-			<p>This is where the chat interface would go.</p>
+			<Chat
+			chatId="5b07c1fe-5e3c-43e3-aa99-ac460a29e81f"
+			chatName="off-topic"
+			userId="32c2fabd-98af-452c-a5d7-1fa3ffb42207"
+			userName="bernhardturing"
+			token={localStorage.getItem('token') || ''}
+			/>
 			</div>
 		)}
 		{selectedTab === 'Syllabus' && (
@@ -144,7 +203,6 @@ const SemesterPage: React.FC = () =>
 			<p>Here you can post and view links to question papers.</p>
 			</div>
 		)}
-		</div>
 		</div>
 	);
 };

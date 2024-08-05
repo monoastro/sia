@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import { postAPI } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 
-const ForgotPasswordPage = () => 
+const ForgotPasswordPage : React.FC = () =>
 {
 	const [email, setEmail] = useState('');
 	const [isSubmitted, setIsSubmitted] = useState(false);

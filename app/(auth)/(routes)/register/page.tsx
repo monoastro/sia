@@ -34,7 +34,7 @@ const adminEmails : string[] =
 	"jenish.078bei018@tcioe.edu.np"
 ];
 
-const RegisterPage = () => 
+const RegisterPage : React.FC = () => 
 {
 	const [firstName, setFirstName] = useState('');
 	const [lastName, setLastName] = useState('');

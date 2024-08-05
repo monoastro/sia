@@ -4,11 +4,19 @@ const URL = "https://electrocord.onrender.com/api/v1/";
 
 const getAPI = async (endpoint : string) =>
 {
+	//no cookie received by this
     try
 	{
         const response = await axios.get(`${URL}${endpoint}`, 
 		{
 			withCredentials: true,
+			//let's see if this works
+			headers: 
+			{
+				'Content-Type': 'application/json'
+			}
+
+
 		});
 		const { statusCode, data, message } = response.data;
 		if(statusCode === 200 || statusCode === 201)

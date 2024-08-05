@@ -35,26 +35,23 @@ const RoutinePage: React.FC = () =>
     const [isDownloadToggled, setIsDownloadToggled] = useState<boolean>(false);
 	const [activeSemester, setActiveSemester] = useState<string>('5th');
 
-
-	const fetchRoutines = async () =>
-	{
-		try
-		{
-			console.log("This is called twice for some reason");
-			const data = await getAPI('routines');
-			setRoutines(data);
-		} 
-		catch (error)
-		{
-			console.error(error);
-		}
-	};
-
-
 	useEffect(() => 
 	{
+		const fetchRoutines = async () =>
+		{
+			try
+			{
+				console.log("This is called twice for some reason");
+				const data = await getAPI('routines');
+				setRoutines(data);
+			} 
+			catch (error)
+			{
+				console.error(error);
+			}
+		};
 		fetchRoutines();
-	}, []);
+	}, [activeSemester]);
 
 	const downloadAsCSV = () => 
 	{

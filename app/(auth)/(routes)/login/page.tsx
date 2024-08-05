@@ -17,7 +17,7 @@ import { setCookie } from 'cookies-next';
 
 import { postAPI } from '@/lib/api';
 
-const LoginPage = () => {
+const LoginPage : React.FC = () => {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const router = useRouter();

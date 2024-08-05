@@ -20,7 +20,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) =>
 		</main>
 
 		{areUsersVisible && (
-			<div className="hidden md:flex h-full w-[240px] flex-shrink-0 ml-3">
+			<div className="hidden md:flex h-full w-[200px] flex-shrink-0 ml-3">
 			<UsersSidebar />
 			</div>
 		)}

@@ -47,16 +47,3 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 		</ActionTooltip>
 	);
 }
-
-{
-/* 
-//intended behaviour
-if not-selected and hovered, it should be 20px
-if selected, it should be 40px
-if not-selected and not-hovered, it should be 0px
-
-//conditional classes to find whether the item is selected or not
-//problem is idk how to find the selected item
-//eh just put it as hover 40px for now
-*/
-}

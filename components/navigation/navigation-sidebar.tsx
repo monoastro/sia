@@ -1,7 +1,7 @@
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "@/components/navigation/navigation-item";
-import { tabs } from "@/lib/data";
+import { tabs, defpfpURL } from "@/lib/data";
 import React from "react";
 
 export const Sidebar : React.FC = () => {
@@ -12,7 +12,7 @@ export const Sidebar : React.FC = () => {
 		<NavigationItem
 		id={0}
 		name="Dashboard"
-		imageUrl="/static/emma.svg"
+		imageUrl={defpfpURL}
 		/>
 
 		<Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />

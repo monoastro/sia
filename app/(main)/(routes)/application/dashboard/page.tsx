@@ -7,7 +7,7 @@ import { deleteCookie } from 'cookies-next';
 import axios from 'axios';
 
 import {getUserInfo} from "@/lib/utils";
-import {defpfpURL} from "@/lib/data";
+//import {defpfpURL} from "@/lib/data";
 
 const ApplicationHome = () => {
 	const [username, setUsername] = useState("Anonymous User");
@@ -38,7 +38,6 @@ const ApplicationHome = () => {
 
 	//tell bibek to make the token better such that it can only gives the user id and not the whole user object
 	//also add an api endpoint to get the user information from token or user id
-
 
 	return (
 		<div className="min-h-screen  flex flex-col items-center justify-center p-8 text-center">
