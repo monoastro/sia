@@ -5,7 +5,7 @@ import { Chat } from "@/components/Chat"
 
 import { getAPI } from "@/lib/api";
 import {getToken, getUserInfo } from '@/lib/utils';
-import { marked } from 'marked';
+import { MarkdownRenderer } from '@/components/markdownRenderer';
 
 const ChatIcon = () => <span>💬</span>;
 const NotesIcon = () => <span>📝</span>;
@@ -191,10 +191,9 @@ const SemesterPage: React.FC = () =>
 			<div className="ml-3">
 			<h2 className="text-xl mb-4 font-bold">Syllabus for {getSelectedSubjectName()}</h2>
 			{semesters && semesters[selectedSemester - 1].subjects[selectedSubject].description}
-			<div>
-			{semesters && marked.parse(semesters[selectedSemester - 1].subjects[selectedSubject].syllabus)}
-			</div>
-
+			{semesters &&
+			<MarkdownRenderer markdownContent={ semesters[selectedSemester - 1].subjects[selectedSubject].syllabus} />
+			}
 			</div>
 		)}
 
