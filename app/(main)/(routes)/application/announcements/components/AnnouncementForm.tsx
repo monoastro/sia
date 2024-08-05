@@ -1,5 +1,16 @@
 import React, { useState } from 'react';
 
+interface Announcement {
+  announcement_id: string;
+  title: string;
+  message: string;
+  attachment: string | null;
+  category: string;
+  created_at: string;
+  updated_at: string;
+  username: string;
+  profile_pic: string;
+}
 interface AnnouncementFormProps {
   initialValues: Partial<Announcement>;
   onSubmit: (formData: FormData) => void;

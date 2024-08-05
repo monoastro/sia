@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "http://127.0.0.1:5000/api/v1/";
+const URL = "https://electrocord.onrender.com/api/v1/";
 
 const getAPI = async (endpoint : string) =>
 {
