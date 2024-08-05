@@ -43,7 +43,7 @@ export const UsersSidebar: React.FC = () =>
 		<ScrollArea className="flex-1 w-full">
 		<div className="mb-4">
 		<div className="text-sm font-semibold mb-2 mt-2">
-		Admins — {admins.length}
+		ADMINS — {admins.length}
 		</div>
 		{admins.map((user) => (
 			<div key={user.user_id} className="text-violet-600">
@@ -58,7 +58,7 @@ export const UsersSidebar: React.FC = () =>
 
 
 		<div>
-		<div className="text-sm font-semibold mb-2">Users — {users.length}</div>
+		<div className="text-sm font-semibold mb-2">USERS — {users.length}</div>
 		{users.map((user) => (
 			<div key={user.user_id} className="text-blue-600">
 			<UserItem
