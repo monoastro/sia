@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Image from 'next/image';
+import Modal from './Modal';
 
 interface Announcement {
   announcement_id: string;
@@ -12,6 +13,7 @@ interface Announcement {
   username: string;
   profile_pic: string;
 }
+
 interface AnnouncementItemProps {
   announcement: Announcement;
   handleDelete: (id: string) => void;
@@ -19,6 +21,8 @@ interface AnnouncementItemProps {
 }
 
 const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const renderAttachment = (attachment: string | null) => {
     if (!attachment) return null;
 
@@ -31,10 +35,11 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
           <Image
             src={attachment}
             alt="Attachment"
-            width={400}
+            width={300}
             height={300}
-            className="rounded object-contain"
+            className="rounded object-cover cursor-pointer"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onClick={() => setIsModalOpen(true)}
             onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
           />
         </div>
@@ -51,7 +56,7 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
       return (
         <div className="mt-2">
           <a href={attachment} download className="text-blue-400 underline">
-            Attchment
+            Attachment
           </a>
         </div>
       );
@@ -96,6 +101,19 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
+      {isModalOpen && (
+        <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} imageUrl={announcement.attachment || ''}>
+          <Image
+            src={announcement.attachment || '/static/fallback.png'}
+            alt="Attachment"
+            width={600}
+            height={600}
+            className="rounded object-cover"
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
+          />
+        </Modal>
+      )}
     </div>
   );
 };
