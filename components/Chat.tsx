@@ -168,42 +168,36 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 			);
 		}
 	};
-
 	return (
-		<div className="flex flex-col p-2 h-full">
-
-		<div className="flex-grow overflow-y-auto p-4">
+		<div className="flex flex-col h-full max-h-full overflow-hidden">
+		<div className="flex-grow overflow-y-auto chat-scrollbar">
 		{messages.map((msg, index) => (
-			<div key={index}>
-
-			<div className="flex">
-
-			<div className="relative h-[26px] w-[26px] rounded-full">
+			<div key={index} className="mb-4">
+			<div className="flex items-center">
+			<div className="relative h-[26px] w-[26px] rounded-full mr-2">
 			<Image fill src={defpfpURL} alt={"pfp"} />
 			</div>
-
 			<strong>
-				<span className="text-violet-600"> {msg.senderName}</span> 
+			<span className="text-violet-600"> {msg.senderName}</span> 
 			</strong>
-
-			<div className="text-xs text-gray-400 mt-1 ml-2">at {new Date(msg.createdAt).toLocaleTimeString()} </div>
+			<div className="text-xs text-gray-400 ml-2">
+			at {new Date(msg.createdAt).toLocaleTimeString()}
 			</div>
-
-			<div className="ml-8">
+			</div>
+			<div className="ml-8 mt-1">
 			{msg.message}
-			{/*render any attachments associated with the message*/}
-			<div className="flex flex-wrap">
+			<div className="flex flex-wrap mt-2">
 			{msg.attachments?.map((file, i) => (
 				<div key={i} className="m-1">{renderAttachment(file)}</div>
 			))}
 			</div>
 			</div>
-
 			</div>
 		))}
 		</div>
 
-		{error && <div className="text-red-500 mt-2">{error}</div>}
+		{error && <div className="text-red-500 mt-2 px-2">{error}</div>}
+
 		{attachments.length > 0 && (
 			<div className="mt-2 p-2 rounded-lg flex flex-wrap">
 			{attachments.map((file, index) => (
@@ -215,17 +209,19 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 			</div>
 		)}
 
-		{/*Message input*/}
+		<div className="m-2">
 		<div className="flex items-center">
 		<input
 		type="file"
 		id="attachment-input"
 		className="hidden"
 		multiple
-		onChange={handleFileChange} />
+		onChange={handleFileChange}
+		/>
 		<button
 		onClick={() => document.getElementById('attachment-input')?.click()}
-		className="px-4 py-2 bg-blue-900 text-black rounded-l hover:bg-blue-600 focus:outline-none">
+		className="px-4 py-2 bg-blue-900 text-black rounded-l hover:bg-blue-600 focus:outline-none"
+		>
 		<CirclePlus color="#ffffff"/>
 		</button>
 		<input
@@ -241,11 +237,10 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 		className="bg-blue-900 hover:bg-blue-600 rounded-none rounded-r"
 		onClick={sendMessage}
 		>
-        <SendIcon/>
-        </Button>
+		<SendIcon/>
+		</Button>
 		</div>
-
+		</div>
 		</div>
 	);
 };
-

@@ -89,6 +89,22 @@ body,
 	color: #ffffff;
 }
 
+.chat-scrollbar {
+	overflow-y: auto;
+	padding: 1rem;
+}
+.chat-scrollbar::-webkit-scrollbar {
+	width: 8px;
+}
+.chat-scrollbar::-webkit-scrollbar-track {
+	background: #1a237e;
+	border-radius: 4px;
+}
+.chat-scrollbar::-webkit-scrollbar-thumb {
+	background: #05003b;
+	border-radius: 4px;
+}
+
 @layer base {
 	:root 
 	{
