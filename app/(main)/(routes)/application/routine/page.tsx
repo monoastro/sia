@@ -147,7 +147,7 @@ const RoutinePage: React.FC = () =>
 		<div className="absolute top-0 right-0 mt-3">
 		<button
 		onClick={() => setIsDownloadToggled(!isDownloadToggled)}
-		className="text-white px-4 py-2 rounded flex text-center hover:bg-indigo-800">
+		className="text-white mr-2 px-4 py-2 rounded flex text-center border-2 border-violet-900 hover:bg-indigo-900">
 		Download <ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
 		</div>

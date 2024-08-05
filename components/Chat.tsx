@@ -33,7 +33,7 @@ interface Message
 	createdAt: string;
 }
 
-export const Chat : React.FC<ChatProps> = ({ chatId, chatName,userId, userName, token} : ChatProps) =>
+export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName, token} : ChatProps) =>
 {
 	const [message, setMessage] = useState('');
 	const [messages, setMessages] = useState<Message[]>([]); //if this was  c++ this would be circular buffer
@@ -45,11 +45,13 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName,userId, userName, 
 	const [error, setError] = useState('');
 
 
+	/*
 	useEffect(() =>
 	{
-		//console.log(chatId + "\n" + chatName + "\n" + userId + "\n" + userName + "\n" + token + "\n" );
+		console.log(chatId + "\n" + chatName + "\n" + userId + "\n" + userName + "\n" + token + "\n" );
 	}, []);
 
+   */
 	useEffect(() =>
 	{
 		const populateMessages = async () => 
@@ -65,10 +67,10 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName,userId, userName, 
 				console.error('Error fetching old messages:', error);
 			}
 		};
-		populateMessages();
 
 		//some socket io shit here
-		if (token && chatId) {
+		if (token && chatId)
+		{
 			const newSocket = io('https://electrocord.onrender.com', {
 				auth: { token },
 			});
@@ -87,18 +89,20 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName,userId, userName, 
 				console.log('Socket disconnected');
 			});
 
-
-			return () => {
-				if (newSocket) {
+			populateMessages();
+			return () =>
+			{
+				if (newSocket)
+				{
 					newSocket.emit('leave', { userId, chatId });
 					newSocket.off('chatMessage');
 					newSocket.disconnect();
 				}
-		};
-    }
+			};
+		}
 
 
-	}, [chatId, chatName]);
+	}, [chatId, chatName, token, userId]);
 
 
 	const sendMessage = async (e: React.FormEvent) =>

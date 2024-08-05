@@ -54,24 +54,24 @@ const GeneralChatsPage: React.FC = () =>
 	return (
 		<div className="flex flex-col h-screen text-white">
 		{/* Top bar */}
-		<div className="px-3 py-2 flex justify-between items-center">
+		<div className="px-3 py-4 flex justify-between items-center">
 		<div className="relative">
 		<button
 		onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-		className="text-white px-3 py-2 rounded flex items-center"
+		className="text-white px-3 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900"
 		>
 		#{(channels && channels[selectedChannel].name) || "off-topic"}
-		<ChevronDownIcon className="w-5 h-5 ml-1" />
+		<ChevronDownIcon className="w-5 h-5 ml-1 mr-2" /> |
 		<p className="ml-2" >
 		{channels && channels[selectedChannel].description}
 		</p>
 		</button>
 		{isDropdownOpen && (
 			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
-			{channels?.map((channel) => (
+			{channels?.map((channel, index) => (
 				<button
 				key={channel.id}
-				onClick={() => handleChannelChange(channels.indexOf(channel))}
+				onClick={() => handleChannelChange(index)}
 				className="block w-full text-left px-4 py-2 hover:bg-blue-700"
 				>
 				{channel.name}
@@ -92,6 +92,7 @@ const GeneralChatsPage: React.FC = () =>
 		</div>
 		</div>
 
+		{/* Chat */}
 		{channels &&
 		<Chat
 		chatId={channels[selectedChannel].id}
