@@ -4,142 +4,139 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Chat } from "@/components/Chat"
 
 import { getAPI } from "@/lib/api";
+import {getToken, getUserInfo } from '@/lib/utils';
+import { marked } from 'marked';
 
 const ChatIcon = () => <span>💬</span>;
 const NotesIcon = () => <span>📝</span>;
 const SyllabusIcon = () => <span>📚</span>;
 const QuestionPapersIcon = () => <span>📄</span>;
 
-interface Subjects
-{
-    'Semester 1': string[];
-    'Semester 2': string[];
-    'Semester 3': string[];
-    'Semester 4': string[];
-    'Semester 5': string[];
-    'Semester 6': string[];
-    'Semester 7': string[];
-    'Semester 8': string[];
-}
-
-const semesters: (keyof Subjects)[] = ['Semester 1', 'Semester 2', 'Semester 3', 'Semester 4', 'Semester 5', 'Semester 6', 'Semester 7', 'Semester 8'];
-
-const subjects: Subjects = 
-{
-    'Semester 1': ['Math', 'Physics', 'Chemistry'],
-    'Semester 2': ['Programming', 'English', 'Economics'],
-    'Semester 3': ['Biology', 'History', 'Geography'],
-    'Semester 4': ['Art', 'Music', 'Dance'],
-    'Semester 5': ['PE', 'Health', 'Computer Science'],
-    'Semester 6': ['Psychology', 'Sociology', 'Philosophy'],
-    'Semester 7': ['Business', 'Marketing', 'Finance'],
-    'Semester 8': ['Engineering', 'Architecture', 'Design'],
-};
 
 interface Channel
 {
-	id: string;
-	name: string;
+	chat_id: string;
 	type: string;
-	description: string;
 	category: string;
-	general_category: string;
-	created_at: string;
-	updated_at: string;
+};
+
+interface Subject
+{
+	subject_id: string;
+	name: string;
+	description: string;
+	syllabus: string;
+	chat: Channel;
 };
 
 interface Semester
 {
-	id: string;
-	name: string;
-	subjects: string[];
+	semester: number;
+	semester_id: string;
+	created_at: string;
+	updated_at: string;
+	subjects: Subject[];
 };
+
+//hacks to load semesters and their subjects faster
+const fastSemesters : number[] = Array.from({length: 8}, (_, i) => i + 1);
+const fastSubjects : number[] = Array.from({length: 6}, (_, i) => i);
+
 const SemesterPage: React.FC = () => 
 {
-    const [selectedSemester, setSelectedSemester] = useState<keyof Subjects>('Semester 1');
-    const initialSubject = subjects[selectedSemester]?.[0] || ''; // Handle potential undefined or null
-    const [selectedSubject, setSelectedSubject] = useState<string>(initialSubject);
-    const [selectedTab, setSelectedTab] = useState<string>('Notes');
-    const [isSemesterDropdownOpen, setIsSemesterDropdownOpen] = useState<boolean>(false);
-    const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState<boolean>(false);
-
 	const [semesters, setSemesters] = useState<Semester[]>();
-	const [channels, setChannels] = useState<Channel[]>();
 
-
+	//getActiveSemester fn for these lads; for now just hardcode the defaults
+    const [selectedSemester, setSelectedSemester] = useState<number>(1);
+    const [selectedSubject, setSelectedSubject] = useState<number>(0);
+	const [isSemesterDropdownOpen, setIsSemesterDropdownOpen] = useState<boolean>(false);
+	const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState<boolean>(false);
+    const [selectedTab, setSelectedTab] = useState<string>("Syllabus");
 
 	useEffect( () =>
 	{
-		const fetchChannels = async () =>
+		const fetchSemesters = async () =>
 		{
 			try
 			{
-				const allChannels = await getAPI("chats/rooms");
-				setChannels(allChannels.filter((channel : Channel) => channel.category === "subject"));
+				const allSemesters = await getAPI("semesters");
+				//console.log(allSemesters);
+				setSemesters(allSemesters);
+				setSelectedSemester(allSemesters[0].semester);
+				setSelectedSubject(0);
 			}
 			catch(error)
 			{
 				console.log("Error fetching channels:\n", error);
 			}
 		};
-		fetchChannels();
-
-		//some socket io shit here
+		fetchSemesters();
 	}, []);
 
-    const handleSemesterChange = (semester: keyof Subjects) =>
+    const handleSemesterChange = (semester: number) =>
 	{
         setSelectedSemester(semester);
-        const initialSubject = subjects[semester]?.[0] || ''; // Handle potential undefined or null
-        setSelectedSubject(initialSubject);
+        setSelectedSubject(0);
         setIsSemesterDropdownOpen(false);
     };
 
-    const handleSubjectChange = (subject: string) => 
+    const handleSubjectChange = (subject: number) => 
 	{
-        setSelectedSubject(subject); setIsSubjectDropdownOpen(false);
+        setSelectedSubject(subject);
+		setIsSubjectDropdownOpen(false);
     };
+
+	const getSelectedChatID = () =>
+	{
+		return semesters && semesters[selectedSemester - 1].subjects[selectedSubject].chat.chat_id || "";
+	}
+	const getSelectedSubjectName = () =>
+	{
+		return semesters && semesters[selectedSemester - 1].subjects[selectedSubject].name || "";
+	}
+
     return (
-		<div className="p-6 text-white min-h-screen">
-		<div className="flex justify-between items-center mb-6">
+		<div className="flex flex-col h-screen text-white ">
+
+
+		<div className="flex px-3 py-4 justify-between items-center">
 
 		<div className="flex space-x-4">
 		<div className="relative">
 		<button
-		onClick={() => setIsSemesterDropdownOpen(!isSemesterDropdownOpen)} className="bg-white text-blue-900 px-4 py-2 rounded flex items-center" >
-		{selectedSemester} <ChevronDownIcon className="w-5 h-5 ml-2" />
+		onClick={() => setIsSemesterDropdownOpen(!isSemesterDropdownOpen)} className="px-4 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900" >
+		Semester {selectedSemester} <ChevronDownIcon className="w-5 h-5 ml-3" />
 		</button>
 
 		{isSemesterDropdownOpen && (
-			<div className="absolute top-full left-0 mt-1 bg-white text-blue-900 rounded shadow-lg z-10">
-			{semesters.map((semester) => (
+			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
+			{fastSemesters.map((semester) => (
 				<button
 				key={semester}
 				onClick={() => handleSemesterChange(semester)}
-				className="block w-full text-left px-4 py-2 hover:bg-blue-100"
+				className="block w-full text-left px-4 py-2 hover:bg-blue-700"
 				>
-				{semester}
+				Semester {semester}
 				</button>
 			))}
 			</div>
 		)}
 		</div>
-
 		<div className="relative">
 		<button
 		onClick={() => setIsSubjectDropdownOpen(!isSubjectDropdownOpen)}
-		className="bg-white text-blue-900 px-4 py-2 rounded flex items-center" >
-		{selectedSubject} <ChevronDownIcon className="w-5 h-5 ml-2" />
+		className="px-4 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900" >
+		{getSelectedSubjectName()} <ChevronDownIcon className="w-5 h-5 ml-2" />
 		</button>
 		{isSubjectDropdownOpen && (
-			<div className="absolute top-full left-0 mt-1 bg-white text-blue-900 rounded shadow-lg z-10">
-			{subjects[selectedSemester].map((subject) => (
+			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
+			{semesters && semesters[selectedSemester - 1].subjects.map((subject, index) => (
 				<button
-				key={subject}
-				onClick={() => handleSubjectChange(subject)}
-				className="block w-full text-left px-4 py-2 hover:bg-blue-100"
+				key={subject.subject_id}
+				onClick={() => handleSubjectChange(index)}
+				className="block w-full text-left px-4 py-2 hover:bg-blue-700"
 				>
-				{subject}
+				{subject.name}
 				</button>
 			))}
 			</div>
@@ -151,58 +148,64 @@ const SemesterPage: React.FC = () =>
 		<button
 		onClick={() => setSelectedTab('Chat')}
 		className={`p-2 rounded ${selectedTab === 'Chat' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<ChatIcon />
+		<ChatIcon/>
 		</button>
 		<button
 		onClick={() => setSelectedTab('Notes')}
 		className={`p-2 rounded ${selectedTab === 'Notes' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<NotesIcon />
+		<NotesIcon/>
 		</button>
 		<button
 		onClick={() => setSelectedTab('Syllabus')}
 		className={`p-2 rounded ${selectedTab === 'Syllabus' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<SyllabusIcon />
+		<SyllabusIcon/>
 		</button>
 		<button
 		onClick={() => setSelectedTab('Question Papers')}
 		className={`p-2 rounded ${selectedTab === 'Question Papers' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<QuestionPapersIcon />
+		<QuestionPapersIcon/>
 		</button>
 		</div>
 
 		</div>
+
+
 		{selectedTab === 'Notes' && (
-			<div>
-			<h2 className="text-xl mb-4">Notes for {selectedSubject}</h2>
+			<div className="ml-3">
+			<h2 className="text-xl mb-4 font-bold">Notes for {selectedSubject}. {getSelectedSubjectName()}</h2>
 			{/* Add a component or logic to display and post note links */}
-			<p>Here you can post and view links to notes.</p>
 			</div>
 		)}
-		{selectedTab === 'Chat' && (
-			<div>
+
+		{selectedTab === 'Chat' && semesters && 
 			<Chat
-			chatId="5b07c1fe-5e3c-43e3-aa99-ac460a29e81f"
-			chatName="off-topic"
-			userId="32c2fabd-98af-452c-a5d7-1fa3ffb42207"
-			userName="bernhardturing"
-			token={localStorage.getItem('token') || ''}
+			chatId={getSelectedChatID()}
+			chatName={getSelectedSubjectName()}
+			userId={getUserInfo()?.user_id}
+			userName={getUserInfo()?.username}
+			token={getToken() || ''}
 			/>
-			</div>
-		)}
+		}
+
 		{selectedTab === 'Syllabus' && (
+			<div className="ml-3">
+			<h2 className="text-xl mb-4 font-bold">Syllabus for {getSelectedSubjectName()}</h2>
+			{semesters && semesters[selectedSemester - 1].subjects[selectedSubject].description}
 			<div>
-			<h2 className="text-xl mb-4">Syllabus for {selectedSubject}</h2>
-			{/* Add syllabus content or component here */}
-			<p>API the syllabus for the selected subject here.</p>
+			{semesters && marked.parse(semesters[selectedSemester - 1].subjects[selectedSubject].syllabus)}
+			</div>
+
 			</div>
 		)}
+
 		{selectedTab === 'Question Papers' && (
-			<div>
-			<h2 className="text-xl mb-4">Question Papers for {selectedSubject}</h2>
+			<div className="ml-3">
+			<h2 className="text-xl mb-4 font-bold">Question Papers for {selectedSubject}</h2>
 			{/* Add a component or logic to display and post question paper links */}
 			<p>Here you can post and view links to question papers.</p>
 			</div>
 		)}
+
 		</div>
 	);
 };
