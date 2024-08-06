@@ -18,6 +18,7 @@ const OtpVerificationPage = () =>
 	const [otp, setOtp] = useState("");
 	const [email, setEmail] = useState("");
 	const [insult, setInsult] = useState("");
+	const [loading, setLoading] = useState(false);
 	const [dumbassCounter, setDumbassCounter] = useState(0);
 	const router = useRouter();
 
@@ -37,6 +38,8 @@ const OtpVerificationPage = () =>
 
 	const handleActivate = async (e: React.FormEvent) => {
 		e.preventDefault();
+		setLoading(true);
+		setInsult('');
 
 		const verificationData = JSON.stringify({
 			email: email,
@@ -64,6 +67,11 @@ const OtpVerificationPage = () =>
 				router.push('/register');
 			}
 		}
+		finally
+		{
+			setLoading(false);
+		}
+
 	};
 
 
@@ -93,7 +101,7 @@ const OtpVerificationPage = () =>
 		<CardHeader className="text-center">
 		<CardTitle className="font-bold text-3xl">Activate Your Account</CardTitle>
 		<CardTitle>Enter the OTP sent to your email</CardTitle>
-		<p className="text-red-600">{insult}</p>
+		{insult && <p className="text-red-600">{insult}</p>}
 		</CardHeader>
 
 		<CardContent>
@@ -111,8 +119,8 @@ const OtpVerificationPage = () =>
 		/>
 		</div>
 
-		<Button type="submit" className="w-full bg-blue-600 font-semibold hover:bg-indigo-600">
-		Activate Account
+		<Button type="submit" className="w-full bg-blue-600 font-semibold hover:bg-indigo-600" disabled={loading}>
+		{loading ? '...' : 'Activate'}
 		</Button>
 
 

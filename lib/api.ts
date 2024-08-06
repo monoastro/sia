@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const URL = "https://electrocord.onrender.com/api/v1/";
+const URL = "http://127.0.0.1:5000/api/v1/";
 
 const getAPI = async (endpoint : string) =>
 {
@@ -53,12 +53,10 @@ const postAPI = async (endpoint : string, postData : any, headers: any = { "Cont
 	}
 }
 
-const putAPI = async (endpoint: string, putData: any) => {
+const putAPI = async (endpoint: string, putData: any, headers: any = {"Content-Type": "application/json"}) => {
     try {
         const response = await axios.put(`${URL}${endpoint}`, putData, {
-			headers: {
-				"Content-Type": "application/json",
-			},
+			headers: headers,
             withCredentials: true
         });
         const { statusCode, data, message } = response.data;
