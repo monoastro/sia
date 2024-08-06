@@ -3,7 +3,7 @@ import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { SendIcon, CirclePlus } from "lucide-react";
 
-import { getAPI } from "@/lib/api"
+import { getAPI, postAPI } from "@/lib/api"
 import io, { Socket } from 'socket.io-client';
 import { defpfpURL, apiBaseUrl } from "@/lib/data";
 
@@ -33,12 +33,14 @@ interface Message
 	createdAt: string;
 }
 
+
 export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName, token} : ChatProps) =>
 {
 	const [message, setMessage] = useState('');
 	const [messages, setMessages] = useState<Message[]>([]); //if this was  c++ this would be circular buffer
 
 	const [socket, setSocket] = useState<Socket | null>(null);
+	const [isConnected, setIsConnected] = useState(false);
 
 	//completely useless as of now
 	const [attachments, setAttachments] = useState<File[]>([]);
@@ -58,7 +60,6 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 		{
 			try 
 			{
-				console.log("Fetching old messages");
 				const oldMessages = await getAPI(`messages/${chatId}`);
 				setMessages(oldMessages);
 				console.log(oldMessages); //for some reason bro is returing the chatId in the message
@@ -71,15 +72,16 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 		populateMessages();
 
 		//some socket io shit here
+		console.log(token, chatId)
 		if (token && chatId)
 		{
-			const newSocket = io('https://electrocord.onrender.com', {
+			const newSocket = io(apiBaseUrl, {
 				auth: { token },
 			});
 			setSocket(newSocket);
 
 			newSocket.on('connect', () => {
-				console.log('Socket connected');
+				setIsConnected(true);
 				newSocket.emit('join', { userId, chatId });
 			});
 
@@ -90,7 +92,7 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 			newSocket.on('disconnect', () => {
 				console.log('Socket disconnected');
 			});
-
+			// populateMessages();
 			return () =>
 			{
 				if (newSocket)
@@ -109,31 +111,48 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 	const sendMessage = async (e: React.FormEvent) =>
 	{
 		e.preventDefault();
-		if (!message.trim())
+		if (!message.trim() && attachments.length ===0)
 		{
 			setError('Message cannot be empty');
 			return;
 		}
+
+    	const uploadedUrls = await Promise.all(attachments.map(uploadFile));
+		// print the uploaded urls and details using map
+		console.log(uploadedUrls);
+		console.log(uploadedUrls[0]);	
+
 		const newMessage: Message = 
 		{
 			senderId: userId,
 			senderName: userName,
 			message,
+			attachments: uploadedUrls.map((url) => ({
+				originalName: url.originalName,
+				uploadedName: url.uploadedName,
+				filePath: url.filePath,
+				fileType: url.fileType,
+			})),
 			createdAt: new Date().toISOString(),
 		};
+		console.log("newMessage: ", newMessage);
 
 		const payload = {
 			chatId,
 			senderId: userId,
 			senderName: userName,
 			message,
+			attachments: uploadedUrls,
 		};
-		socket?.emit('chatMessage', payload);
+		if (isConnected && socket)
+		{
+			socket?.emit('chatMessage', payload);
 
-		setMessages([...messages, newMessage]);
-		setMessage('');
-		setAttachments([]);
-		setError('');
+			setMessages((prevMessages) => [...prevMessages, newMessage]);
+			setMessage('');
+			setAttachments([]);
+			setError('');
+		}
 	};
 
 
@@ -147,27 +166,44 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 		}
 		setAttachments(prev => [...prev, ...files]);
 	};
-	const renderAttachment = (file: Attachment) => {
-		const { filePath, fileType, originalName } = file;
-		switch (true) 
-		{
-			case fileType.startsWith('image'):
-				return <Image src={filePath} alt={originalName} className="w-16 h-16 object-cover rounded-md" />;
-			case fileType.startsWith('video'):
-				return <video src={filePath} controls className="w-64 h-36 object-cover rounded-md mt-2 mr-2" />;
-			case fileType.startsWith('audio'):
-				return (
-					<audio controls className="w-full">
-					<source src={filePath} />
-					</audio>
-			);
-			default:
-				return (
-					<a href={filePath} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-					{originalName}
-					</a>
-			);
+
+	const uploadFile = async (file: File) =>
+	{
+		const formData = new FormData();
+		formData.append('file', file);
+
+		try {
+			const response = await postAPI('attachments/upload', formData, {"Content-Type": "multipart/form-data"});
+			return response[0];
 		}
+		catch (error) {
+			setError('Failed to upload file');
+		}
+	}
+
+
+
+	const renderAttachment = (file: Attachment) => {
+		const { originalName, filePath, fileType } = file;
+		switch (true) 
+			{
+				case fileType.startsWith('image'):
+					return <Image src={filePath} alt={originalName} width={300} height={300} className="w-16 h-16 object-cover rounded-md" />;
+				case fileType.startsWith('video'):
+					return <video src={filePath} controls className="w-64 h-36 object-cover rounded-md mt-2 mr-2" />;
+				case fileType.startsWith('audio'):
+					return (
+						<audio controls className="w-full">
+						<source src={filePath} />
+						</audio>
+				);
+				default:
+					return (
+						<a href={filePath} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+						{originalName}
+						</a>
+				);
+			}
 	};
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden">
@@ -212,6 +248,13 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 
 		<div className="m-2">
 		<div className="flex items-center">
+		
+		<button
+		onClick={() => document.getElementById('attachment-input')?.click()}
+		className="px-4 py-2 bg-blue-900 text-black rounded-l hover:bg-blue-600 focus:outline-none"
+		>
+		<CirclePlus color="#ffffff"/>
+		</button>
 		<input
 		type="file"
 		id="attachment-input"
@@ -219,12 +262,6 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 		multiple
 		onChange={handleFileChange}
 		/>
-		<button
-		onClick={() => document.getElementById('attachment-input')?.click()}
-		className="px-4 py-2 bg-blue-900 text-black rounded-l hover:bg-blue-600 focus:outline-none"
-		>
-		<CirclePlus color="#ffffff"/>
-		</button>
 		<input
 		type="text"
 		value={message}

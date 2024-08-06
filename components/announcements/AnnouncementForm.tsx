@@ -11,18 +11,22 @@ interface Announcement {
   username: string;
   profile_pic: string;
 }
+
 interface AnnouncementFormProps {
   initialValues: Partial<Announcement>;
   onSubmit: (formData: FormData) => void;
   onClose: () => void;
+  loading: boolean;
+  error: string;
 }
 
-const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSubmit, onClose }) => {
+const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSubmit, onClose, loading, error }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [attachmentFile, setAttachmentFile] = useState<File | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
     const formData = new FormData();
     formData.append('title', formValues.title || '');
     formData.append('message', formValues.message || '');
@@ -30,7 +34,12 @@ const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSu
     if (attachmentFile) {
       formData.append('attachment', attachmentFile);
     }
-    onSubmit(formData);
+
+    try {
+      onSubmit(formData);
+    } catch (error : any) {
+      console.error("Failed to submit announcement", error);
+    }
   };
 
   return (
@@ -39,6 +48,7 @@ const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSu
         <h2 className="text-xl font-bold text-white mb-4">
           {initialValues.announcement_id ? 'Update Announcement' : 'Add Announcement'}
         </h2>
+        {error && <p className="text-red-500 mb-4">{error}</p>}
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-white mb-2">Title</label>
@@ -78,13 +88,15 @@ const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSu
             <button
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              disabled={loading}
             >
-              {formValues.announcement_id ? 'Update' : 'Add'}
+              {loading ? 'Submitting...' : formValues.announcement_id ? 'Update' : 'Add'}
             </button>
             <button
               type="button"
               onClick={onClose}
               className="ml-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+              disabled={loading}
             >
               Cancel
             </button>
