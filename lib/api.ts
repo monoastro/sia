@@ -61,20 +61,28 @@ const postAPI = async (endpoint : string, postData : any, headers: any = { "Cont
 	}
 }
 
-const putAPI = async (endpoint: string, putData: any, headers: any = {"Content-Type": "application/json"}) => {
-    try {
-        const response = await axios.put(`${URL}${endpoint}`, putData, {
+const putAPI = async (endpoint: string, putData: any, headers: any = {"Content-Type": "application/json"}) =>
+{
+    try
+	{
+        const response = await axios.put(`${URL}${endpoint}`, putData,
+		{
 			headers: headers,
             withCredentials: true
         });
         const { statusCode, data, message } = response.data;
 
-        if (statusCode === 200 || statusCode === 201) {
+        if (statusCode === 200 || statusCode === 201)
+		{
             return data;
-        } else {
+        }
+		else
+		{
             throw new Error(`Failed to put to ${endpoint} with status code ${statusCode} and message:\n\t\t${message}`);
         }
-    } catch (error) {
+    }
+	catch (error)
+	{
         throw error;
     }
 };

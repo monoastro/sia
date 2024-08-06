@@ -16,6 +16,7 @@ import { setCookie } from 'cookies-next';
 
 import { postAPI } from '@/lib/api';
 
+
 const LoginPage = () =>
 {
 	const [email, setEmail] = useState('');
@@ -37,9 +38,12 @@ const LoginPage = () =>
 			console.log("Requesting electrocord for login");
 			const data = await postAPI('auth/signin', userData);
 
-			localStorage.setItem("userInformation", atob(data.token.split('.')[1]));
-			//console.log(`Login successful.\nLogin Token(Sajen doesn\'t like this method): ${data.token}\n\n`);
+			//In the middle of production, somehow someway base64 encoding changed into base64url encoding,
+			//how you ask? I'd like to know that as well
+			const decoded = atob((data.token.split('.')[1]).replace(/-/g, '+').replace(/_/g, '/'));
+			localStorage.setItem("userInformation", decoded);
 
+			//console.log(`Login successful.\nLogin Token(Sajen doesn\'t like this method): ${data.token}\n\n`);
 			//apparently sending extra shit with the cookie causes the cookie not be sent
 
 			//hijacking the cookie
@@ -56,13 +60,14 @@ const LoginPage = () =>
 		} 
 		catch (error: any)
 		{
+			console.log(error);
 			if (error.response?.status === 400)
 			{
 				setError(error.response.data.message);
 			}
 			else
 			{
-				setError('Failed to login. Please check your internet connection and try again.');
+				setError('Failed to login. Please try again later.');
 			}
 		}
 		finally
