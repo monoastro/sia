@@ -39,13 +39,16 @@ const LoginPage = () =>
 			const data = await postAPI('auth/signin', userData);
 
 			//In the middle of production, somehow someway base64 encoding changed into base64url encoding,
-			//how you ask? I'd like to know that as well
+			//how you ask? I'd like to know that as well - update: figured it out
 			const decoded = atob((data.token.split('.')[1]).replace(/-/g, '+').replace(/_/g, '/'));
 			localStorage.setItem("userInformation", decoded);
 
+			//fun little exercise in base64 encoding
+			//console.log(data.token.split('.')[1]);
+			//console.log((data.token.split('.')[1]).replace(/-/g, '+').replace(/_/g, '/'));
+	
 			//console.log(`Login successful.\nLogin Token(Sajen doesn\'t like this method): ${data.token}\n\n`);
 			//apparently sending extra shit with the cookie causes the cookie not be sent
-
 			//hijacking the cookie
 			setCookie('token', data.token,
 			{
