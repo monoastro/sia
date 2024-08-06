@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Modal from './Modal';
+import { getUserInfo } from '@/lib/utils';
 
 interface Announcement {
   announcement_id: string;
@@ -22,6 +23,7 @@ interface AnnouncementItemProps {
 
 const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const isAdmin = getUserInfo().is_admin;
 
   const renderAttachment = (attachment: string | null) => {
     if (!attachment) return null;
@@ -85,22 +87,22 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
           {new Date(announcement.created_at).toLocaleString()}
         </div>
       </div>
-      <button
+      {isAdmin && <button
         className="absolute top-2 right-2 text-gray-400 hover:text-white"
         onClick={() => handleEditClick(announcement)}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 20h12M6 16h12M6 12h12m-6-8h6m-6 0H6m0 0v14m12-14v14" />
         </svg>
-      </button>
-      <button
+      </button>}
+      {isAdmin && <button
         className="absolute top-2 right-12 text-red-400 hover:text-red-600"
         onClick={() => handleDelete(announcement.announcement_id)}
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
         </svg>
-      </button>
+      </button>}
       {isModalOpen && (
         <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} imageUrl={announcement.attachment || ''}>
           <Image

@@ -1,3 +1,4 @@
+import { getUserInfo } from '@/lib/utils';
 import React from 'react';
 
 type AnnouncementType = 'General' | 'Class' | 'Assignment' | 'Assessment';
@@ -10,6 +11,7 @@ interface TabsProps {
 }
 
 const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm }) => {
+  const isAdmin = getUserInfo().is_admin;
   return (
     <div className="flex mb-6">
       {tabs.map((tab) => (
@@ -25,13 +27,13 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddFo
           {tab} Announcements
         </button>
       ))}
-      <button
+      {isAdmin && <button
         onClick={() => setShowAddForm(true)}
         className="ml-4 text-3xl text-green-500 font-bold hover:text-green-600 focus:outline-none"
         aria-label="Add Announcement"
       >
         +
-      </button>
+      </button>}
     </div>
   );
 };
