@@ -133,7 +133,7 @@ const AnnouncementsPage: React.FC = () => {
   return (
     <div className="min-h-screen p-6">
       <h1 className="text-3xl font-bold text-white mb-6">Announcements</h1>
-      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setShowAddForm={setShowAddForm} />
+      <Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setShowAddForm={setShowAddForm}/>
       <div className="h-[50rem] overflow-y-scroll flex flex-col">
         {isLoading ? (
           <p className="text-white">Loading...</p>
