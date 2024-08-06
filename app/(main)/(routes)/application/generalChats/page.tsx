@@ -41,8 +41,6 @@ const GeneralChatsPage: React.FC = () =>
 			}
 		};
 		fetchChannels();
-
-
 	}, []);
 	
 	const handleChannelChange = (channel: number) =>
@@ -63,7 +61,7 @@ const GeneralChatsPage: React.FC = () =>
 		#{(channels && channels[selectedChannel].name) || "off-topic"}
 		<ChevronDownIcon className="w-5 h-5 ml-1 mr-2" /> |
 		<p className="ml-2" >
-		{channels && channels[selectedChannel].description}
+		{(channels && channels[selectedChannel].description) || "Chat about anything unrelated to the main topics"}
 		</p>
 		</button>
 		{isDropdownOpen && (
