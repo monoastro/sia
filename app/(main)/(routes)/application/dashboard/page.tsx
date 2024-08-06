@@ -101,7 +101,8 @@ const ApplicationHome = () => {
 
 	const router = useRouter();
 
-	const handleLogout = () => {
+	const handleLogout = () =>
+	{
 		deleteCookie('token');
 		console.log("Logging out...");
 		router.push('/login');
