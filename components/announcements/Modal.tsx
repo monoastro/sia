@@ -23,16 +23,25 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, imageUrl }) =>
       }
     };
     document.addEventListener('keydown', handleEscape);
+
+    // Disable scrolling when the modal is open
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
     return () => {
       document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = ''; // Reset overflow when component unmounts
     };
-  }, [onClose]);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-80" onClick={handleOverlayClick}>
-      <div className="bg-gray-900 p-6 rounded-lg relative" ref={modalRef}>
+    <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-80 z-50" onClick={handleOverlayClick}>
+      <div className="bg-gray-900 p-6 rounded-lg relative z-50" ref={modalRef}>
         {children}
         <div className="mt-2 text-left">
           <a href={imageUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-blue-400 underline">
