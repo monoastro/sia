@@ -40,7 +40,6 @@ interface Semester
 
 //hacks to load semesters and their subjects faster
 const fastSemesters : number[] = Array.from({length: 8}, (_, i) => i + 1);
-const fastSubjects : number[] = Array.from({length: 6}, (_, i) => i);
 
 const SemesterPage: React.FC = () => 
 {
