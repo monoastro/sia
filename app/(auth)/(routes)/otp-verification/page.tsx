@@ -18,6 +18,7 @@ const OtpVerificationPage : React.FC = () =>
 	const [otp, setOtp] = useState("");
 	const [email, setEmail] = useState("");
 	const [insult, setInsult] = useState("");
+	const [loading, setLoading] = useState(false);
 	const [dumbassCounter, setDumbassCounter] = useState(0);
 	const router = useRouter();
 
@@ -30,15 +31,18 @@ const OtpVerificationPage : React.FC = () =>
 		}
 		else 
 		{
-			alert("No email provided");
 			router.push('/register');
 		}
 	}, [router]);
 
-	const handleActivate = async (e: React.FormEvent) => {
+	const handleActivate = async (e: React.FormEvent) =>
+	{
 		e.preventDefault();
+		setLoading(true);
+		setInsult('');
 
-		const verificationData = JSON.stringify({
+		const verificationData = JSON.stringify(
+		{
 			email: email,
 			otp_code: otp,
 			request_type: "signup"
@@ -47,7 +51,7 @@ const OtpVerificationPage : React.FC = () =>
 		try
 		{
 			console.log("Verifying OTP");
-			const data = await postAPI('auth/activate/', verificationData);
+			await postAPI('auth/activate/', verificationData);
 			console.log("OTP verified successfully, you may now login");
 			localStorage.removeItem('registrationEmail');
 			router.push('/login');
@@ -59,25 +63,32 @@ const OtpVerificationPage : React.FC = () =>
 			localStorage.removeItem('registrationEmail');
 			setDumbassCounter(dumbassCounter + 1);
 			console.log(dumbassCounter);
-			if (dumbassCounter > 2) // ah the many wonders of react, where 2 means it checks for 3 because for some reason it only increments after this function exits
+ 			// ah the many wonders of react, where 2 means it checks for 3 because
+			// for some reason it only increments after this function exits
+			if (dumbassCounter > 2)
 			{
 				router.push('/register');
 			}
 		}
+		finally
+		{
+			setLoading(false);
+		}
+
 	};
 
 
 	const handleRegenerate = async (e: React.MouseEvent<HTMLAnchorElement>) =>
 	{
-		const regenData = JSON.stringify(
-		{ 
+		e.preventDefault();
+		const regenData = JSON.stringify({ 
 			email: email,
 			request_type: "signup"
 		});
 
 		try
 		{
-			const data = await postAPI('auth/regenerate/', regenData);
+			await postAPI('auth/regenerate/', regenData);
 			setInsult('OTP re-sent successfully, try not to miss it this time.');
 		}
 		catch (error : any)
@@ -93,7 +104,7 @@ const OtpVerificationPage : React.FC = () =>
 		<CardHeader className="text-center">
 		<CardTitle className="font-bold text-3xl">Activate Your Account</CardTitle>
 		<CardTitle>Enter the OTP sent to your email</CardTitle>
-		<p className="text-red-600">{insult}</p>
+		{insult && <p className="text-red-600">{insult}</p>}
 		</CardHeader>
 
 		<CardContent>
@@ -111,8 +122,8 @@ const OtpVerificationPage : React.FC = () =>
 		/>
 		</div>
 
-		<Button type="submit" className="w-full bg-blue-600 font-semibold hover:bg-indigo-600">
-		Activate Account
+		<Button type="submit" className="w-full bg-blue-600 font-semibold hover:bg-indigo-600" disabled={loading}>
+		{loading ? '...' : 'Activate'}
 		</Button>
 
 

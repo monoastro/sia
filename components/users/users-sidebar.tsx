@@ -1,4 +1,3 @@
-import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import React, { useEffect, useState} from "react";
 import { UserItem } from "@/components/users/user-item";

@@ -58,15 +58,17 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 		{
 			try 
 			{
+				console.log("Fetching old messages");
 				const oldMessages = await getAPI(`messages/${chatId}`);
 				setMessages(oldMessages);
-				//console.log(oldMessages); //for some reason bro is returing the chatId in the message
+				console.log(oldMessages); //for some reason bro is returing the chatId in the message
 			}
 			catch (error) 
 			{
 				console.error('Error fetching old messages:', error);
 			}
 		};
+		populateMessages();
 
 		//some socket io shit here
 		if (token && chatId)
@@ -89,7 +91,6 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 				console.log('Socket disconnected');
 			});
 
-			populateMessages();
 			return () =>
 			{
 				if (newSocket)
