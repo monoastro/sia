@@ -29,10 +29,6 @@ const months : string[] = [ 'January', 'February', 'March', 'April', 'May', 'Jun
 const days : number[] = Array.from({ length: 31 }, (_, i) => i + 1);
 const years : number[] = Array.from({ length: 100 }, (_, i) => new Date().getFullYear() - i);
 
-const adminEmails : string[] = 
-[
-	"jenish.078bei018@tcioe.edu.np"
-];
 
 const RegisterPage = () => 
 {
@@ -43,6 +39,9 @@ const RegisterPage = () =>
 	const [password, setPassword] = useState('');
 	const [confirmPassword, setConfirmPassword] = useState('');
 	const [date, setDate] = useState<{ year: string; month: string; day: string}>({ year: '', month: '', day: '', });
+	const [profilePicture, setProfilePicture] = useState<File | null>(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState('');
 	const [openPopover, setOpenPopover] = useState<string | null>(null);
 
 	const router = useRouter();
@@ -54,32 +53,47 @@ const RegisterPage = () =>
 
 		if (password !== confirmPassword)
 		{
-			alert("Passwords don't match!");
+			setError("Passwords don't match!");
 			return;
 		}
 
-		const userData = JSON.stringify({
-			username,
-			fullname: `${firstName} ${lastName}`,
-			email,
-			dob: `${date.year}-${months.indexOf(date.month) + 1}-${date.day}`,
-			password1: password,
-			password2: confirmPassword,
-			is_admin: adminEmails.includes(email) //make bibek put this admin check in the backend
-		});
+		setLoading(true);
+
+		const formData = new FormData();
+		formData.append('username', username);
+		formData.append('fullname', `${firstName} ${lastName}`);
+		formData.append('email', email);
+		formData.append('dob', `${date.year}-${months.indexOf(date.month) + 1}-${date.day}`);
+		formData.append('password1', password);
+		formData.append('password2', confirmPassword);
+		if (profilePicture) {
+		formData.append('profile_picture', profilePicture);
+		}
 
 		try
 		{
 			console.log("Sending registration data to electrocord")
-			console.log(userData);
-			const data = await postAPI('auth/signup', userData);
+			console.log(formData);
+			const data = await postAPI('auth/signup', formData);
 			localStorage.setItem('registrationEmail', data.user[0].email);
+			console.log("Registration Email", data.user[0].email);
 			router.push('/otp-verification');
 		} 
-		catch (error)
+		catch (error : any)
 		{
-			console.error(error);
+			if (error.response) {
+			if (error.response.status === 400) {
+				setError(error.response.data.message);
+			}
+			else {
+				setError('An unexpected error occurred. Please try again later.');
+			}
 		}
+		}
+		finally
+		{
+			setLoading(false);
+		}	
 	};
 
 
@@ -97,6 +111,7 @@ const RegisterPage = () =>
 
 		<CardContent>
 		<form className="space-y-4" onSubmit={handleSubmit}>
+		{error && <p className="text-red-600">{error}</p>}
 		<div className="grid grid-cols-2 gap-2">
 		<Input
 		type="text"
@@ -172,8 +187,19 @@ const RegisterPage = () =>
 		/>
 		</div>
 
-		<div className="grid grid-cols-3 gap-2 w-full">
+		<div>
+		<Input
+		type="file"
+		id="profilePicture"
+		name="profilePicture"
+		placeholder="Profile Picture"
+		accept='image/*'
+		className="mt-1 block w-full"
+		onChange={(e) => setProfilePicture(e.target.files?.[0] || null)}
+		/>
+		</div>
 
+		<div className="grid grid-cols-3 gap-2 w-full">
 		<Popover open={openPopover === 'month'} onOpenChange={(open) => setOpenPopover(open ? 'month' : null)}>
 		<PopoverTrigger asChild>
 		<Button
@@ -262,8 +288,8 @@ const RegisterPage = () =>
 		</Popover>
 		</div>
 
-		<Button type="submit" className="w-full bg-blue-600 font-semibold hover:bg-indigo-600">
-		REGISTER
+		<Button type="submit" className="w-full bg-blue-600 font-semibold hover:bg-indigo-600" disabled={loading}>
+		{loading ? '...' : 'REGISTER'}
 		</Button>
 		</form>
 		</CardContent>
