@@ -1,4 +1,3 @@
-//done
 "use client";
 
 import React, { useState, FormEvent } from 'react';
@@ -17,16 +16,21 @@ import { setCookie } from 'cookies-next';
 
 import { postAPI } from '@/lib/api';
 
-const LoginPage : React.FC = () => {
+const LoginPage = () =>
+{
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [error, setError] = useState('');
+	const [loading, setLoading] = useState(false);
 	const router = useRouter();
-	
 
-	const handleSubmit = async (e : FormEvent<HTMLFormElement>) =>
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) =>
 	{
 		e.preventDefault();
 		const userData = JSON.stringify({ email, password });
+
+		setLoading(true);
+		setError('');
 
 		try
 		{
@@ -35,13 +39,13 @@ const LoginPage : React.FC = () => {
 
 			localStorage.setItem("userInformation", atob(data.token.split('.')[1]));
 			//console.log(`Login successful.\nLogin Token(Sajen doesn\'t like this method): ${data.token}\n\n`);
-			
+
 			//apparently sending extra shit with the cookie causes the cookie not be sent
 
 			//hijacking the cookie
-			setCookie('token', `token=${data.token}`,
+			setCookie('token', data.token,
 			{
-				maxAge:  data.expiresIn,
+				maxAge: data.expiresIn,
 				path: '/',
 				secure: true, 
 				sameSite: "none"
@@ -50,12 +54,23 @@ const LoginPage : React.FC = () => {
 
 			router.push('/application/dashboard');
 		} 
-		catch (error) 
+		catch (error: any)
 		{
-			alert('Failed to login. Please try again.');
-			console.error(error);
+			if (error.response?.status === 400)
+			{
+				setError(error.response.data.message);
+			}
+			else
+			{
+				setError('Failed to login. Please check your internet connection and try again.');
+			}
+		}
+		finally
+		{
+			setLoading(false);
 		}
 	};
+
 	return (
 		<Card className="w-full max-w-9xl p-6 bg-blue-100">
 
@@ -66,6 +81,7 @@ const LoginPage : React.FC = () => {
 
 		<CardContent className="justify-center w-2/3 mx-auto">
 		<form className="space-y-4" onSubmit={handleSubmit}>
+		{error && <p className="text-red-600">{error}</p>}
 		<div>
 		<Input
 		type="email"
@@ -98,7 +114,7 @@ const LoginPage : React.FC = () => {
 
 		<div className="w-full flex justify-center">
 		<Button type="submit" className="w-1/2 rounded bg-blue-600 font-semibold text-sm hover:bg-indigo-600">
-		LOG IN
+		{loading ? '...' : 'LOG IN'}
 		</Button>
 		</div>
 
@@ -116,4 +132,3 @@ const LoginPage : React.FC = () => {
 };
 
 export default LoginPage;
-
