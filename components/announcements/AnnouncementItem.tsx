@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Modal from './Modal';
+import { getUserInfo } from '@/lib/utils';
 
 interface Announcement {
   announcement_id: string;
@@ -20,7 +21,7 @@ interface AnnouncementItemProps {
   handleEditClick: (announcement: Announcement) => void;
 }
 
-const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick }) => {
+const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const renderAttachment = (attachment: string | null) => {
@@ -85,6 +86,7 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
           {new Date(announcement.created_at).toLocaleString()}
         </div>
       </div>
+
       <button
         className="absolute top-2 right-2 text-gray-400 hover:text-white"
         onClick={() => handleEditClick(announcement)}

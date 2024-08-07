@@ -74,8 +74,9 @@
 // 		console.log('Profile Picture:', profilePicture);
 // 	}
 
-// */
+// */"use client";
 "use client";
+
 
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -98,14 +99,17 @@ const ApplicationHome = () => {
 	const [isEditing, setIsEditing] = useState(false);
 	const [formData, setFormData] = useState({ ...userInfo });
 	const [profilePictureFile, setProfilePictureFile] = useState<File | null>(null);
+	const [loading, setLoading] = useState(false);
+	const [error, setError] = useState("");
 
 	const router = useRouter();
 
 	const handleLogout = () =>
 	{
 		deleteCookie('token');
-		console.log("Logging out...");
+	
 		router.push('/login');
+		console.log("Logging out...");
 	};
 
 	useEffect(() =>
@@ -146,6 +150,8 @@ const ApplicationHome = () => {
 	const handleFormSubmit = async (e: React.FormEvent) =>
 	{
 		e.preventDefault();
+		setLoading(true);
+		setError("");
 		const updatedFormData = new FormData();
 		updatedFormData.append('username', formData.username || '');
 		updatedFormData.append('email', formData.email || '');
@@ -161,9 +167,20 @@ const ApplicationHome = () => {
 			setUserInfo({ ...formData, profile_pic: userInfo.profile_pic });
 			setIsEditing(false);
 		}
-		catch (error)
+		catch (error: any)
 		{
-			console.error("Failed to update user information", error);
+			if (error.response) {
+				console.error("Failed to update user information", error);
+				setError(error.response.details[0]);				
+			} else {
+				console.error("Failed to update user information", error);
+				setError("Failed to update user information");
+			}
+			
+		}
+		finally
+		{
+			setLoading(false);
 		}
 	};
 
@@ -205,6 +222,8 @@ const ApplicationHome = () => {
 					handleFormSubmit={handleFormSubmit}
 					setProfilePictureFile={setProfilePictureFile}
 					closeModal={() => setIsEditing(false)}
+					loading={loading}
+					error={error}
 				/>
 			)}
 

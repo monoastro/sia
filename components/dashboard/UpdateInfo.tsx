@@ -12,6 +12,8 @@ interface UpdateInfoFormProps {
     handleFormSubmit: (e: React.FormEvent) => void;
     setProfilePictureFile: (file: File | null) => void;
     closeModal: () => void;
+    loading: boolean;
+    error: string;
 }
 
 const UpdateInfoForm: React.FC<UpdateInfoFormProps> = ({
@@ -21,6 +23,8 @@ const UpdateInfoForm: React.FC<UpdateInfoFormProps> = ({
     handleFormSubmit,
     setProfilePictureFile,
     closeModal,
+    loading,
+    error
 }) => {
     return (
         <div className="fixed flex items-center justify-center z-50 bg-black bg-opacity-50 h-full w-1/2">
@@ -72,11 +76,13 @@ const UpdateInfoForm: React.FC<UpdateInfoFormProps> = ({
                             className="w-full px-3 py-2 bg-gray-700 text-white rounded"
                         />
                     </div>
-                    <div className="flex justify-end mt-20">
-                        <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">
-                            Save Changes
+                    {error && <p className="text-red-500">{error}</p>}
+
+                    <div className="flex justify-end mt-10">
+                        <button type="submit" className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600" disabled={loading}>
+                            {loading ? 'Saving...' : 'Save Changes'}
                         </button>
-                        <button type="button" onClick={closeModal} className="ml-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700">
+                        <button type="button" onClick={closeModal} className="ml-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700" disabled={loading}>
                             Cancel
                         </button>
                     </div>

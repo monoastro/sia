@@ -9,7 +9,7 @@ interface TabsProps {
   setShowAddForm: (show: boolean) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm }) => {
+const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm}) => {
   return (
     <div className="flex mb-6">
       {tabs.map((tab) => (
