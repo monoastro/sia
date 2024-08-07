@@ -9,7 +9,7 @@ const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/r
 export const middleware = (request: NextRequest) =>
 {
 	const { pathname } = request.nextUrl;
-	//console.log("[Path: ", pathname, "]");
+	console.log("[Path: ", pathname, "]");
 
 	//check if cookie is valid
 	const cookie = request.cookies.get('token');

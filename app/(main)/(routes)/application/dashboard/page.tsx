@@ -126,8 +126,6 @@ const ApplicationHome = () => {
 				{
 					router.push('/login');
 				}
-				//local storage probably needs to be updated
-				//update local storage later future me, i'm focusing on this merging
 			}
 			catch (error)
 			{
