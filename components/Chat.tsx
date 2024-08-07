@@ -56,7 +56,6 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
    */
 	useEffect(() =>
 	{
-		console.log("Hollow World");
 		const populateMessages = async () => 
 		{
 			try 
