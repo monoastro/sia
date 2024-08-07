@@ -60,6 +60,7 @@ const LoginPage = () =>
 			console.log(`Hijacked Cookie: ${document.cookie}`);
 
 			router.push('/application/dashboard');
+			return; //to prevent the login button from being active again after it's looooooooogging in a
 		} 
 		catch (error: any)
 		{
