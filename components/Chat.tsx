@@ -56,13 +56,14 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
    */
 	useEffect(() =>
 	{
+		console.log("Hollow World");
 		const populateMessages = async () => 
 		{
 			try 
 			{
 				const oldMessages = await getAPI(`messages/${chatId}`);
 				setMessages(oldMessages);
-				console.log(oldMessages); //for some reason bro is returing the chatId in the message
+				//console.log(oldMessages); //for some reason bro is returing the chatId in the message
 			}
 			catch (error) 
 			{
@@ -72,7 +73,7 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 		populateMessages();
 
 		//some socket io shit here
-		console.log(token, chatId)
+		console.log(`${token}\n${chatId}`)
 		if (token && chatId)
 		{
 			const newSocket = io(apiBaseUrl, {
@@ -81,6 +82,7 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 			setSocket(newSocket);
 
 			newSocket.on('connect', () => {
+				console.log("Socket Connected");
 				setIsConnected(true);
 				newSocket.emit('join', { userId, chatId });
 			});
@@ -119,8 +121,8 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 
     	const uploadedUrls = await Promise.all(attachments.map(uploadFile));
 		// print the uploaded urls and details using map
-		console.log(uploadedUrls);
-		console.log(uploadedUrls[0]);	
+		//console.log(uploadedUrls);
+		//console.log(uploadedUrls[0]);	
 
 		const newMessage: Message = 
 		{
