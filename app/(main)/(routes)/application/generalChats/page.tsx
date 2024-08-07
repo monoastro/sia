@@ -4,7 +4,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Chat } from "@/components/Chat"
 
 import { getAPI } from "@/lib/api";
-import {getToken, getUserInfo } from '@/lib/utils';
+import {getToken, getUserInfoLocal } from '@/lib/utils';
 
 interface Channel
 {
@@ -95,8 +95,8 @@ const GeneralChatsPage: React.FC = () =>
 		<Chat
 		chatId={channels[selectedChannel].id}
 		chatName={channels[selectedChannel].name}
-		userId={getUserInfo()?.user_id}
-		userName={getUserInfo()?.username}
+		userId={getUserInfoLocal()?.user_id}
+		userName={getUserInfoLocal()?.username}
 		token={getToken() || ''}
 		/>
 		}

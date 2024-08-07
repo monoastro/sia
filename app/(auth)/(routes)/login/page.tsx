@@ -42,7 +42,7 @@ const LoginPage = () =>
 			//how you ask? I'd like to know that as well - update: figured it out
 			const decoded = atob((data.token.split('.')[1]).replace(/-/g, '+').replace(/_/g, '/'));
 			localStorage.setItem("userInformation", decoded);
-
+			
 			//fun little exercise in base64 encoding
 			//console.log(data.token.split('.')[1]);
 			//console.log((data.token.split('.')[1]).replace(/-/g, '+').replace(/_/g, '/'));
@@ -63,7 +63,6 @@ const LoginPage = () =>
 		} 
 		catch (error: any)
 		{
-			console.log(error);
 			if (error.response?.status === 400)
 			{
 				setError(error.response.data.message);
@@ -121,7 +120,7 @@ const LoginPage = () =>
 		</p>
 
 		<div className="w-full flex justify-center">
-		<Button type="submit" className="w-1/2 rounded bg-blue-600 font-semibold text-sm hover:bg-indigo-600">
+		<Button type="submit" className="w-1/2 rounded bg-blue-600 font-semibold text-sm hover:bg-indigo-600" disabled={loading}>
 		{loading ? '...' : 'LOG IN'}
 		</Button>
 		</div>

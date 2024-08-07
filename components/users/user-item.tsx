@@ -26,7 +26,16 @@ export function UserItem({ id, name, imageUrl }: UserItemProps)
 		<div className="hover:bg-indigo-500/10 rounded-lg transition-all">
 		<button onClick={onClick} className="group relative flex items-center w-full p-2 hover:bg-primary/10 rounded-lg transition-all">
 		<div className="relative flex h-[32px] w-[32px] rounded-full overflow-hidden mr-2">
-		<Image fill src={imageUrl} alt={name} />
+		<Image
+		fill
+		src={imageUrl}
+		alt={name}
+		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+		style={{
+			objectFit: 'contain'
+		}}
+		className="image-scale"
+		/>
 		</div>
 		<span className="text-sm font-medium">{name}</span>
 		</button>

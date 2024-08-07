@@ -15,7 +15,6 @@ If you are too lazy to click the link, here's a little preview of the website.
 ![loginPage](public/loginPage.png)
 ## Getting Started
 
-
 First, install the necessary packages using the npm as:
 ```bash
 npm i
@@ -39,4 +38,6 @@ This project is deployed @ [Vercel](https://sia-electrocord.vercel.app/)
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-
+> [!Bug]
+> - If you find any bugs, please report them to the issues section of this repository.
+> - If you have any suggestions, please report them to the issues section of this repository.
