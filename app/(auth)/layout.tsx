@@ -16,17 +16,12 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) =>
 		</div>
 
 		<div className="hidden lg:flex flex-1 items-center justify-center p-8">
-		<div className="relative w-full h-full">
-		<button onClick={() => router.push('/')}>
-		<Image
+		<div className="w-full h-full">
+		<button onClick={() => router.push('/')} className="w-full h-full">
+		<img
 		src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg"
 		alt="EMotional support aniMAl"
-		fill
-		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-		style={{
-			objectFit: 'contain'
-		}}
-		className="image-scale"
+		className="w-full h-full object-contain image-scale"
 		/>
 		</button>
 		</div>
@@ -35,5 +30,22 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) =>
 		</div>
 	);
 }
-
 export default AuthLayout;
+
+//backup to tinker at later because documentation says using Image is better 
+/*
+	<div className="relative w-full h-full">
+	<button onClick={() => router.push('/')}>
+	<Image
+	src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg"
+	alt="EMotional support aniMAl"
+	fill
+	sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+	style={{
+objectFit: 'contain'
+}}
+className="image-scale"
+/>
+</button>
+</div>
+*/

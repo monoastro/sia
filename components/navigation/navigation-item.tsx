@@ -40,7 +40,9 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 		fill 
 		src={imageUrl} 
 		alt="Tabs"
-		className="transition-transform transform group-hover:scale-110 group-hover:rotate-3" />
+		sizes="(max-width: 768px) 48px, 48px" //random sizes for now, adjust this later if the image is too small/big
+		className="transition-transform transform group-hover:scale-110 group-hover:rotate-3"
+		/>
 		</div>
 
 		</button>

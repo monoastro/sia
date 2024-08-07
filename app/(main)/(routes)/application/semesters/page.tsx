@@ -4,7 +4,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { Chat } from "@/components/Chat"
 
 import { getAPI } from "@/lib/api";
-import {getToken, getUserInfo } from '@/lib/utils';
+import {getToken, getUserInfoLocal } from '@/lib/utils';
 import { MarkdownRenderer } from '@/components/markdownRenderer';
 
 const ChatIcon = () => <span>💬</span>;
@@ -180,8 +180,8 @@ const SemesterPage: React.FC = () =>
 			<Chat
 			chatId={getSelectedChatID()}
 			chatName={getSelectedSubjectName()}
-			userId={getUserInfo()?.user_id}
-			userName={getUserInfo()?.username}
+			userId={getUserInfoLocal()?.user_id}
+			userName={getUserInfoLocal()?.username}
 			token={getToken() || ''}
 			/>
 		}

@@ -6,7 +6,7 @@ function cn(...inputs: ClassValue[])
   return twMerge(clsx(inputs))
 }
 
-const getUserInfo = () =>
+const getUserInfoLocal = () =>
 {
 	if (typeof window !== "undefined" && typeof localStorage !== "undefined")
 	{
@@ -16,6 +16,27 @@ const getUserInfo = () =>
 	return null;
 }
 
+interface UserInfo
+{
+	user_id: number;
+	username: string;
+	email: string;
+	dob: string;
+	profile_pic: string;
+	is_admin: boolean;
+}
+
+
+const setUserInfoLocal = (userInfo: UserInfo) =>
+{
+	if (typeof window !== "undefined" && typeof localStorage !== "undefined")
+	{
+		//destructure the previous user information with the new user information, update the local storage
+		//because the users/userid endpoint doesn't return iat and exp
+		localStorage.setItem("userInformation",
+		getUserInfoLocal() ? JSON.stringify({ ...getUserInfoLocal(), ...userInfo }) : JSON.stringify(userInfo));
+	}
+}
 const getToken = () =>
 {
 	if (typeof window !== "undefined" && typeof localStorage !== "undefined")
@@ -26,7 +47,7 @@ const getToken = () =>
 }
 
 
-export { cn, getUserInfo, getToken }
+export { cn, getUserInfoLocal, getToken, setUserInfoLocal }
 
 // <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
 

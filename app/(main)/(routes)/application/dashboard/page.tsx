@@ -6,7 +6,7 @@
 // import { deleteCookie } from 'cookies-next';
 // import axios from 'axios';
 
-// import {getUserInfo} from "@/lib/utils";
+// import {getUserInfoLocal} from "@/lib/utils";
 // import {defpfpURL} from "@/lib/data";
 
 // const ApplicationHome = () => {
@@ -26,7 +26,7 @@
 // 	useEffect(() =>
 // 	{
 // 		//ideally this would be an api call to get the user information since user information may change
-// 		const userInformation = getUserInfo();
+// 		const userInformation = getUserInfoLocal();
 // 		if (!userInformation) 
 // 		{
 // 			router.push('/login');
@@ -68,7 +68,7 @@
 //  * <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
 //  	const test = () =>
 // 	{
-// 		console.log(getUserInfo());
+// 		console.log(getUserInfoLocal());
 
 // 		console.log('Username:', username);
 // 		console.log('Profile Picture:', profilePicture);
@@ -84,7 +84,7 @@ import { deleteCookie } from 'cookies-next';
 
 import { getAPI, putAPI } from '@/lib/api'; 
 import { defpfpURL } from "@/lib/data";
-import { getUserInfo } from '@/lib/utils';
+import { getUserInfoLocal, setUserInfoLocal } from '@/lib/utils';
 import UpdateInfoForm from '@/components/dashboard/UpdateInfo';
 
 const ApplicationHome = () => {
@@ -110,7 +110,7 @@ const ApplicationHome = () => {
 
 	useEffect(() =>
 	{
-		const userId = getUserInfo().user_id;
+		const userId = getUserInfoLocal().user_id;
 		const fetchUserInfo = async () =>
 		{
 			try 
@@ -118,9 +118,9 @@ const ApplicationHome = () => {
 				const data = await getAPI(`users/${userId}`);
 				if (data)
 				{
-					console.log(data[0]);
 					setUserInfo(data[0]);
 					setFormData(data[0]);
+					setUserInfoLocal(data[0]);
 				}
 				else
 				{
@@ -173,17 +173,21 @@ const ApplicationHome = () => {
 		<div className="min-h-screen flex flex-col items-center justify-center p-8 text-center text-white">
 			<h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
 
-			<div className="mb-4">
-				<Image
-					src={userInfo.profile_pic || defpfpURL}
-					alt="Profile Picture"
-					width={200}  
-					height={200} 
-					className="rounded-full mx-auto"
-					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-				/>
+			<div className="mb-4 relative w-48 h-48">
+			<Image
+			src={userInfo.profile_pic || defpfpURL}
+			alt="Profile Picture"
+			fill
+			className="rounded-full mx-auto"
+			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+			/>
 			</div>
-
+{/*
+			width={200}  
+			height={200}
+			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+			style={{ width: '200px', height: '200px' }} // Optional inline style
+*/}
 			<p className="text-xl mb-4">Hello, {userInfo.username}!</p>
 
 			<div className="mb-4">

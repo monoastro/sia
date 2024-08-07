@@ -176,7 +176,12 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 			<div key={index} className="mb-4">
 			<div className="flex items-center">
 			<div className="relative h-[26px] w-[26px] rounded-full mr-2">
-			<Image fill src={defpfpURL} alt={"pfp"} />
+			<Image 
+			fill 
+			src={defpfpURL} 
+			alt={"pfp"}
+			sizes="(max-width: 768px) 100vw, 50vw"
+			/>
 			</div>
 			<strong>
 			<span className="text-violet-600"> {msg.senderName}</span> 
