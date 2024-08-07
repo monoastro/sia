@@ -205,7 +205,7 @@ const RegisterPage : React.FC = () =>
 		<div className="grid grid-cols-3 gap-2 w-full">
 		<Popover open={openPopover === 'month'} onOpenChange={(open) => setOpenPopover(open ? 'month' : null)}>
 		<PopoverTrigger asChild>
-		<Button
+		<Input
 		variant={"outline"}
 		className={cn("justify-start text-left font-normal", !date && "text-muted-foreground")}
 		onClick={() => setOpenPopover(openPopover === 'month' ? null : 'month')}
@@ -298,6 +298,7 @@ const RegisterPage : React.FC = () =>
 		name="profilePicture"
 		placeholder="Profile Picture"
 		accept="image/*"
+		required
 		className="mt-1 block w-full"
 		onChange={(e) => setProfilePicture(e.target.files?.[0] || null)}
 		onMouseEnter={(e) => e.currentTarget.style.cursor = "pointer"}

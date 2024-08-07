@@ -5,7 +5,8 @@ import { SendIcon, CirclePlus } from "lucide-react";
 
 import { getAPI, postAPI } from "@/lib/api"
 import io, { Socket } from 'socket.io-client';
-import { defpfpURL, apiBaseUrl } from "@/lib/data";
+import {defpfpURL, apiBaseUrl } from "@/lib/data";
+import {getUserInfoLocal} from "@/lib/utils";
 
 interface ChatProps
 {
@@ -187,28 +188,33 @@ export const Chat : React.FC<ChatProps> = ({ chatId, chatName, userId, userName,
 	const renderAttachment = (file: Attachment) => {
 		const { originalName, filePath, fileType } = file;
 		switch (true) 
-			{
-				case fileType.startsWith('image'):
-					return <Image src={filePath} alt={originalName} width={300} height={300} className="w-16 h-16 object-cover rounded-md" />;
-				case fileType.startsWith('video'):
-					return <video src={filePath} controls className="w-64 h-36 object-cover rounded-md mt-2 mr-2" />;
-				case fileType.startsWith('audio'):
-					return (
-						<audio controls className="w-full">
-						<source src={filePath} />
-						</audio>
-				);
-				default:
-					return (
-						<a href={filePath} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
-						{originalName}
-						</a>
-				);
-			}
+		{
+			case fileType.startsWith('image'):
+				return <Image src={filePath} alt={originalName} width={300} height={300} className="w-16 h-16 object-cover rounded-md" />;
+			case fileType.startsWith('video'):
+				return <video src={filePath} controls className="w-64 h-36 object-cover rounded-md mt-2 mr-2" />;
+			case fileType.startsWith('audio'):
+				return (
+					<audio controls className="w-full">
+					<source src={filePath} />
+					</audio>
+			);
+			default:
+				return (
+					<a href={filePath} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">
+					{originalName}
+					</a>
+			);
+		}
 	};
+
+	if(!messages)
+	{
+		return null;
+	}
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden">
-		<div className="flex-grow overflow-y-auto chat-scrollbar">
+		<div className="flex-grow overflow-y-auto slick-scrollbar">
 		{messages.map((msg, index) => (
 			<div key={index} className="mb-4">
 			<div className="flex items-center">

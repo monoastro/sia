@@ -49,6 +49,11 @@ const GeneralChatsPage: React.FC = () =>
 		setIsDropdownOpen(false);
 	};
 
+	if(!channels)
+	{
+		return null;
+	}
+
 	return (
 		<div className="flex flex-col h-screen text-white">
 		{/* Top bar */}

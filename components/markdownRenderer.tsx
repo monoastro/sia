@@ -7,7 +7,7 @@ interface Props
 }
 
 const MarkdownRenderer: React.FC<Props> = ({ markdownContent }) => { return (
-    <div className="h-[80vh] overflow-y-auto chat-scrollbar">
+    <div className="h-[80vh] overflow-y-auto slick-scrollbar">
       <ReactMarkdown>{markdownContent}</ReactMarkdown>
     </div>
   );
