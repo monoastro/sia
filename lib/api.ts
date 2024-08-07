@@ -1,5 +1,5 @@
 import axios from "axios";
-import { apiBaseUrl } from "./data";
+import { apiBaseUrl, apiBaseUrlLocal } from "./data";
 
 const URL = `${apiBaseUrl}/api/v1/`;
 

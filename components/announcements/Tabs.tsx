@@ -1,3 +1,4 @@
+import { set } from 'date-fns';
 import React from 'react';
 
 type AnnouncementType = 'General' | 'Class' | 'Assignment' | 'Assessment';
@@ -7,9 +8,10 @@ interface TabsProps {
   activeTab: AnnouncementType;
   setActiveTab: (tab: AnnouncementType) => void;
   setShowAddForm: (show: boolean) => void;
+  setAddAnnouncementError: (error: string) => void;
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm}) => {
+const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm, setAddAnnouncementError}) => {
   return (
     <div className="flex mb-6">
       {tabs.map((tab) => (
@@ -26,7 +28,12 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddFo
         </button>
       ))}
       <button
-        onClick={() => setShowAddForm(true)}
+        onClick={
+          () => {
+            setShowAddForm(true);
+            setAddAnnouncementError('');
+          }
+        }
         className="ml-4 text-3xl text-green-500 font-bold hover:text-green-600 focus:outline-none"
         aria-label="Add Announcement"
       >

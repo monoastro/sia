@@ -19,7 +19,6 @@ interface AnnouncementFormProps {
   loading: boolean;
   error: string;
 }
-
 const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSubmit, onClose, loading, error }) => {
   const [formValues, setFormValues] = useState(initialValues);
   const [attachmentFile, setAttachmentFile] = useState<File | null>(null);
@@ -35,11 +34,7 @@ const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSu
       formData.append('attachment', attachmentFile);
     }
 
-    try {
-      onSubmit(formData);
-    } catch (error : any) {
-      console.error("Failed to submit announcement", error);
-    }
+    onSubmit(formData);
   };
 
   return (

@@ -29,5 +29,5 @@ const getActualRouteName : string[] =
 	"generalChats",
 ]
 
+export { tabs, defpfpLocal, defpfpURL, getActualRouteName, apiBaseUrl, apiBaseUrlLocal};
 
-export { tabs, defpfpLocal, defpfpURL, getActualRouteName, apiBaseUrl};

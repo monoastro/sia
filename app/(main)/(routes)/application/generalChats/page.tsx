@@ -101,7 +101,8 @@ const GeneralChatsPage: React.FC = () =>
 		chatId={channels[selectedChannel].id}
 		chatName={channels[selectedChannel].name}
 		userId={getUserInfoLocal()?.user_id}
-		userName={getUserInfoLocal()?.username}
+		userName={getUserInfoLocal()?.username}	
+		userPfp={getUserInfoLocal()?.profile_pic}
 		token={getToken() || ''}
 		/>
 		}

@@ -184,6 +184,7 @@ const SemesterPage: React.FC = () =>
 			chatName={getSelectedSubjectName()}
 			userId={getUserInfoLocal()?.user_id}
 			userName={getUserInfoLocal()?.username}
+			userPfp={getUserInfoLocal()?.profile_pic}
 			token={getToken() || ''}
 			/>
 		}
