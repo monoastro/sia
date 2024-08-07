@@ -4,3 +4,5 @@
 - [x] which endpoint am I supposed to use in resetPassword? - done
 - [ ] cache the active/last fetched results so that it doesn't have to fetch every time the tab is switched again(semesters/general chat, syllabus, notes, qp, routine) ; maybe make a general caching component
 - [ ] implements the chats array as a circular buffer
+- [ ] implement create, update and delete feature for semester, subject, resources
+- [ ] implement message update feature and if possible add, update and delete general chats as well

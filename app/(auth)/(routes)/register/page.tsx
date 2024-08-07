@@ -71,6 +71,7 @@ const RegisterPage : React.FC = () =>
 		{
 			formData.append('profile_picture', profilePicture);
 		}
+		console.log("Sending registration data to electrocord", formData);
 /*
 		const userData = JSON.stringify({
 			username,
@@ -86,7 +87,7 @@ const RegisterPage : React.FC = () =>
 		{
 			console.log("Sending registration data to electrocord")
 			console.log(formData);
-			const data = await postAPI('auth/signup', formData);
+			const data = await postAPI('auth/signup', formData, { 'Content-Type': 'multipart/form-data' });
 			localStorage.setItem('registrationEmail', data.user[0].email);
 			console.log("Registration Email", data.user[0].email);
 			router.push('/otp-verification');
@@ -108,6 +109,17 @@ const RegisterPage : React.FC = () =>
 			setLoading(false);
 		}	
 	};
+
+	const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) =>
+	{
+		const files = e.target.files;
+		if (files && files.length > 0)
+		{
+			setProfilePicture(files[0]);
+		}
+		console.log("Profile Picture", profilePicture);
+	};
+
 
 
 	const handleDateSelect = (type: string, value: string) => 
@@ -300,7 +312,7 @@ const RegisterPage : React.FC = () =>
 		accept="image/*"
 		required
 		className="mt-1 block w-full"
-		onChange={(e) => setProfilePicture(e.target.files?.[0] || null)}
+		onChange={handleProfilePictureChange}
 		onMouseEnter={(e) => e.currentTarget.style.cursor = "pointer"}
 		/>
 		</div>
