@@ -205,7 +205,7 @@ const RegisterPage : React.FC = () =>
 		<div className="grid grid-cols-3 gap-2 w-full">
 		<Popover open={openPopover === 'month'} onOpenChange={(open) => setOpenPopover(open ? 'month' : null)}>
 		<PopoverTrigger asChild>
-		<Input
+		<Button
 		variant={"outline"}
 		className={cn("justify-start text-left font-normal", !date && "text-muted-foreground")}
 		onClick={() => setOpenPopover(openPopover === 'month' ? null : 'month')}
