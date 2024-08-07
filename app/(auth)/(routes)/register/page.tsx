@@ -94,15 +94,16 @@ const RegisterPage : React.FC = () =>
 		} 
 		catch (error : any)
 		{
-			if (error.response) {
-			if (error.response.status === 400) {
-				setError(error.response.data.message);
-			}
-			else
+			if (error.response) 
 			{
-				setError('An unexpected error occurred. Please try again later.');
+				if (error.response.status === 400) {
+					setError(error.response.data.message);
+				}
+				else
+					{
+						setError('An unexpected error occurred. Please try again later.');
+					}
 			}
-		}
 		}
 		finally
 		{
