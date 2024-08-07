@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Modal from './Modal';
-import { getUserInfo } from '@/lib/utils';
 
 interface Announcement {
   announcement_id: string;
