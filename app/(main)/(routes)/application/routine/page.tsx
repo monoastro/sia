@@ -137,6 +137,11 @@ const RoutinePage: React.FC = () =>
 	}
 	const renderedRoutines = new Set();
 
+	if(!routines)
+	{
+		return null;
+	}
+
 	return (
 		<div className="h-full flex flex-col text-white overflow-hidden w-full">
 

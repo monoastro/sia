@@ -46,7 +46,7 @@ const SemesterPage: React.FC = () =>
 	const [semesters, setSemesters] = useState<Semester[]>();
 
 	//getActiveSemester fn for these lads; for now just hardcode the defaults
-    const [selectedSemester, setSelectedSemester] = useState<number>(1);
+    const [selectedSemester, setSelectedSemester] = useState<number>(5);
     const [selectedSubject, setSelectedSubject] = useState<number>(0);
 	const [isSemesterDropdownOpen, setIsSemesterDropdownOpen] = useState<boolean>(false);
 	const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState<boolean>(false);
@@ -61,8 +61,6 @@ const SemesterPage: React.FC = () =>
 				const allSemesters = await getAPI("semesters");
 				//console.log(allSemesters);
 				setSemesters(allSemesters);
-				setSelectedSemester(allSemesters[0].semester);
-				setSelectedSubject(0);
 			}
 			catch(error)
 			{
@@ -94,6 +92,10 @@ const SemesterPage: React.FC = () =>
 		return semesters && semesters[selectedSemester - 1].subjects[selectedSubject].name || "";
 	}
 
+	if (!semesters)
+	{
+		return null;
+	}
     return (
 		<div className="flex flex-col h-screen text-white ">
 
