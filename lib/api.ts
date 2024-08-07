@@ -1,6 +1,7 @@
 import axios from "axios";
+import { apiBaseUrl } from "./data";
 
-const URL = "https://electrocord.onrender.com/api/v1/";
+const URL = `${apiBaseUrl}/api/v1/`;
 
 const getAPI = async (endpoint : string) =>
 {
@@ -46,7 +47,7 @@ const postAPI = async (endpoint : string, postData : any, headers: any = { "Cont
 		});
 		const { statusCode, data, message } = response.data;
 
-		if(statusCode === 200 || statusCode === 201)//why the inconsistency bibek? Maybe I should just use success === true
+		if(statusCode === 200)
 		{
 			return data;
 		}
@@ -72,8 +73,7 @@ const putAPI = async (endpoint: string, putData: any, headers: any = {"Content-T
         });
         const { statusCode, data, message } = response.data;
 
-        if (statusCode === 200 || statusCode === 201)
-		{
+        if (statusCode === 200) {
             return data;
         }
 		else
@@ -98,7 +98,7 @@ const deleteAPI = async (endpoint : string) =>
 		});
 		const { statusCode, data, message } = response.data;
 
-		if(statusCode === 200 || statusCode === 201)
+		if(statusCode === 200)
 		{
 			return data;
 		}
