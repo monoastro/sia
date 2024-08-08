@@ -6,3 +6,4 @@
 - [ ] implements the chats array as a circular buffer
 - [ ] implement create, update and delete feature for semester, subject, resources
 - [ ] implement message update feature and if possible add, update and delete general chats as well
+- [ ] implement pooling on db.js in the backend

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
 import "./globals.css";
 import {cn} from "@/lib/utils";
+import { Open_Sans } from "next/font/google";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const font = Open_Sans({ subsets: ["latin"] });
