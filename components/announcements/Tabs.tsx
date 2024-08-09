@@ -15,7 +15,7 @@ export interface TabsProps
 
 const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm, setAddAnnouncementError}) => 
 {
-	const isAdmin = getUserInfoLocal().is_admin;
+	const isAdmin = getUserInfoLocal()?.is_admin;
 	return (
 		<div className="flex mb-6">
 		{tabs.map((tab) => (
