@@ -139,7 +139,7 @@ const ApplicationHome = () => {
 		};
 
 		fetchUserInfo();
-	}, [router]);
+	}, []);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 	{

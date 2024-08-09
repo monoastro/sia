@@ -71,7 +71,6 @@ const RegisterPage : React.FC = () =>
 		{
 			formData.append('profile_picture', profilePicture);
 		}
-		console.log("Sending registration data to electrocord", formData);
 /*
 		const userData = JSON.stringify({
 			username,
@@ -100,9 +99,9 @@ const RegisterPage : React.FC = () =>
 					setError(error.response.data.message);
 				}
 				else
-					{
-						setError('An unexpected error occurred. Please try again later.');
-					}
+				{
+					setError('An unexpected error occurred. Please try again later.');
+				}
 			}
 		}
 		finally
@@ -114,14 +113,10 @@ const RegisterPage : React.FC = () =>
 	const handleProfilePictureChange = (e: React.ChangeEvent<HTMLInputElement>) =>
 	{
 		const files = e.target.files;
-		if (files && files.length > 0)
-		{
-			setProfilePicture(files[0]);
-		}
+		//if (files && files.length > 0)
+		setProfilePicture(files?.[0] || null);
 		console.log("Profile Picture", profilePicture);
 	};
-
-
 
 	const handleDateSelect = (type: string, value: string) => 
 	{
