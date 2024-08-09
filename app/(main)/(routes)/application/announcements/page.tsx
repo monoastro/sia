@@ -1,11 +1,17 @@
-
 "use client";
-
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { getAPI, deleteAPI, putAPI, postAPI } from '@/lib/api';
-import Tabs from '@/components/announcements/Tabs';
-import AnnouncementForm from '@/components/announcements/AnnouncementForm';
-import AnnouncementItem from '@/components/announcements/AnnouncementItem';
+
+import dynamic from 'next/dynamic';
+
+import { AnnouncementItemProps } from '@/components/announcements/AnnouncementItem';
+import { AnnouncementFormProps } from '@/components/announcements/AnnouncementForm';
+import { TabsProps } from '@/components/announcements/Tabs';
+
+const AnnouncementItem = dynamic<AnnouncementItemProps>(() => import('@/components/announcements/AnnouncementItem').then((mod) => mod.default));
+const AnnouncementForm = dynamic<AnnouncementFormProps>(() => import('@/components/announcements/AnnouncementForm').then((mod) => mod.default));
+const Tabs = dynamic<TabsProps>(() => import('@/components/announcements/Tabs').then((mod) => mod.default));
+
 
 type AnnouncementType = 'General' | 'Class' | 'Assignment' | 'Assessment';
 
@@ -44,11 +50,9 @@ const AnnouncementsPage: React.FC = () =>
 	{
 		setError("");
 		setSubmissionError("");
-		//remove later
-		return;
 		try 
 		{
-			const data = await getAPI('announcements');
+			const data = await getAPI("announcements");
 			if (data) 
 			{
 				const fetchedAnnouncements = data;
@@ -87,105 +91,97 @@ const AnnouncementsPage: React.FC = () =>
 		fetchAnnouncements();
 	}, [fetchAnnouncements]);
 
-	const handleDelete = async (id: string) => 
+	const handleDelete = useCallback(async (id: string) =>
 	{
 		setIsSubmissionLoading(true);
 		setError("");
 
-		try 
-		{
+		try {
 			await deleteAPI(`announcements/${id}`);
 			fetchAnnouncements();
-		}
-		catch (error) 
-		{
+		} catch (error) {
 			setSubmissionError('Error deleting announcement');
-		}
-		finally 
-		{
+		} finally {
 			setIsSubmissionLoading(false);
 		}
-	};
+	}, [fetchAnnouncements]);
 
-	const handleUpdate = async (formData: FormData, id: string) => 
+	const handleUpdate = useCallback(async (formData: FormData, id: string) => 
 	{
 		setIsSubmissionLoading(true);
 		setError("");
 
-		try 
-		{
+		try {
 			await putAPI(`announcements/${id}`, formData);
 			fetchAnnouncements();
 			setEditingAnnouncement(null);
-		}
-		catch (error: any) 
-		{
+		} catch (error: any) {
 			console.log("Error updating announcement", error.response);
-			setSubmissionError(error.response.data.message);      
-		}
-		finally 
-		{
+			setSubmissionError(error.response?.data?.message || 'Error updating announcement');
+		} finally {
 			setIsSubmissionLoading(false);
 		}
-	};
+	}, [fetchAnnouncements]);
 
-	const handleAdd = async (formData: FormData) => 
+
+	const handleAdd = useCallback(async (formData: FormData) =>
 	{
 		setIsSubmissionLoading(true);
 		setSubmissionError("");
 
-		try 
+		try
 		{
-			await postAPI('announcements', formData, 
+			await postAPI('announcements', formData,
 			{
 				'Content-Type': 'multipart/form-data',
 			});
 			fetchAnnouncements();
 			setShowAddForm(false);
 		}
-		catch (error: any) 
+		catch (error: any)
 		{
-			console.log("Show add form", showAddForm);
-			console.log("Error adding announcement", error.response);
-			if (error.response) 
-			{
-				const errorMessage = error.response.data.details
-					? error.response.data.details[0]
-					: error.response.data.message;
-					console.log("Error message", errorMessage);
-					setSubmissionError(errorMessage);
-			} else 
-			{
-				setSubmissionError('Failed to submit the announcement.');
-			}
+			const errorMessage = error.response?.data?.details?.[0] || error.response?.data?.message || 'Failed to submit the announcement.';
+			setSubmissionError(errorMessage);
 		}
-		finally 
+		finally
 		{
 			setIsSubmissionLoading(false);
 		}
-	};
+	}, [fetchAnnouncements]);
 
-	const handleEditClick = (announcement: Announcement) => 
-	{
+	const handleEditClick = useCallback((announcement: Announcement) => {
 		setEditingAnnouncement(announcement);
 		setSubmissionError("");
-	};
+	}, []);
+
+	const handleCloseForm = useCallback(() => {
+		setEditingAnnouncement(null);
+		setShowAddForm(false);
+		setError("");
+	}, []);
+
+	const MemoizedAnnouncementItem = useMemo(() => React.memo(AnnouncementItem), []);
 
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden p-6">
 		<h1 className="text-3xl font-bold text-white mb-6">Announcements</h1>
-		<Tabs tabs={tabs} activeTab={activeTab} setActiveTab={setActiveTab} setShowAddForm={setShowAddForm} setAddAnnouncementError={setSubmissionError}/>
+		<Tabs 
+		tabs={tabs} 
+		activeTab={activeTab} 
+		setActiveTab={setActiveTab} 
+		setShowAddForm={setShowAddForm} 
+		setAddAnnouncementError={setSubmissionError}
+		/>
 		<div className="flex-grow overflow-y-auto chat-scrollbar">
 		{announcements[activeTab].length === 0 ? (
 			<p className="text-white">No announcements found</p>
 		) : (
 		announcements[activeTab].map((announcement) => (
-			<AnnouncementItem
+			<MemoizedAnnouncementItem
 			key={announcement.announcement_id}
 			announcement={announcement}
 			handleDelete={handleDelete}
 			handleEditClick={handleEditClick}
-
 			/>
 		))
 		)}
@@ -194,11 +190,7 @@ const AnnouncementsPage: React.FC = () =>
 			<AnnouncementForm
 			initialValues={editingAnnouncement}
 			onSubmit={(formData) => handleUpdate(formData, editingAnnouncement.announcement_id)}
-			onClose={() => 
-			{
-				setEditingAnnouncement(null);
-				setError("");
-			}}
+			onClose={handleCloseForm}
 			loading={isSubmissionLoading}
 			error={submissionError}
 			/>
@@ -207,11 +199,7 @@ const AnnouncementsPage: React.FC = () =>
 			<AnnouncementForm
 			initialValues={{ title: '', message: '', category: activeTab }}
 			onSubmit={handleAdd}
-			onClose={() => 
-			{
-				setShowAddForm(false);
-				setError("");
-			}}
+			onClose={handleCloseForm}
 			loading={isSubmissionLoading}
 			error={submissionError}
 			/>

@@ -8,8 +8,8 @@ import {getToken, getUserInfoLocal } from '@/lib/utils';
 import dynamic from 'next/dynamic';
 import { ChatProps } from '@/components/Chat';
 import { markdownProps } from '@/components/markdownRenderer';
-const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) , { ssr: false });
-const MarkdownRenderer = dynamic<markdownProps>(() => import('@/components/markdownRenderer').then((mod) => mod.default) , { ssr: false });
+const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) );
+const MarkdownRenderer = dynamic<markdownProps>(() => import('@/components/markdownRenderer').then((mod) => mod.default) );
 
 const ChatIcon = () => <span>💬</span>;
 const NotesIcon = () => <span>📝</span>;
@@ -56,6 +56,9 @@ const SemesterPage: React.FC = () =>
 	const [isSubjectDropdownOpen, setIsSubjectDropdownOpen] = useState<boolean>(false);
     const [selectedTab, setSelectedTab] = useState<string>("Syllabus");
 
+	const userInfo = getUserInfoLocal();
+	const token = getToken();
+
     const fetchSemesterIDs = useCallback(async () => {
         try {
             const allSemestersInfo = await getAPI("semesters/each");
@@ -72,12 +75,13 @@ const SemesterPage: React.FC = () =>
 	//weird logic but it works; don't blame me blame react
 	const fetchSubjects = useCallback( async () =>
 	{
-		if(semesterIDs === undefined) return; //this is probably the 50th hack i've implemented in this project
-		console.log(semesterIDs[selectedSemester - 1 ]);
+		if(!semesterIDs) return; //this is probably the 50th hack i've implemented in this project
+		//console.log(semesterIDs[selectedSemester - 1 ]);
 	    try
 	    {
-			const data = await getAPI(`semesters/${semesterIDs?.[selectedSemester - 1]}`);
+			const data = await getAPI(`semesters/${semesterIDs[selectedSemester - 1]}`);
 			setSubjects(data[0].subjects);
+			setSelectedSubject(0);
 	    }
 	    catch(error)
 	    {
@@ -93,17 +97,12 @@ const SemesterPage: React.FC = () =>
 
 
 
-    const handleSemesterChange = (semester: number) =>
+    const handleSemesterChange = async (semester: number) =>
 	{
         setSelectedSemester(semester);
-        setSelectedSubject(0);
         setIsSemesterDropdownOpen(false);
     };
-    const handleSubjectChange = (subject: number) => 
-	{
-        setSelectedSubject(subject);
-		setIsSubjectDropdownOpen(false);
-    };
+
 	const getSelectedChatID = () =>
 	{
 		return subjects && subjects[selectedSubject].chat.chat_id || "";
@@ -151,10 +150,10 @@ const SemesterPage: React.FC = () =>
 		</button>
 		{isSubjectDropdownOpen && (
 			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
-			{subjects && subjects?.map((subject, index) => (
+			{subjects && subjects.map((subject, index) => (
 				<button
 				key={subject.subject_id}
-				onClick={() => handleSubjectChange(index)}
+				onClick={() => { setSelectedSubject(index); setIsSubjectDropdownOpen(false);} }
 				className="block w-full text-left px-4 py-2 hover:bg-blue-700"
 				>
 				{subject.name}
@@ -202,10 +201,10 @@ const SemesterPage: React.FC = () =>
 			<Chat
 			chatId={getSelectedChatID()}
 			chatName={getSelectedSubjectName()}
-			userId={getUserInfoLocal()?.user_id}
-			userName={getUserInfoLocal()?.username}
-			userPfp={getUserInfoLocal()?.profile_pic}
-			token={getToken() || ''}
+			userId={userInfo?.user_id || ''}
+			userName={userInfo?.username || ''}
+			userPfp={userInfo?.profile_pic || ''}
+			token={token || ''}
 			/>
 		}
 

@@ -4,7 +4,7 @@ import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import dynamic from 'next/dynamic';
 
 import { ChatProps } from '@/components/Chat';
-const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) , { ssr: false });
+const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default));
 import { getAPI } from "@/lib/api";
 import {getToken, getUserInfoLocal } from '@/lib/utils';
 
@@ -103,9 +103,9 @@ const GeneralChatsPage: React.FC = () =>
 		<Chat
 		chatId={channels[selectedChannel].id}
 		chatName={channels[selectedChannel].name}
-		userId={userInfo?.user_id}
-		userName={userInfo?.username}	
-		userPfp={userInfo?.profile_pic}
+		userId={userInfo?.user_id || ''}
+		userName={userInfo?.username || ''}	
+		userPfp={userInfo?.profile_pic || ''}
 		token={token || ''}
 		/>
 		}

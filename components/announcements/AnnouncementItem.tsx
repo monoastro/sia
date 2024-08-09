@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from 'react';
 import Image from 'next/image';
 import Modal from './Modal';
@@ -15,7 +16,7 @@ interface Announcement
 	profile_pic: string;
 }
 
-interface AnnouncementItemProps
+export interface AnnouncementItemProps
 {
 	announcement: Announcement;
 	handleDelete: (id: string) => void;
@@ -96,7 +97,7 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 	return (
 		<div className="relative flex items-start mb-4 p-4 rounded-lg border">
 		<Image
-		src={announcement.profile_pic || '/static/fallback.png'}
+		src={announcement.profile_pic || ''}
 		alt="Profile"
 		width={40}
 		height={40}
@@ -149,5 +150,5 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 	);
 };
 
-export default AnnouncementItem;
+export default React.memo(AnnouncementItem);
 
