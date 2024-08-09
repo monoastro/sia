@@ -37,6 +37,14 @@ const setUserInfoLocal = (userInfo: UserInfo) =>
 		getUserInfoLocal() ? JSON.stringify({ ...getUserInfoLocal(), ...userInfo }) : JSON.stringify(userInfo));
 	}
 }
+
+const deleteUserInfoLocal = () =>
+{
+	if (typeof window !== "undefined" && typeof localStorage !== "undefined")
+	{
+		localStorage.removeItem("userInformation");
+	}
+}
 const getToken = () =>
 {
 	if (typeof window !== "undefined" && typeof localStorage !== "undefined")
@@ -46,8 +54,17 @@ const getToken = () =>
 	return null;
 }
 
+const deleteToken = () =>
+{
+	if (typeof window !== "undefined" && typeof localStorage !== "undefined")
+	{
+		localStorage.removeItem("token");
+	}
+}
 
-export { cn, getUserInfoLocal, getToken, setUserInfoLocal }
+//not making a setToken because it's only required at login(for now i guess);
+
+export { cn, getUserInfoLocal, setUserInfoLocal, deleteUserInfoLocal , getToken, deleteToken}
 
 // <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
 

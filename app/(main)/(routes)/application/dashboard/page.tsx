@@ -1,100 +1,24 @@
-// "use client";
-
-// import React, { useEffect, useState } from 'react';
-// import { useRouter } from 'next/navigation';
-// import Image from 'next/image';
-// import { deleteCookie } from 'cookies-next';
-// import axios from 'axios';
-
-// import {getUserInfoLocal} from "@/lib/utils";
-// import {defpfpURL} from "@/lib/data";
-
-// const ApplicationHome = () => {
-// 	const [username, setUsername] = useState("Anonymous User");
-// 	//I want to use defpfpURL but for some reason this can't parse the src if I use it
-// 	const [profilePicture, setProfilePicture] = useState("https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg");
-
-// 	const router = useRouter();
-
-// 	const handleLogout = () =>
-// 	{
-// 		deleteCookie('token');
-// 		console.log("Logging out...");
-// 		router.push('/login');
-// 	};
-
-// 	useEffect(() =>
-// 	{
-// 		//ideally this would be an api call to get the user information since user information may change
-// 		const userInformation = getUserInfoLocal();
-// 		if (!userInformation) 
-// 		{
-// 			router.push('/login');
-// 		}
-		
-// 		setUsername(userInformation.username);
-// 		setProfilePicture(userInformation.profile_pic);
-// 	}, [router]);
-
-// 	//tell bibek to make the token better such that it can only gives the user id and not the whole user object
-// 	//also add an api endpoint to get the user information from token or user id
-
-
-// 	return (
-// 		<div className="min-h-screen  flex flex-col items-center justify-center p-8 text-center">
-// 		<h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
-
-// 		<div className="mb-4">
-// 		<Image
-// 		src={profilePicture}
-// 		alt="Profile Picture"
-// 		width={100}
-// 		height={100}
-// 		className="rounded-full mx-auto"
-// 		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-// 		/>
-// 		</div>
-
-// 		<p className="text-xl mb-4">Hello, {username}!</p>
-
-// 		<button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors" > Log Out </button>
-
-// 		</div>
-// 	);
-// };
-
-// export default ApplicationHome;
-// /*
-//  * <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
-//  	const test = () =>
-// 	{
-// 		console.log(getUserInfoLocal());
-
-// 		console.log('Username:', username);
-// 		console.log('Profile Picture:', profilePicture);
-// 	}
-
-// */"use client";
 "use client";
 
-
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState} from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { deleteCookie } from 'cookies-next';
 
 import { getAPI, putAPI } from '@/lib/api'; 
 import { defpfpURL } from "@/lib/data";
-import { getUserInfoLocal, setUserInfoLocal } from '@/lib/utils';
+import { getUserInfoLocal, setUserInfoLocal, deleteUserInfoLocal, deleteToken } from '@/lib/utils';
 import UpdateInfoForm from '@/components/dashboard/UpdateInfo';
 
-const ApplicationHome = () => {
+const Dashboard = () => {
+	//why do it like this when interfaces exist
+	//I can't even do a null check properly on this
 	const [userInfo, setUserInfo] = useState({
 		user_id: "",
-		username: "Anonymous User",
+		username: "",
 		email: "",
 		dob: "",
-		profile_pic: "https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg",
+		profile_pic: "",
 	});
 	const [isEditing, setIsEditing] = useState(false);
 	const [formData, setFormData] = useState({ ...userInfo });
@@ -106,19 +30,22 @@ const ApplicationHome = () => {
 
 	const handleLogout = () =>
 	{
-		deleteCookie('token');
-	
-		router.push('/login');
+		deleteCookie("token");
+		deleteUserInfoLocal();
+		deleteToken();
+		router.push("/login");
 		console.log("Logging out...");
 	};
 
 	useEffect(() =>
 	{
-		const userId = getUserInfoLocal().user_id;
+		//the not logging out issue comes from here
+		//due to the expired token
 		const fetchUserInfo = async () =>
 		{
 			try 
 			{
+				const userId = getUserInfoLocal().user_id;
 				const data = await getAPI(`users/${userId}`);
 				if (data)
 				{
@@ -137,8 +64,8 @@ const ApplicationHome = () => {
 				router.push('/login');
 			}
 		};
-
 		fetchUserInfo();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) =>
@@ -184,14 +111,15 @@ const ApplicationHome = () => {
 		}
 	};
 
+
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center p-8 text-center text-white">
 			<h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
 
 			<div className="mb-4 relative w-48 h-48">
 			<Image
-			src={userInfo.profile_pic || defpfpURL}
-			alt="Profile Picture"
+			src={userInfo.profile_pic || ''}
+			alt="Loading..."
 			fill
 			className="rounded-full mx-auto"
 			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -203,35 +131,38 @@ const ApplicationHome = () => {
 			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 			style={{ width: '200px', height: '200px' }} // Optional inline style
 */}
-			<p className="text-xl mb-4">Hello, {userInfo.username}!</p>
+			{userInfo.username && <p className="text-xl mb-4">Hello, {userInfo.username}!</p>}
 
 			<div className="mb-4">
-				<p>Email: {userInfo.email}</p>
-				<p>Date of Birth: {new Date(userInfo.dob).toLocaleDateString()}</p>
+				{userInfo.email && <p>Email: {userInfo.email}</p>}
+				{userInfo.dob && <p>Date of Birth: {new Date(userInfo.dob).toLocaleDateString()}</p>}
 			</div>
 
-			<button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors mb-4">
+			<div className="grid grid-cols-2 gap-2">
+
+			<button onClick={() => setIsEditing(true)} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
 				Edit Profile
 			</button>
-
-			{isEditing && (
-				<UpdateInfoForm
-					formData={formData}
-					profilePictureFile={profilePictureFile}
-					handleInputChange={handleInputChange}
-					handleFormSubmit={handleFormSubmit}
-					setProfilePictureFile={setProfilePictureFile}
-					closeModal={() => setIsEditing(false)}
-					loading={loading}
-					error={error}
-				/>
-			)}
 
 			<button onClick={handleLogout} className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition-colors">
 				Log Out
 			</button>
+			</div>
+
+			{isEditing && (
+				<UpdateInfoForm
+				formData={formData}
+				profilePictureFile={profilePictureFile}
+				handleInputChange={handleInputChange}
+				handleFormSubmit={handleFormSubmit}
+				setProfilePictureFile={setProfilePictureFile}
+				closeModal={() => setIsEditing(false)}
+				loading={loading}
+				error={error}
+				/>
+			)}
 		</div>
 	);
 };
 
-export default ApplicationHome;
+export default React.memo(Dashboard);

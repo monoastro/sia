@@ -44,7 +44,8 @@ const AnnouncementsPage: React.FC = () =>
 	{
 		setError("");
 		setSubmissionError("");
-
+		//remove later
+		return;
 		try 
 		{
 			const data = await getAPI('announcements');
@@ -219,4 +220,4 @@ const AnnouncementsPage: React.FC = () =>
 	);
 };
 
-export default AnnouncementsPage;
+export default React.memo(AnnouncementsPage);

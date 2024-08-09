@@ -37,12 +37,12 @@ const LoginPage = () =>
 		{
 			console.log("Requesting electrocord for login");
 			const data = await postAPI('auth/signin', userData);
-			localStorage.setItem("token", data.token); // i couldn't see any tokens being set in localStorage but you used it for auth in websocket so i'm setting it here
 
 			//In the middle of production, somehow someway base64 encoding changed into base64url encoding,
 			//how you ask? I'd like to know that as well - update: figured it out
 			const decoded = atob((data.token.split('.')[1]).replace(/-/g, '+').replace(/_/g, '/'));
 			localStorage.setItem("userInformation", decoded);
+			localStorage.setItem("token", data.token); // i couldn't see any tokens being set in localStorage but you used it for auth in websocket so i'm setting it here
 			
 			//fun little exercise in base64 encoding
 			//console.log(data.token.split('.')[1]);

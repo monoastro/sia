@@ -33,7 +33,7 @@ const RoutinePage: React.FC = () =>
 	const daysOfWeek = Array.from({ length: 7 }).map((_, index) => startOfWeek.clone().add(index, 'days').format('dddd'));
 	const [routines, setRoutines] = useState<Routine[]>([]);
     const [isDownloadToggled, setIsDownloadToggled] = useState<boolean>(false);
-	const [activeSemester, setActiveSemester] = useState<string>('5th');
+	const [activeSemester, setActiveSemester] = useState<number>(5);
 
 	useEffect(() => 
 	{
@@ -41,7 +41,6 @@ const RoutinePage: React.FC = () =>
 		{
 			try
 			{
-				console.log("This is called twice for some reason");
 				const data = await getAPI('routines');
 				setRoutines(data);
 			} 
@@ -70,7 +69,7 @@ const RoutinePage: React.FC = () =>
 	{
 		const pdf = new jsPDF();
 		pdf.setFontSize(18);
-		pdf.text(`Routine for ${activeSemester} Semester`, 14, 22);
+		pdf.text(`Routine for ${activeSemester}th Semester`, 14, 22);
 
 		const columns = ["Day", "Start Time", "End Time", "Name", "Category", "Group"];
 
@@ -137,7 +136,7 @@ const RoutinePage: React.FC = () =>
 	}
 	const renderedRoutines = new Set();
 
-	if(!routines)
+	if(routines.length === 0)
 	{
 		return null;
 	}
@@ -223,4 +222,4 @@ const RoutinePage: React.FC = () =>
 	);
 };
 
-export default RoutinePage;
+export default React.memo(RoutinePage);

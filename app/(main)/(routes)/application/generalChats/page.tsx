@@ -1,8 +1,10 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,  } from 'react';
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
-import { Chat } from "@/components/Chat"
+import dynamic from 'next/dynamic';
 
+import { ChatProps } from '@/components/Chat';
+const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) , { ssr: false });
 import { getAPI } from "@/lib/api";
 import {getToken, getUserInfoLocal } from '@/lib/utils';
 
@@ -25,6 +27,8 @@ const GeneralChatsPage: React.FC = () =>
 
 	const [channels, setChannels] = useState<Channel[]>();
 
+	const userInfo = getUserInfoLocal();
+	const token = getToken();
 
 	useEffect( () =>
 	{
@@ -56,7 +60,7 @@ const GeneralChatsPage: React.FC = () =>
 
 	return (
 		<div className="flex flex-col h-screen text-white">
-		{/* Top bar */}
+
 		<div className="px-3 py-4 flex justify-between items-center">
 		<div className="relative">
 		<button
@@ -71,7 +75,7 @@ const GeneralChatsPage: React.FC = () =>
 		</button>
 		{isDropdownOpen && (
 			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
-			{channels?.map((channel, index) => (
+			{channels.map((channel, index) => (
 				<button
 				key={channel.id}
 				onClick={() => handleChannelChange(index)}
@@ -95,15 +99,14 @@ const GeneralChatsPage: React.FC = () =>
 		</div>
 		</div>
 
-		{/* Chat */}
 		{channels &&
 		<Chat
 		chatId={channels[selectedChannel].id}
 		chatName={channels[selectedChannel].name}
-		userId={getUserInfoLocal()?.user_id}
-		userName={getUserInfoLocal()?.username}	
-		userPfp={getUserInfoLocal()?.profile_pic}
-		token={getToken() || ''}
+		userId={userInfo?.user_id}
+		userName={userInfo?.username}	
+		userPfp={userInfo?.profile_pic}
+		token={token || ''}
 		/>
 		}
 		
@@ -111,4 +114,4 @@ const GeneralChatsPage: React.FC = () =>
 	);
 };
 
-export default GeneralChatsPage;
+export default React.memo(GeneralChatsPage);
