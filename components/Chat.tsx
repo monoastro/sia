@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { SendIcon, CirclePlus } from 'lucide-react';
@@ -6,7 +6,7 @@ import { getAPI, postAPI } from '@/lib/api';
 import io, { Socket } from 'socket.io-client';
 import { defpfpURL, apiBaseUrl } from '@/lib/data';
 
-interface ChatProps 
+export interface ChatProps 
 {
 	chatId: string;
 	chatName: string;
@@ -34,7 +34,7 @@ interface Message
 	createdAt: string;
 }
 
-export const Chat: React.FC<ChatProps> = (
+const Chat: React.FC<ChatProps> = (
 {
 	chatId,
 	chatName,
@@ -54,22 +54,26 @@ export const Chat: React.FC<ChatProps> = (
 	const [attachments, setAttachments] = useState<File[]>([]);
 	const [error, setError] = useState('');
 
+	const newMessageScroll = useRef<null | HTMLDivElement>(null);
+
+	const populateMessages = useCallback(async () =>
+	{
+		try
+		{
+			const oldMessages = await getAPI(`messages/${chatId}`);
+			setMessages(oldMessages);
+		}
+		catch (error)
+		{
+			console.error('Error fetching old messages:', error);
+		}
+	}, [chatId]);
+
 	useEffect(() => 
 	{
-		const populateMessages = async () => 
-		{
-			try 
-			{
-				const oldMessages = await getAPI(`messages/${chatId}`);
-				setMessages(oldMessages);
-			} catch (error) 
-			{
-				console.error('Error fetching old messages:', error);
-			}
-		};
 		populateMessages();
 
-		// Some socket.io shit here
+		//socket.io shit here
 		if (token && chatId) 
 		{
 			const newSocket = io(apiBaseUrl, 
@@ -80,6 +84,7 @@ export const Chat: React.FC<ChatProps> = (
 
 			newSocket.on('connect', () => 
 			{
+				console.log("Socket connected");
 				setIsConnected(true);
 				newSocket.emit('join', { userId, chatId });
 			});
@@ -105,65 +110,56 @@ export const Chat: React.FC<ChatProps> = (
 				}
 			};
 		}
-	}, [chatId, token, userId]);
+	}, [chatId, token, userId, populateMessages]);
 
-	const sendMessage = async (e: React.FormEvent) => 
+	useEffect(() =>
 	{
-		e.preventDefault();
-		if (!message.trim() && attachments.length === 0) 
-		{
-			setError('Message cannot be empty');
-			return;
-		}
+		newMessageScroll.current?.scrollIntoView({ behavior: 'smooth' });
+	}, [messages]);
 
-		const uploadedUrls = await Promise.all(attachments.map(uploadFile));
+    const sendMessage = useCallback(async (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!message.trim() && attachments.length === 0) {
+            setError('Message cannot be empty');
+            return;
+        }
 
-		const newMessage: Message = 
-		{
-			senderId: userId,
-			senderName: userName,
-			senderProfile: userPfp,
-			message,
-			attachments: uploadedUrls.map((url) => (
-			{
-				originalName: url.originalName,
-				uploadedName: url.uploadedName,
-				filePath: url.filePath,
-				fileType: url.fileType
-			})),
-			createdAt: new Date().toISOString()
-		};
+        const uploadedUrls = await Promise.all(attachments.map(uploadFile));
 
-		const payload = 
-		{
-			chatId,
-			senderId: userId,
-			senderName: userName,
-			senderProfile: userPfp,
-			message,
-			attachments: uploadedUrls,
-			createdAt: new Date().toISOString()
-		};
-		if (isConnected && socket) 
-		{
-			socket.emit('chatMessage', payload);
-			setMessages((prevMessages) => [...prevMessages, newMessage]);
-			setMessage('');
-			setAttachments([]);
-			setError('');
-		}
-	};
+        const newMessage: Message = {
+            senderId: userId,
+            senderName: userName,
+            senderProfile: userPfp,
+            message,
+            attachments: uploadedUrls.map(({ originalName, uploadedName, filePath, fileType }) => 
+                ({ originalName, uploadedName, filePath, fileType })),
+            createdAt: new Date().toISOString()
+        };
 
-	const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => 
-	{
-		const files = Array.from(e.target.files || []);
-		if (files.length + attachments.length > 5) 
+        const payload = {
+            chatId,
+            ...newMessage,
+            attachments: uploadedUrls,
+        };
+
+        if (isConnected && socket) {
+            socket.emit('chatMessage', payload);
+            setMessages((prevMessages) => [...prevMessages, newMessage]);
+            setMessage('');
+            setAttachments([]);
+            setError('');
+        }
+    }, [message, attachments, isConnected, socket, chatId, userId, userName, userPfp]);
+
+    const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = Array.from(e.target.files || []);
+        if (files.length + attachments.length > 5)
 		{
-			setError('You can only attach up to 5 files.');
-			return;
-		}
-		setAttachments((prev) => [...prev, ...files]);
-	};
+            setError('You can only attach up to 5 files.');
+            return;
+        }
+        setAttachments((prev) => [...prev, ...files]);
+    }, [attachments]);
 
 	const uploadFile = async (file: File) => 
 	{
@@ -183,16 +179,9 @@ export const Chat: React.FC<ChatProps> = (
 		}
 	};
 
-	const renderAttachment = (file: Attachment) => 
+    const renderAttachment = useMemo(() => (file: Attachment) =>
 	{
 		const { originalName, filePath, fileType } = file;
-
-		const renderDocumentIcon = () => (
-			<div className="flex flex-col items-center justify-center w-full h-full bg-gray-200 rounded-md">
-			<span className="text-gray-600 text-2xl">📄</span>
-			<span className="text-gray-600 text-xs truncate">{originalName}</span>
-			</div>
-		);
 
 		switch (true) 
 		{
@@ -253,15 +242,15 @@ export const Chat: React.FC<ChatProps> = (
 					</div>
 			);
 		}
-	};
+	}, []);
 
 
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden">
 
 		<div className="flex-grow overflow-y-auto slick-scrollbar">
-		{messages.map((msg, index) => (
-			<div key={index} className="mb-4">
+		{messages.toReversed().map((msg, index) => (
+			<div key={index} className="mb-2">
 			<div className="flex items-center">
 			<div className="relative h-6 w-6 rounded-full mr-2">
 			<Image
@@ -280,7 +269,7 @@ export const Chat: React.FC<ChatProps> = (
 			</div>
 			<div className="ml-8 mt-1">
 			{msg.message}
-			<div className="flex flex-wrap mt-2">
+			<div className="flex flex-wrap mt-1">
 			{msg.attachments?.map((file, i) => (
 				<div key={i} className="m-1">
 				{renderAttachment(file)}
@@ -290,6 +279,7 @@ export const Chat: React.FC<ChatProps> = (
 			</div>
 			</div>
 		))}
+		<div ref={newMessageScroll} />
 		</div>
 
 		{error && <div className="text-red-500 mt-2 px-2">{error}</div>}
@@ -344,3 +334,5 @@ export const Chat: React.FC<ChatProps> = (
 	);
 };
 
+
+export default React.memo(Chat);

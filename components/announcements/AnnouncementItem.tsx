@@ -22,68 +22,75 @@ interface AnnouncementItemProps
 	handleEditClick: (announcement: Announcement) => void;
 }
 
-const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick}) => {
+const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick}) => 
+{
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
-const renderAttachment = (attachment: string | null) => {
-  if (!attachment) return null;
+	const renderAttachment = (attachment: string | null) => 
+	{
+		if (!attachment) return null;
 
-  const isImage = attachment.includes('image');
-  const isDocument = attachment.includes('document');
-  const isAudio = attachment.includes('audio');
-  const isVideo = attachment.includes('video');
+		const isImage = attachment.includes('image');
+		const isDocument = attachment.includes('document');
+		const isAudio = attachment.includes('audio');
+		const isVideo = attachment.includes('video');
 
-  if (isImage) {
-    return (
-      <div className="mt-2">
-        <Image
-          src={attachment}
-          alt="Attachment"
-          width={300}
-          height={300}
-          className="rounded object-cover cursor-pointer"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          onClick={() => setIsModalOpen(true)}
-          onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
-        />
-      </div>
-    );
-  } else if (isDocument) {
-    return (
-      <div className="mt-2">
-        <a href={attachment} download className="text-blue-400 underline">
-          <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
-        </a>
-      </div>
-    );
-  } else if (isAudio) {
-    return (
-      <div className="mt-2">
-        <audio controls className="w-full">
-          <source src={attachment} type="audio/mp3" />
-          Your browser does not support the audio element.
-        </audio>
-      </div>
-    );
-  } else if (isVideo) {
-    return (
-      <div className="mt-2">
-        <video controls className="w-1/2 rounded">
-          <source src={attachment} type="video/mp4" />
-          Your browser does not support the video element.
-        </video>
-      </div>
-    );
-  } else {
-    return (
-      <div className="mt-2">
-        <a href={attachment} download className="text-blue-400 underline">
-          <button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
-        </a>
-      </div>
-    );
-  }
-};
+		if (isImage) 
+		{
+			return (
+				<div className="mt-2">
+				<Image
+				src={attachment}
+				alt="Attachment"
+				width={300}
+				height={300}
+				className="rounded object-cover cursor-pointer"
+				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+				onClick={() => setIsModalOpen(true)}
+				onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
+				/>
+				</div>
+			);
+		} else if (isDocument) 
+		{
+			return (
+				<div className="mt-2">
+				<a href={attachment} download className="text-blue-400 underline">
+				<button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
+				</a>
+				</div>
+			);
+		} else if (isAudio) 
+		{
+			return (
+				<div className="mt-2">
+				<audio controls className="w-full">
+				<source src={attachment} type="audio/mp3" />
+				Your browser does not support the audio element.
+					</audio>
+				</div>
+			);
+		} else if (isVideo) 
+		{
+			return (
+				<div className="mt-2">
+				<video controls className="w-1/2 rounded">
+				<source src={attachment} type="video/mp4" />
+				Your browser does not support the video element.
+					</video>
+				</div>
+			);
+		} else 
+		{
+			return (
+				<div className="mt-2">
+				<a href={attachment} download className="text-blue-400 underline">
+				<button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
+				</a>
+				</div>
+			);
+		}
+	};
 
 
 	return (

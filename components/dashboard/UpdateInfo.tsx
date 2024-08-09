@@ -1,7 +1,9 @@
 import React from 'react';
 
-interface UpdateInfoFormProps {
-    formData: {
+interface UpdateInfoFormProps
+{
+    formData:
+	{
         username: string;
         email: string;
         dob: string;

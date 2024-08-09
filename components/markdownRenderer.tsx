@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 
-interface Props
+export interface markdownProps
 {
   markdownContent: string;
 }
 
-const MarkdownRenderer: React.FC<Props> = ({ markdownContent }) =>
+const MarkdownRenderer: React.FC<markdownProps> = ({ markdownContent }) =>
 { 
 	return (
 		<div className="h-[80vh] overflow-y-auto slick-scrollbar">
@@ -14,4 +14,5 @@ const MarkdownRenderer: React.FC<Props> = ({ markdownContent }) =>
 		</div>
 	);
 };
-export {MarkdownRenderer};
+
+export default MarkdownRenderer;

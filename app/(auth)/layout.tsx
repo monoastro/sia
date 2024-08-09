@@ -17,11 +17,13 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) =>
 		<div className="hidden lg:flex flex-1 items-center justify-center p-8">
 		<div className="w-full h-full">
 		<button onClick={() => router.push('/')} className="w-full h-full">
+		<picture>
 		<img
 		src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg"
 		alt="EMotional support aniMAl"
 		className="w-full h-full object-contain image-scale"
 		/>
+		</picture>
 		</button>
 		</div>
 		</div>
