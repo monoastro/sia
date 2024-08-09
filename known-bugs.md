@@ -3,7 +3,8 @@
 - In the registration page, the months overflow out of the box
 
 # FIXED
-- logout doesn't work
+- logout doesn't work - for real this time; change of router was fetching users from the server again, with the current fast token expiry bug it was lagging
 / -> login -> dashboard -> / -> login (dashboard) -> logout
 - the cookie bullshit
 temp fixed using cookie hijack
+- LP: extensions cause a huge block of red warnings when (re)starting the website, find a way to remove those annoying pests

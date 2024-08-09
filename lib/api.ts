@@ -16,8 +16,6 @@ const getAPI = async (endpoint : string) =>
 			{
 				'Content-Type': 'application/json'
 			}
-
-
 		});
 		const { statusCode, data, message } = response.data;
 		if(statusCode === 200 || statusCode === 201)
