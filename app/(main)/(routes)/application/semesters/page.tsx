@@ -9,8 +9,7 @@ import dynamic from 'next/dynamic';
 import { ChatProps } from '@/components/Chat';
 import { markdownProps } from '@/components/markdownRenderer';
 import { FileLink } from '@/components/RenderFileLink';
-import { ResourceFormProps } from '@/components/semesters/ResourcesForm';
-import { set } from 'react-hook-form';
+import { ResourceFormProps } from '@/components/semesters/ResourceForm';
 
 const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) );
 const MarkdownRenderer = dynamic<markdownProps>(() => import('@/components/markdownRenderer').then((mod) => mod.default) );

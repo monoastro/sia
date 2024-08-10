@@ -5,7 +5,7 @@
 - [x] cache the active/last fetched results so that it doesn't have to fetch every time the tab is switched again(semesters/general chat, syllabus, notes, qp, routine) ; maybe make a general caching component ::: Use memoization
 - [x]  Memoize the logout stuff -- eh the non memoized error ignored stuff works fine for now 
 - [x] fix the array order of semesters in semesters page
-- [ ] implement create, update and delete feature for semester, subject, resources
+- [-] implement create, update and delete feature for semester, subject, resources
 - [ ] implements the chats array as a circular buffer / inf scroll or paging; any of these will do
 - [ ] implement message update feature and if possible add, update and delete general chats as well
 - [ ] Do the double token thing
