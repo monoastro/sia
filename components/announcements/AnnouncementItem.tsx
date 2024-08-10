@@ -96,7 +96,7 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 
 
 	return (
-		<div className="relative flex items-start mb-4 p-4 rounded border-2 border-violet-900 mr-3 hover:bg-blue-700">
+		<div className="relative flex items-start mb-4 p-4 rounded-md border border-violet-900 mr-3 hover:bg-indigo-900">
 		<Image
 		src={announcement.profile_pic || ''}
 		alt="Profile"

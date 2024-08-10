@@ -3,21 +3,23 @@ import React, { useState, useEffect,  } from 'react';
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid';
 import dynamic from 'next/dynamic';
 
+//let's see the difference between ssr chat and non ssr chat
 import { ChatProps } from '@/components/Chat';
-const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default));
+const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default), {ssr:false});
 import { getAPI } from "@/lib/api";
 import {getToken, getUserInfoLocal } from '@/lib/utils';
 
+//useless fields are commneted out for now
 interface Channel
 {
 	id: string;
 	name: string;
-	type: string;
 	description: string;
 	category: string;
-	general_category: string;
-	created_at: string;
-	updated_at: string;
+	//type: string;
+	//general_category: string;
+	//created_at: string;
+	//updated_at: string;
 };
 
 const GeneralChatsPage: React.FC = () =>

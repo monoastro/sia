@@ -1,11 +1,12 @@
 - [x] Generalize the post and get methods into a neat ass function - done
-- [ ] In the middleware, check if the cookie is valid, not valid? delete the cookie and redirect to login - done?
-- [ ] make bibek put the admin check in the backend
+- [x] In the middleware, check if the cookie is valid, not valid? delete the cookie and redirect to login - done?
+- [x] make bibek put the admin check in the backend
 - [x] which endpoint am I supposed to use in resetPassword? - done
-- [ ] cache the active/last fetched results so that it doesn't have to fetch every time the tab is switched again(semesters/general chat, syllabus, notes, qp, routine) ; maybe make a general caching component ::: Use memoization
-- [ ] implements the chats array as a circular buffer
+- [x] cache the active/last fetched results so that it doesn't have to fetch every time the tab is switched again(semesters/general chat, syllabus, notes, qp, routine) ; maybe make a general caching component ::: Use memoization
+- [x]  Memoize the logout stuff -- eh the non memoized error ignored stuff works fine for now 
 - [ ] implement create, update and delete feature for semester, subject, resources
+- [ ] implements the chats array as a circular buffer
 - [ ] implement message update feature and if possible add, update and delete general chats as well
-- [ ]  Memoize the logout stuff
 - [ ] Do the double token thing
 - [ ] fix the array order of semesters in semesters page
+- [ ] optimize the routine page

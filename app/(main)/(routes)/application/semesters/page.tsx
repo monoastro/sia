@@ -18,13 +18,15 @@ const QuestionPapersIcon = () => <span>📄</span>;
 
 
 interface Channel
+
 {
 	chat_id: string;
-	type: string;
-	category: string;
+	//type: string;
+	//category: string;
 };
 
 interface Subject
+
 {
 	subject_id: string;
 	name: string;
@@ -34,19 +36,20 @@ interface Subject
 };
 
 interface Semester
+
 {
 	semester_id: string;
-	semester: number;
-	description: string;
+	//semester: number;
+	//description: string;
 }
 
 //hacks to load semesters and their subjects faster
 const fastSemesters : number[] = Array.from({length: 8}, (_, i) => i + 1);
 
 const SemesterPage: React.FC = () => 
+
 {
-	const [semesterIDs, setSemesterIDs] = useState<string[8]>(); //this can probably be reduced down to a local variable
-	//let semesterIDs : String [8];
+	const [semesterIDs, setSemesterIDs] = useState<string[8]>();
 	const [subjects, setSubjects] = useState<Subject[]>();
 
 	//getActiveSemester fn for these lads; for now just hardcode the defaults
@@ -59,37 +62,43 @@ const SemesterPage: React.FC = () =>
 	const userInfo = getUserInfoLocal();
 	const token = getToken();
 
-    const fetchSemesterIDs = useCallback(async () => {
-        try {
+    const fetchSemesterIDs = useCallback(async () => 
+    {
+        try 
+        {
             const allSemestersInfo = await getAPI("semesters/each");
             setSemesterIDs(allSemestersInfo.map((semester: Semester) => semester.semester_id));
-        } catch (error) {
+        } catch (error) 
+        {
             console.log("Error fetching semesters/each in semesters/page.tsx : 93\n", error);
         }
     }, []);
 
-    useEffect(() => {
+    useEffect(() => 
+    {
         fetchSemesterIDs();
     }, [fetchSemesterIDs]);
 
 	//weird logic but it works; don't blame me blame react
-	const fetchSubjects = useCallback( async () =>
+	const fetchSubjects = useCallback( async () => 
 	{
 		if(!semesterIDs) return; //this is probably the 50th hack i've implemented in this project
 		//console.log(semesterIDs[selectedSemester - 1 ]);
 	    try
+	    
 	    {
 			const data = await getAPI(`semesters/${semesterIDs[selectedSemester - 1]}`);
 			setSubjects(data[0].subjects);
 			setSelectedSubject(0);
 	    }
 	    catch(error)
+	    
 	    {
 			console.log("Error fetching semesters/id in semesters/page.tsx : 71")
 	    }
 	}, [selectedSemester, semesterIDs]);
 
-	useEffect(()=>
+	useEffect(()=> 
 	{
 		fetchSubjects();
 	}, [fetchSubjects]);
@@ -97,22 +106,22 @@ const SemesterPage: React.FC = () =>
 
 
 
-    const handleSemesterChange = async (semester: number) =>
-	{
+    const handleSemesterChange = async (semester: number) => 
+    {
         setSelectedSemester(semester);
         setIsSemesterDropdownOpen(false);
     };
 
-	const getSelectedChatID = () =>
+	const getSelectedChatID = () => 
 	{
 		return subjects && subjects[selectedSubject].chat.chat_id || "";
 	}
-	const getSelectedSubjectName = () =>
+	const getSelectedSubjectName = () => 
 	{
 		return subjects && subjects[selectedSubject].name || "";
 	}
 
-	if(!subjects)
+	if(!subjects) 
 	{
 		return null;
 	}
