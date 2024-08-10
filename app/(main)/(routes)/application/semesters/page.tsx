@@ -12,17 +12,12 @@ import { FileLink } from '@/components/RenderFileLink';
 import { ResourceFormProps } from '@/components/semesters/ResourceForm';
 
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { CirclePlus, LibraryBig, MessageSquareDot, NotebookPen, ScrollTextIcon } from 'lucide-react';
 
 const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) );
 const MarkdownRenderer = dynamic<markdownProps>(() => import('@/components/markdownRenderer').then((mod) => mod.default) );
 const RenderFileLink = dynamic<FileLink>(() => import('@/components/RenderFileLink').then((mod) => mod.default) );
 const ResourceForm = dynamic<ResourceFormProps>(() => import('@/components/semesters/ResourceForm').then((mod) => mod.default) );
-
-
-const ChatIcon = () => <span>💬</span>;
-const NotesIcon = () => <span>📝</span>;
-const SyllabusIcon = () => <span>📚</span>;
-const QuestionPapersIcon = () => <span>📄</span>;
 
 //Chat and Syllabus
 interface Channel
@@ -239,7 +234,7 @@ const SemesterPage: React.FC = () =>
  		<button 
 		onClick={() => setAddResource(true)} 
 		className="px-4 py-2 rounded flex border-2 border-violet-900 hover:bg-indigo-900 transition-colors">
-		+ 
+		<CirclePlus />
 		</button>
 		</div>
 		)}
@@ -250,23 +245,23 @@ const SemesterPage: React.FC = () =>
 		<div className="flex space-x-2">
 		<button
 		onClick={() => setSelectedTab('Syllabus')}
-		className={`p-2 rounded ${selectedTab === 'Syllabus' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<SyllabusIcon/>
+		className={`p-2 rounded ${selectedTab === 'Syllabus' ? 'bg-indigo-900' : 'bg-indigo-500'}`}>
+		<ScrollTextIcon/>
 		</button>
 		<button
 		onClick={() => setSelectedTab('Chat')}
-		className={`p-2 rounded ${selectedTab === 'Chat' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<ChatIcon/>
+		className={`p-2 rounded ${selectedTab === 'Chat' ? 'bg-indigo-900' : 'bg-indigo-500'}`}>
+		<MessageSquareDot />
 		</button>
 		<button
 		onClick={() => setSelectedTab('Notes')}
-		className={`p-2 rounded ${selectedTab === 'Notes' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<NotesIcon/>
+		className={`p-2 rounded ${selectedTab === 'Notes' ? 'bg-indigo-900' : 'bg-indigo-500'}`}>
+		<NotebookPen/>
 		</button>
 		<button
 		onClick={() => setSelectedTab('PQ')}
-		className={`p-2 rounded ${selectedTab === 'PQ' ? 'bg-indigo-700' : 'bg-indigo-500'}`}>
-		<QuestionPapersIcon/>
+		className={`p-2 rounded ${selectedTab === 'PQ' ? 'bg-indigo-900' : 'bg-indigo-500'}`}>
+		<LibraryBig/>
 		</button>
 		</div>
 
@@ -315,8 +310,10 @@ const SemesterPage: React.FC = () =>
 			<div className="ml-3">
 			<h2 className="text-xl mb-3 font-bold">Question Papers and Resources for {getSelectedSubjectName()}</h2>
 			{pastQ.map((resource : Resource, index) => (
-				<div key={index}>
+				<div key={index} className="mt-1">
 				<a href={resource.file_path} className="text-blue-600 underline hover:text-blue-700">{index+1}. {resource.name}</a>
+
+				<p className=""> {resource.description}</p>
 				<RenderFileLink
 				name={resource.name}
 				file_path={resource.file_path}

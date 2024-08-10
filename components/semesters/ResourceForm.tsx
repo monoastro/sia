@@ -59,7 +59,7 @@ const ResourceForm: React.FC<ResourceFormProps> = (
 		<form onSubmit={handleSubmit}>
 
 		<div className="mb-4">
-		<label className="block text-white mb-2 font-sm">Name</label>
+		<label className="block text-white mb-2 font-sm">File title</label>
 		<input
 		type="text"
 		value={formValues.name}
@@ -76,10 +76,10 @@ const ResourceForm: React.FC<ResourceFormProps> = (
 		onChange={(e) => setFormValues({ ...formValues, category: e.target.value as ResourceCat })}
 		className="w-full px-3 py-2 bg-gray-700 text-white rounded"
         required>
-		<option value="Notes">Notes</option>
-		<option value="PQ">Past Questions</option>
-		<option value="Assignments">Assignments</option>
+		<option value="Notes">Notes, Assignments</option>
+		<option value="PQ">Past Questions, Resources</option>
 		{/*
+		<option value="Assignments">Assignments</option>
 		<option value="Links">Links</option>
 		<option value="Others">Others</option>
 		*/}
