@@ -144,7 +144,7 @@ const Chat: React.FC<ChatProps> = (
 
         if (isConnected && socket) {
             socket.emit('chatMessage', payload);
-            setMessages((prevMessages) => [...prevMessages, newMessage]);
+            setMessages((prevMessages) => [newMessage, ...prevMessages]);
             setMessage('');
             setAttachments([]);
             setError('');

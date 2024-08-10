@@ -59,7 +59,7 @@ const ResourceForm: React.FC<ResourceFormProps> = (
 		<form onSubmit={handleSubmit}>
 
 		<div className="mb-4">
-		<label className="block text-white mb-2">Name</label>
+		<label className="block text-white mb-2 font-sm">Name</label>
 		<input
 		type="text"
 		value={formValues.name}
@@ -79,8 +79,10 @@ const ResourceForm: React.FC<ResourceFormProps> = (
 		<option value="Notes">Notes</option>
 		<option value="PQ">Past Questions</option>
 		<option value="Assignments">Assignments</option>
-		<option value="Links">Notes</option>
-		<option value="Others">Notes</option>
+		{/*
+		<option value="Links">Links</option>
+		<option value="Others">Others</option>
+		*/}
 		</select>
 		</div>
 
@@ -92,6 +94,7 @@ const ResourceForm: React.FC<ResourceFormProps> = (
 		className="w-full px-3 py-2 bg-gray-700 text-white rounded h-32 overflow-y-auto"
 		required
 		/>
+
 		</div>
 
 		<div className="mb-4">

@@ -15,7 +15,7 @@ import { set } from 'react-hook-form';
 const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) );
 const MarkdownRenderer = dynamic<markdownProps>(() => import('@/components/markdownRenderer').then((mod) => mod.default) );
 const RenderFileLink = dynamic<FileLink>(() => import('@/components/RenderFileLink').then((mod) => mod.default) );
-const ResourceForm = dynamic<ResourceFormProps>(() => import('@/components/semesters/ResourcesForm').then((mod) => mod.default) );
+const ResourceForm = dynamic<ResourceFormProps>(() => import('@/components/semesters/ResourceForm').then((mod) => mod.default) );
 
 
 const ChatIcon = () => <span>💬</span>;
