@@ -21,9 +21,10 @@ export interface AnnouncementItemProps
 	announcement: Announcement;
 	handleDelete: (id: string) => void;
 	handleEditClick: (announcement: Announcement) => void;
+	isAdmin: boolean;
 }
 
-const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick}) => 
+const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick, isAdmin}) => 
 {
 	const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -95,7 +96,7 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 
 
 	return (
-		<div className="relative flex items-start mb-4 p-4 rounded-lg border">
+		<div className="relative flex items-start mb-4 p-4 rounded border-2 border-violet-900 mr-3 hover:bg-blue-700">
 		<Image
 		src={announcement.profile_pic || ''}
 		alt="Profile"
@@ -117,6 +118,8 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 		</div>
 		</div>
 
+		{isAdmin &&
+		<div>
 		<button
 		className="absolute top-2 right-2 text-gray-400 hover:text-white"
 		onClick={() => handleEditClick(announcement)}
@@ -125,6 +128,7 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 		<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 20h12M6 16h12M6 12h12m-6-8h6m-6 0H6m0 0v14m12-14v14" />
 		</svg>
 		</button>
+
 		<button
 		className="absolute top-2 right-12 text-red-400 hover:text-red-600"
 		onClick={() => handleDelete(announcement.announcement_id)}
@@ -133,6 +137,9 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 		<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
 		</svg>
 		</button>
+		</div>
+		}
+
 		{isModalOpen && (
 			<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} imageUrl={announcement.attachment || ''}>
 			<Image

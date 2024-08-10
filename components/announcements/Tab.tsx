@@ -11,11 +11,15 @@ export interface TabsProps {
 	setActiveTab: (tab: AnnouncementType) => void;
 	setShowAddForm: (show: boolean) => void;
 	setAddAnnouncementError: (error: string) => void;
-	isAdmin: boolean;
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm, setAddAnnouncementError, isAdmin}) => {
+const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm, setAddAnnouncementError}) => {
+	const [isAdmin, setIsAdmin] = useState(false);
 
+	useEffect(() => 
+	{
+		import('@/lib/utils').then(({ getUserInfoLocal }) => { setIsAdmin(getUserInfoLocal()?.is_admin || false); });
+	}, []);
 
 	return (
 		<div className="flex mb-6">
