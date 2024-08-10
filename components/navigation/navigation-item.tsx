@@ -35,11 +35,12 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 			isActive ? "h-[40px]" : "h-[0px] group-hover:h-[20px]" 
 		)}/>
 
-		<div className={"relative group flex mx-3 h-[48px] w-[48px] rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden bg-violet-800"}>
+		<div className={"relative group flex mx-3 rounded-[100px] transition-all"}>
 		<Image 
-		fill 
 		src={imageUrl} 
 		alt="Tabs"
+		width="50"
+		height="50"
 		sizes="(max-width: 768px) 48px, 48px" //random sizes for now, adjust this later if the image is too small/big
 		className="transition-transform transform group-hover:scale-110 group-hover:rotate-3"
 		/>
@@ -49,3 +50,4 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 		</ActionTooltip>
 	);
 }
+// <div className={"relative group flex mx-3 h-[48px] w-[48px] rounded-[100px] group-hover:rounded-[16px] transition-all overflow-hidden bg-violet-800"}>

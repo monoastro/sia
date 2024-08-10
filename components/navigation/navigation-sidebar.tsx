@@ -1,18 +1,19 @@
 import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { NavigationItem } from "@/components/navigation/navigation-item";
-import { tabs, defpfpURL } from "@/lib/data";
+import { tabs, defpfpLocal } from "@/lib/data";
 import React from "react";
 
-export const Sidebar : React.FC = () => {
+export const Sidebar : React.FC = () =>
+{
+
 	return (
 		<div className="space-y-4 flex flex-col items-center h-full text-primary w-full py-3">
-		{/*  style={{ backgroundColor: 'rgba(22, 31, 115, 1)' }} */}
 
 		<NavigationItem
 		id={0}
 		name="Dashboard"
-		imageUrl={defpfpURL}
+		imageUrl={defpfpLocal}
 		/>
 
 		<Separator className="h-[2px] bg-zinc-300 dark:bg-zinc-700 rounded-md w-10 mx-auto" />

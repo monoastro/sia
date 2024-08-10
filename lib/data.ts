@@ -14,10 +14,10 @@ type Tab =
 };
 const tabs: Tab[] =
 [
-	{ name: "Announcements", id: 1, imageUrl: "/static/emma.svg" },
-	{ name: "Routine",		 id: 2, imageUrl: "/static/emma.svg" },
-	{ name: "Semesters",	 id: 3, imageUrl: "/static/emma.svg" },
-	{ name: "Chats",		 id: 4, imageUrl: "/static/emma.svg" }
+	{ name: "Announcements", id: 1, imageUrl: "/static/announcements.svg" },
+	{ name: "Routine",		 id: 2, imageUrl: "/static/routine.svg" },
+	{ name: "Semesters",	 id: 3, imageUrl: "/static/semesters.svg" },
+	{ name: "Chats",		 id: 4, imageUrl: "/static/chat.webp" }
 ];
 const getActualRouteName : string[] = 
 [

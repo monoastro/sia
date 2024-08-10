@@ -25,7 +25,7 @@ export function UserItem({ id, name, imageUrl }: UserItemProps)
 		//<ActionTooltip side="left" align="center" label={name}>
 		<div className="hover:bg-indigo-500/10 rounded-lg transition-all">
 		<button onClick={onClick} className="group relative flex items-center w-full p-2 hover:bg-primary/10 rounded-lg transition-all">
-		<div className="relative flex h-[32px] w-[32px] rounded-full overflow-hidden mr-2">
+		<div className="relative flex h-[35px] w-[35px] rounded-full overflow-hidden mr-2">
 		<Image
 		fill
 		src={imageUrl}

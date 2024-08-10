@@ -20,7 +20,12 @@ const nextConfig = {
 			{
 				protocol: 'https',
 				hostname: 'electrocord.onrender.com',
-			},
+			}, 
+
+			{
+				protocol: 'https',
+				hostname: 'cdn.britannica.com',
+			}, 
 		],
 	},
 };
