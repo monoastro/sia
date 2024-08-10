@@ -42,7 +42,7 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 		width="50"
 		height="50"
 		sizes="(max-width: 768px) 48px, 48px" //random sizes for now, adjust this later if the image is too small/big
-		className="transition-transform transform group-hover:scale-110 group-hover:rotate-3"
+		className="transition-transform transform scale-90 group-hover:scale-110 group-hover:rotate-3"
 		/>
 		</div>
 
