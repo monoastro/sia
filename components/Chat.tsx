@@ -254,7 +254,7 @@ const Chat: React.FC<ChatProps> = (
 
 		<div className="flex-grow overflow-y-auto slick-scrollbar">
 		{messages.toReversed().map((msg, index) => (
-			<div key={index} className="mb-2 border-2 hover:bg-gray-900 p-3 rounded">
+			<div key={index} className="mb-2  p-3 rounded hover:bg-indigo-900">
 			<div className="flex items-center">
 
 			<div className="relative h-6 w-6 rounded-full mr-2">
