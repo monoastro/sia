@@ -54,14 +54,17 @@ const Chat: React.FC<ChatProps> = (
 	const [attachments, setAttachments] = useState<File[]>([]);
 	const [error, setError] = useState('');
 
+	const [pageCount, setPageCount] = useState<number>(1);
+
 	const newMessageScroll = useRef<null | HTMLDivElement>(null);
 
 	const populateMessages = useCallback(async () =>
 	{
 		try
 		{
-			const oldMessages = await getAPI(`messages/${chatId}`);
-			setMessages(oldMessages);
+			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=15`);
+
+			setMessages(response.messages);
 		}
 		catch (error)
 		{
@@ -91,8 +94,7 @@ const Chat: React.FC<ChatProps> = (
 
 			newSocket.on('chatMessage', (data) => 
 			{
-				console.log(data);
-				setMessages((prevMessages) => [...prevMessages, data]);
+				setMessages((prevMessages) => [data, ...prevMessages]);
 			});
 
 			newSocket.on('disconnect', () => 
@@ -112,9 +114,11 @@ const Chat: React.FC<ChatProps> = (
 		}
 	}, [chatId, token, userId, populateMessages]);
 
+
 	useEffect(() =>
 	{
 		newMessageScroll.current?.scrollIntoView({ behavior: 'smooth' });
+		console.log(messages);
 	}, [messages]);
 
     const sendMessage = useCallback(async (e: React.FormEvent) => {
@@ -158,7 +162,7 @@ const Chat: React.FC<ChatProps> = (
             setError('You can only attach up to 5 files.');
             return;
         }
-        setAttachments((prev) => [...prev, ...files]);
+        setAttachments((prev) => [ ...files, ...prev]);
     }, [attachments]);
 
 	const uploadFile = async (file: File) => 
@@ -250,8 +254,9 @@ const Chat: React.FC<ChatProps> = (
 
 		<div className="flex-grow overflow-y-auto slick-scrollbar">
 		{messages.toReversed().map((msg, index) => (
-			<div key={index} className="mb-2">
+			<div key={index} className="mb-2 border-2 hover:bg-gray-900 p-3 rounded">
 			<div className="flex items-center">
+
 			<div className="relative h-6 w-6 rounded-full mr-2">
 			<Image
 			fill
@@ -260,13 +265,16 @@ const Chat: React.FC<ChatProps> = (
 			className="rounded-full"
 			/>
 			</div>
+
 			<strong>
 			<span className="text-violet-600">{msg.senderName}</span>
 			</strong>
+
 			<div className="text-xs text-gray-400 ml-2">
 			at {new Date(msg.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
 			</div>
 			</div>
+
 			<div className="ml-8 mt-1">
 			{msg.message}
 			<div className="flex flex-wrap mt-1">
@@ -276,6 +284,7 @@ const Chat: React.FC<ChatProps> = (
 				</div>
 			))}
 			</div>
+
 			</div>
 			</div>
 		))}
