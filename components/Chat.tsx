@@ -70,7 +70,7 @@ const Chat: React.FC<ChatProps> = (
 		{
 			console.error('Error fetching old messages:', error);
 		}
-	}, [chatId]);
+	}, [chatId, pageCount]);
 
 	useEffect(() => 
 	{

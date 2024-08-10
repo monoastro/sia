@@ -11,6 +11,8 @@ import { markdownProps } from '@/components/markdownRenderer';
 import { FileLink } from '@/components/RenderFileLink';
 import { ResourceFormProps } from '@/components/semesters/ResourceForm';
 
+import { ScrollArea } from "@/components/ui/scroll-area";
+
 const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) );
 const MarkdownRenderer = dynamic<markdownProps>(() => import('@/components/markdownRenderer').then((mod) => mod.default) );
 const RenderFileLink = dynamic<FileLink>(() => import('@/components/RenderFileLink').then((mod) => mod.default) );
@@ -53,6 +55,7 @@ interface Resource
 	name: string;
 	file_path: string;
 	category: ResourceCat;
+	description: string;
 };
 
 const SemesterPage: React.FC = () => 
@@ -139,10 +142,10 @@ const SemesterPage: React.FC = () =>
 			const resources = await getAPI(`resources/subject/${subjects[selectedSubject].subject_id}`);
 			//const res : Resource = (resources.filter((resources: Resource) => resources.category === selectedTab));
 			//console.log("Logging resource\n" + JSON.stringify(res));
-			setNotes(resources.filter((resources: Resource) => resources.category === "Notes"));
-			setPastQ(resources.filter((resources: Resource) => 
+			setPastQ(resources.filter((resources: Resource) => resources.category === "PQ"));
+			setNotes(resources.filter((resources: Resource) => 
 			{
-				return resources.category === "PQ" || resources.category === "Links" || resources.category === "Others" || resources.category === "Assignments";
+				return resources.category === "Notes" || resources.category === "Links" || resources.category === "Others" || resources.category === "Assignments";
 			}));
 		} 
 		catch (error) 
@@ -288,16 +291,20 @@ const SemesterPage: React.FC = () =>
 			/>
 		}
 
+		<ScrollArea className="flex-1 w-full slick-scrollbar">
 		{selectedTab === "Notes" && notes && (
 			<div className="ml-3">
-			<h2 className="text-xl mb-4 font-bold">Notes for {getSelectedSubjectName()}</h2>
+			<h2 className="text-xl mb-4 font-bold">Notes and Assignments for {getSelectedSubjectName()}</h2>
 			{notes.map((resource : Resource, index) => (
-				<div key={index}>
-				{<a href={resource.file_path} className="text-blue-600 underline hover:text-blue-700">{index+1}.{resource.name}</a>}
+				<div key={index} className="p-4 mb-2 ">
+				{<a href={resource.file_path} className="text-blue-600 font-bold underline hover:text-blue-700">{index+1}. {resource.name}</a>}
+				<p className="mt-1"> {resource.description}</p>
+
 				<RenderFileLink
 				name={resource.name}
 				file_path={resource.file_path}
 				/>
+
 				</div>
 			))}
 			</div>
@@ -306,7 +313,7 @@ const SemesterPage: React.FC = () =>
 
 		{selectedTab === "PQ" && pastQ && (
 			<div className="ml-3">
-			<h2 className="text-xl mb-4 font-bold">Question Papers for {getSelectedSubjectName()}</h2>
+			<h2 className="text-xl mb-3 font-bold">Question Papers and Resources for {getSelectedSubjectName()}</h2>
 			{pastQ.map((resource : Resource, index) => (
 				<div key={index}>
 				<a href={resource.file_path} className="text-blue-600 underline hover:text-blue-700">{index+1}. {resource.name}</a>
@@ -326,6 +333,7 @@ const SemesterPage: React.FC = () =>
 			onClose={()=>setAddResource(false)}
 			/>
 		)}
+		</ScrollArea>
 		</div>
 	);
 };

@@ -73,6 +73,10 @@ body,
 	}
 }
 
+.listItem
+{
+	@apply rounded border-2 border-violet-900 hover:bg-indigo-900 
+}
 .blue-gradient
 {
 	background: linear-gradient(to right, #1a237e, #000000);

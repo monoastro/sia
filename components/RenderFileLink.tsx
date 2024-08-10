@@ -70,9 +70,11 @@ const RenderFileLink : React.FC<FileLink> = ({name, file_path }) =>
 	else if( file_path.includes('document'))
 	{
 		return (
+			<div className='mt-1'>
 			<a href={file_path} download className="text-blue-400 underline ml-2">
 			<button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download file</button>
 			</a>
+			</div>
 		);
 	}
 //pdf rendering this way takes too much resources
@@ -98,7 +100,7 @@ const RenderFileLink : React.FC<FileLink> = ({name, file_path }) =>
 	else 
 	{
 		return (
-			<div className="mt-2">
+			<div className="mt-1">
 			<a href={file_path} download className="text-blue-400 underline">
 			{name}
 			</a>
