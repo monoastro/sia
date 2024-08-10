@@ -1,7 +1,10 @@
 "use client";
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
-import Modal from './Modal';
+
+import dynamic from 'next/dynamic';
+import { FileLink } from '@/components/RenderFileLink';
+const RenderFileLink = dynamic<FileLink>(() => import('@/components/RenderFileLink').then((mod) => mod.default) );
 
 interface Announcement
 {
@@ -26,77 +29,9 @@ export interface AnnouncementItemProps
 
 const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handleDelete, handleEditClick, isAdmin}) => 
 {
-	const [isModalOpen, setIsModalOpen] = useState(false);
-
-	const renderAttachment = (attachment: string | null) => 
-	{
-		if (!attachment) return null;
-
-		const isImage = attachment.includes('image');
-		const isDocument = attachment.includes('document');
-		const isAudio = attachment.includes('audio');
-		const isVideo = attachment.includes('video');
-
-		if (isImage) 
-		{
-			return (
-				<div className="mt-2">
-				<Image
-				src={attachment}
-				alt="Attachment"
-				width={300}
-				height={300}
-				className="rounded object-cover cursor-pointer"
-				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-				onClick={() => setIsModalOpen(true)}
-				onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
-				/>
-				</div>
-			);
-		} else if (isDocument) 
-		{
-			return (
-				<div className="mt-2">
-				<a href={attachment} download className="text-blue-400 underline">
-				<button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
-				</a>
-				</div>
-			);
-		} else if (isAudio) 
-		{
-			return (
-				<div className="mt-2">
-				<audio controls className="w-full">
-				<source src={attachment} type="audio/mp3" />
-				Your browser does not support the audio element.
-					</audio>
-				</div>
-			);
-		} else if (isVideo) 
-		{
-			return (
-				<div className="mt-2">
-				<video controls className="w-1/2 rounded">
-				<source src={attachment} type="video/mp4" />
-				Your browser does not support the video element.
-					</video>
-				</div>
-			);
-		} else 
-		{
-			return (
-				<div className="mt-2">
-				<a href={attachment} download className="text-blue-400 underline">
-				<button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
-				</a>
-				</div>
-			);
-		}
-	};
-
-
 	return (
-		<div className="relative flex items-start mb-4 p-4 rounded-md border border-violet-900 mr-3 hover:bg-indigo-900">
+		<div className="relative z-0 flex items-start mb-4 p-4 rounded-md border border-violet-900 mr-3 hover:bg-indigo-900">
+
 		<Image
 		src={announcement.profile_pic || ''}
 		alt="Profile"
@@ -112,7 +47,11 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 		<span className="font-bold text-white">{announcement.title}</span>
 		</div>
 		<p className="text-white mb-2">{announcement.message}</p>
-		{renderAttachment(announcement.attachment)}
+
+		<RenderFileLink
+		name="Download Attachment"
+		file_path={announcement.attachment || ''}
+		/>
 		<div className="text-sm text-gray-400 mt-2">
 		{new Date(announcement.created_at).toLocaleString()}
 		</div>
@@ -139,20 +78,6 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 		</button>
 		</div>
 		}
-
-		{isModalOpen && (
-			<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} imageUrl={announcement.attachment || ''}>
-			<Image
-			src={announcement.attachment || '/static/fallback.png'}
-			alt="Attachment"
-			width={600}
-			height={600}
-			className="rounded object-cover"
-			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-			onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
-			/>
-			</Modal>
-		)}
 		</div>
 	);
 };

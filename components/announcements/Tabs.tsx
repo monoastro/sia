@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { cn } from "@/lib/utils";
 
 type AnnouncementType = 'General' | 'Class' | 'Assignment' | 'Assessment';
 
-export interface TabsProps {
+export interface TabsProps
+{
 	tabs: AnnouncementType[];
 	activeTab: AnnouncementType;
 	setActiveTab: (tab: AnnouncementType) => void;
@@ -14,9 +15,8 @@ export interface TabsProps {
 	isAdmin: boolean;
 }
 
-const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm, setAddAnnouncementError, isAdmin}) => {
-
-
+const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm, setAddAnnouncementError, isAdmin}) => 
+{
 	return (
 		<div className="flex mb-6">
 		{tabs.map((tab) => (

@@ -180,7 +180,7 @@ const AnnouncementsPage: React.FC = () =>
 		setAddAnnouncementError={setSubmissionError}
 		isAdmin={isAdmin}
 		/>
-		<div className="flex-grow overflow-y-auto chat-scrollbar">
+		<div className="flex-grow overflow-y-auto slick-scrollbar">
 		{announcements[activeTab].length === 0 ? ( <p className="text-white">No announcements found</p>) : (
 		announcements[activeTab].map((announcement) => (
 			<AnnouncementItem
