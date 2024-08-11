@@ -64,7 +64,7 @@ const Chat: React.FC<ChatProps> = (
 		try
 		{
 			setMessages([]);
-			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=15`);
+			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=30`);
 			setMessages(response.messages);
 		}
 		catch (error)

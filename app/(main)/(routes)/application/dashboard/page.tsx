@@ -117,7 +117,6 @@ const Dashboard = () => {
                 console.error("Failed to update user information", error);
                 setError("Failed to update user information");
             }
-			
 		}
 		finally
 		{
