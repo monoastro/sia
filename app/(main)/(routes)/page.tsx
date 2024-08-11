@@ -3,9 +3,11 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 
 export default function LandingPage() 
 {
+	const router = useRouter();
 	useEffect(() => 
 	{
 		const pingElectrocord = async () =>
@@ -31,12 +33,15 @@ export default function LandingPage()
 		</h1>
 		<p className="text-center mt-10">The premier platform for all your academic needs.</p>
 		<div className="flex justify-center m-20">
+
+		<button onClick={() => router.push('/login')}>
 		<Image
 		src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg"
 		alt="SIA Logo"
 		width={300}
 		height={300}
 		className="image-spin" />
+		</button>
 		</div>
 		<div className="flex justify-center mt-20">
 		<p className="text-center">Don't have an account? <Link href="/register" className="text-blue-500 hover:underline"> Register </Link></p>

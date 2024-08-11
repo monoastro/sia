@@ -125,15 +125,13 @@ const Dashboard = () => {
 	};
 
 
-	if(!userInfo.profile_pic)
-	{
-		return null;
-	}
+
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center p-8 text-center text-white">
 			<h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
 
 			<div className="mb-4 relative w-48 h-48">
+			{userInfo.profile_pic&&
 			<Image
 			src={userInfo.profile_pic}
 			alt="Loading..."
@@ -142,6 +140,7 @@ const Dashboard = () => {
 			className="rounded-full mx-auto"
 			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 			/>
+			|| "Loading..." }
 			</div>
 {/*
 			width={200}  

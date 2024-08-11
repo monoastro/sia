@@ -45,10 +45,11 @@ export const middleware = (request: NextRequest) =>
 			return NextResponse.redirect(new URL('/login', request.url));
 		}
 	}
-	else if (cookie)
+	else
 	{
-		fetchUserInfo();
-		if(pathname!=='/') return NextResponse.redirect(new URL('/application/dashboard', request.url));
+		//this might be a bit of a performance hit because the server is too damn slow, find an alternative; if you do put it back in, check for cookie in else if
+		//fetchUserInfo();
+		if(pathname!=='/' && cookie ) return NextResponse.redirect(new URL('/application/dashboard', request.url));
 	}
 
 	return NextResponse.next();
