@@ -1,4 +1,5 @@
 "use client";
+import { cn } from '@/lib/utils';
 import React, { useState } from 'react';
 
 interface Announcement 
@@ -88,7 +89,8 @@ const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSu
 		<div className="flex justify-end">
 		<button
 		type="submit"
-		className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+		className={cn("px-4 py-2 text-white rounded", loading ? "bg-grey-600" : "bg-blue-600 hover:bg-blue-700")}
+
 		disabled={loading}
 		>
 		{loading ? 'Submitting...' : formValues.announcement_id ? 'Update' : 'Add'}
@@ -96,7 +98,8 @@ const AnnouncementForm: React.FC<AnnouncementFormProps> = ({ initialValues, onSu
 		<button
 		type="button"
 		onClick={onClose}
-		className="ml-4 px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+		className={cn("ml-4 px-4 py-2 text-white rounded", loading ? "bg-grey-600" : "bg-red-600 hover:bg-red-700")}
+
 		disabled={loading}
 		>
 		Cancel
