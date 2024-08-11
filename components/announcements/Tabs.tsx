@@ -18,7 +18,7 @@ export interface TabsProps
 const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddForm, setAddAnnouncementError, isAdmin}) => 
 {
 	return (
-		<div className="flex mb-6">
+		<div className="flex justify-between mb-6">
 		{tabs.map((tab) => (
 			<button
 			key={tab}

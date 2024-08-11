@@ -173,7 +173,9 @@ const AnnouncementsPage: React.FC = () =>
 
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden p-6">
-		<h1 className="text-3xl font-bold text-white mb-6">Announcements</h1>
+		<div className="justify-center flex">
+		<h1 className="text-3xl font-black text-white mb-6 ">Announcements</h1>
+		</div>
 		<Tabs 
 		tabs={tabs} 
 		activeTab={activeTab} 
