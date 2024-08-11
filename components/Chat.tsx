@@ -254,30 +254,28 @@ const Chat: React.FC<ChatProps> = (
 
 		<div className="flex-grow overflow-y-auto slick-scrollbar">
 		{messages.toReversed().map((msg, index) => (
-			<div key={index} className="mb-2  p-3 rounded hover:bg-indigo-900">
+			<div key={index} className="p-1 rounded hover:bg-indigo-900">
 			<div className="flex items-center">
 
-			<div className="relative h-6 w-6 rounded-full mr-2">
+			<div className="relative h-10 w-10 rounded-full mr-2 overflow-hidden">
 			<Image
-			fill
+			width={40}
+			height={40}
 			src={msg.senderProfile || defpfpURL}
 			alt={msg.senderName}
-			className="rounded-full"
 			/>
 			</div>
 
-			<strong>
-			<span className="text-violet-600">{msg.senderName}</span>
-			</strong>
+			<span className="text-violet-600 font-bold">{msg.senderName}</span>
 
 			<div className="text-xs text-gray-400 ml-2">
 			at {new Date(msg.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
 			</div>
 			</div>
 
-			<div className="ml-8 mt-1">
+			<div className="ml-12">
 			{msg.message}
-			<div className="flex flex-wrap mt-1">
+			<div className="flex flex-wrap">
 			{msg.attachments?.map((file, i) => (
 				<div key={i} className="m-1">
 				{renderAttachment(file)}

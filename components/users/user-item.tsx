@@ -2,7 +2,6 @@
 
 import React from "react";
 import Image from "next/image";
-import { cn } from "@/lib/utils";
 import { ActionTooltip } from "@/components/action-tooltip";
 import { useRouter } from 'next/navigation';
 
@@ -25,18 +24,16 @@ export function UserItem({ id, name, imageUrl }: UserItemProps)
 		//<ActionTooltip side="left" align="center" label={name}>
 		<div className="hover:bg-indigo-500/10 rounded-lg transition-all">
 		<button onClick={onClick} className="group relative flex items-center w-full p-2 hover:bg-primary/10 rounded-lg transition-all">
-		<div className="relative flex h-[35px] w-[35px] rounded-full overflow-hidden mr-2">
+
+		<div className="relative h-[35px] w-[35px] rounded-full mr-2 overflow-hidden">
 		<Image
-		fill
+		width={40}
+		height={40}
 		src={imageUrl}
 		alt={name}
-		sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-		style={{
-			objectFit: 'contain'
-		}}
-		className="image-scale"
 		/>
 		</div>
+
 		<span className="text-sm font-medium">{name}</span>
 		</button>
 		</div>
