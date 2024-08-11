@@ -1,13 +1,11 @@
 import React from 'react';
 
-const Skeleton = ({ className = '' }) => (
-	<div className={`bg-indigo-900 rounded animate-pulse ${className}`}></div>
-);
+const Skeleton = ({ className = '' }) => ( <div className={`bg-indigo-900 rounded animate-pulse ${className}`}></div>);
 
 const LoadingAnnouncementsPage = () => 
 {
 	return (
-		<div className="h-screen p-6">
+		<div className="h-screen flex flex-col">
 		<Skeleton className="w-64 h-10 mb-6" />
 
 		<div className="flex space-x-4 mb-6">

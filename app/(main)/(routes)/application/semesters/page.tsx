@@ -185,7 +185,7 @@ const SemesterPage: React.FC = () =>
 	}, [fetchResources]);
 
 
-	if(!subjects) 
+	if(!subjects || 1) 
 	{
 		return <LoadingSemesterPage/>;
 	}

@@ -32,20 +32,25 @@ const AnnouncementItem: React.FC<AnnouncementItemProps> = ({ announcement, handl
 	return (
 		<div className="relative z-0 flex items-start mb-4 p-4 rounded-md border border-violet-900 mr-3 hover:bg-indigo-900">
 
+		<div className="h-10 w-10 rounded-full mr-2 overflow-hidden">
 		<Image
 		src={announcement.profile_pic || ''}
 		alt="Profile"
 		width={40}
 		height={40}
-		className="rounded-full mr-4"
 		/>
-		<div className="flex-grow text-white">
-		<div className="flex items-center mb-2">
-		<span className="font-semibold text-white mr-2">{announcement.username}</span>
 		</div>
-		<div className="flex items-center mb-1">
-		<span className="font-bold text-white">{announcement.title}</span>
+
+		<div className="flex-grow">
+	
+		<div className="items-center mb-2">
+		<span className="font-semibold text-violet-600 mr-2">{announcement.username}</span>
 		</div>
+
+		<div className="items-center mb-1">
+		<span className="font-bold text-blue-600">{announcement.title}</span>
+		</div>
+
 		<p className="text-white mb-2">{announcement.message}</p>
 
 		<RenderFileLink

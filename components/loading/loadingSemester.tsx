@@ -7,39 +7,29 @@ const Skeleton = ({ className = '' }) => (
 const LoadingSemesterPage = () => 
 {
 	return (
-		<div className="h-screen p-6">
+		<div className="h-screen flex flex-col">
 
-		<div className="flex justify-between mb-8">
-		<div className="flex space-x-6">
-		<Skeleton className="w-40 h-11" />
-		<Skeleton className="w-56 h-11" />
-		<Skeleton className="w-12 h-11" />
-		</div>
+		<div className="flex px-3 py-4 justify-between">
 		<div className="flex space-x-4">
-		{[...Array(4)].map((_, i) => (
-			<Skeleton key={i} className="w-14 h-13" />
-		))}
+		<Skeleton className="w-36 h-11" />
+		<Skeleton className="w-52 h-11" />
+		<Skeleton className="w-14 h-11" />
+		</div>
+		<div className="flex space-x-2">
+		{[...Array(4)].map((_, i) => ( <Skeleton key={i} className="p-2 w-10 h-10" />))}
 		</div>
 		</div>
 
-		<div className="space-y-6 mb-12">
-		<Skeleton className="w-3/4 h-10" />
-		<Skeleton className="w-full h-6" />
-		<Skeleton className="w-full h-6" />
-		<Skeleton className="w-5/6 h-6" />
+		<div className="ml-3">
+		<Skeleton className="w-1/4 h-10 mb-4" />
+		<Skeleton className="w-3/4 h-3 mb-3" />
 		</div>
 
-		<div className="space-y-10">
-		{[...Array(6)].map((_, index) => (
-			<div key={index} className="space-y-4">
-			<Skeleton className="w-full h-6" />
-			<Skeleton className="w-full h-6" />
-			<Skeleton className="w-5/6 h-6" />
-			<Skeleton className="w-3/4 h-6" />
-			</div>
-		))}
-		</div>
 
+		<div className="flex">
+        <Skeleton className="w-10 h-10 rounded-full ml-3" />
+        <Skeleton className="w-10 h-5 ml-3" />
+		</div>
 		</div>
 	);
 };

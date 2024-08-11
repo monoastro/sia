@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { SendIcon, CirclePlus } from 'lucide-react';
+import { SendIcon, CirclePlus, ListTree } from 'lucide-react';
 import { getAPI, postAPI } from '@/lib/api';
 import io, { Socket } from 'socket.io-client';
 import { defpfpURL, apiBaseUrl } from '@/lib/data';
@@ -53,6 +53,7 @@ const Chat: React.FC<ChatProps> = (
 	// Completely useless as of now // useful now
 	const [attachments, setAttachments] = useState<File[]>([]);
 	const [error, setError] = useState('');
+	const [compactMode, setCompactMode] = useState(false);
 
 	const [pageCount, setPageCount] = useState<number>(1);
 
@@ -206,7 +207,7 @@ const Chat: React.FC<ChatProps> = (
 			);
 			case fileType.startsWith('video'):
 				return (
-					<div className="mt-2">
+					<div>
 					<video
 					src={filePath}
 					controls
@@ -219,7 +220,7 @@ const Chat: React.FC<ChatProps> = (
 			);
 			case fileType.startsWith('audio'):
 				return (
-					<div className="mt-2">
+					<div>
 					<audio controls className="w-full">
 					<source src={filePath} type="audio/mp3" />
 					Your browser does not support the audio element.
@@ -231,7 +232,7 @@ const Chat: React.FC<ChatProps> = (
 			);
 			case fileType.startsWith('application'):
 				return (
-					<div className="mt-2">
+					<div>
 					<a href={filePath} download className="text-blue-400 underline">
 					<button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
 					</a>
@@ -239,15 +240,14 @@ const Chat: React.FC<ChatProps> = (
 			);
 			default:
 				return (
-					<div className="mt-2">
+					<div>
 					<a href={filePath} download className="text-blue-400 underline">
-					<button className="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-700">Download Attachment</button>
+					<button className="bg-blue-500 text-white py-1 rounded hover:bg-blue-700">Download Attachment</button>
 					</a>
 					</div>
 			);
 		}
 	}, []);
-
 
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden">
@@ -255,9 +255,11 @@ const Chat: React.FC<ChatProps> = (
 		<div className="flex-grow overflow-y-auto slick-scrollbar">
 		{messages.toReversed().map((msg, index) => (
 			<div key={index} className="p-1 rounded hover:bg-indigo-900">
-			<div className="flex items-center">
 
-			<div className="relative h-10 w-10 rounded-full mr-2 overflow-hidden">
+			<div className="flex items-start">
+
+			{!compactMode && (
+			<div className="h-10 w-10 rounded-full mr-2 overflow-hidden">
 			<Image
 			width={40}
 			height={40}
@@ -265,16 +267,22 @@ const Chat: React.FC<ChatProps> = (
 			alt={msg.senderName}
 			/>
 			</div>
+			)}
 
+			<div>
 			<span className="text-violet-600 font-bold">{msg.senderName}</span>
-
-			<div className="text-xs text-gray-400 ml-2">
+			{!compactMode && (
+			<span className="text-xs text-gray-400 ml-2 mt-1 pt-0.5 ">
 			at {new Date(msg.createdAt).toLocaleTimeString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })}
-			</div>
-			</div>
-
-			<div className="ml-12">
+			</span>
+			)}
+			<div>
+			{!compactMode && (
+			<div>
 			{msg.message}
+			</div>
+			)}
+
 			<div className="flex flex-wrap">
 			{msg.attachments?.map((file, i) => (
 				<div key={i} >
@@ -282,8 +290,20 @@ const Chat: React.FC<ChatProps> = (
 				</div>
 			))}
 			</div>
+			</div>
+			</div>
+
+
+			{compactMode && (
+			<div className="ml-1">
+			{msg.message}
+			</div>
+			)}
 
 			</div>
+
+
+
 			</div>
 		))}
 		<div ref={newMessageScroll} />
@@ -307,6 +327,7 @@ const Chat: React.FC<ChatProps> = (
 
 		<div className="m-2">
 		<div className="flex items-center">
+
 		<button
 		onClick={() => document.getElementById('attachment-input')?.click()}
 		className="px-4 py-2 bg-blue-900 text-white rounded-l hover:bg-blue-600 focus:outline-none"
@@ -328,6 +349,14 @@ const Chat: React.FC<ChatProps> = (
 		className="flex-grow bg-blue-900 px-4 py-2 focus:outline-none text-white"
 		onKeyDown={(e) => e.key === 'Enter' && sendMessage(e)}
 		/>
+		
+
+		<Button
+		onClick={() => setCompactMode((prev) => !prev)}
+		className="bg-blue-900 hover:bg-blue-600 rounded-none"
+		>
+		<ListTree />
+		</Button>
 		<Button
 		type="submit"
 		className="bg-blue-900 hover:bg-blue-600 rounded-none rounded-r"
