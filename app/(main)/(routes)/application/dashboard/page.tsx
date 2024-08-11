@@ -96,13 +96,27 @@ const Dashboard = () => {
 		}
 		catch (error: any)
 		{
-			if (error.response) {
-				console.error("Failed to update user information", error);
-				setError(error.response.details[0]);				
-			} else {
-				console.error("Failed to update user information", error);
-				setError("Failed to update user information");
-			}
+			if (error.response)
+			{
+                console.log(error.response.data.message)
+                if (error.response.data.message)
+				{
+                    setError(error.response.data.message);
+                }
+                else if(error.response.data.details)
+                {
+                    setError(error.response.data.details[0]);
+                }
+                else
+				{
+                    setError("Failed to update user information");
+                }
+            }
+			else
+			{
+                console.error("Failed to update user information", error);
+                setError("Failed to update user information");
+            }
 			
 		}
 		finally
