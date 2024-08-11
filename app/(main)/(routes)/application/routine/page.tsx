@@ -137,7 +137,7 @@ const RoutinePage: React.FC = () =>
 
 	const renderedRoutines = new Set();
 
-	if(routines.length === 0 || 1) 
+	if(routines.length === 0) 
 	{
 		return <LoadingRoutinePage/>
 	}

@@ -29,6 +29,7 @@ const LoadingSemesterPage = () =>
 		<div className="flex">
         <Skeleton className="w-10 h-10 rounded-full ml-3" />
         <Skeleton className="w-10 h-5 ml-3" />
+
 		</div>
 		</div>
 	);

@@ -185,7 +185,7 @@ const SemesterPage: React.FC = () =>
 	}, [fetchResources]);
 
 
-	if(!subjects || 1) 
+	if(!subjects) 
 	{
 		return <LoadingSemesterPage/>;
 	}
@@ -193,7 +193,9 @@ const SemesterPage: React.FC = () =>
 		<div className="flex flex-col h-screen text-white ">
 
 		<div className="flex px-3 py-4 justify-between items-center">
+
 		<div className="flex space-x-4">
+
 		<div className="relative">
 		<button
 		onClick={() => { setIsSemesterDropdownOpen(!isSemesterDropdownOpen); setIsSubjectDropdownOpen(false);}} 
