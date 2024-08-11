@@ -13,3 +13,4 @@
 - [ ] cache the active last tab/state on pages that have multiple states
 - [ ] generalize the file rederer block (left: chat)
 - [ ] fix routine's horrible css
+- [ ] add everything to resources

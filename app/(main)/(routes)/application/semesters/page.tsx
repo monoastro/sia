@@ -58,7 +58,7 @@ const SemesterPage: React.FC = () =>
 
 {
 	const [semesterIDs, setSemesterIDs] = useState<string[8]>();
-	const [subjects, setSubjects] = useState<Subject[]>();
+	const [subjects, setSubjects] = useState<Subject[] | null>(null);
 
 	//getActiveSemester fn for these lads; for now just hardcode the defaults
 	const [selectedSemester, setSelectedSemester] = useState<number>(5);
@@ -76,6 +76,7 @@ const SemesterPage: React.FC = () =>
 	const [addResource, setAddResource] = useState<boolean>(false);
 	const [isAdmin, setIsAdmin] = useState(false);
 
+
 	useEffect(() => 
 	{
 		import('@/lib/utils').then(({ getUserInfoLocal }) => { setIsAdmin(getUserInfoLocal()?.is_admin || false); }); //this is magic
@@ -83,7 +84,7 @@ const SemesterPage: React.FC = () =>
 
 	const userInfo = getUserInfoLocal();
 	const token = getToken();
-
+	
     const fetchSemesterIDs = useCallback(async () => 
     {
         try 
@@ -95,11 +96,11 @@ const SemesterPage: React.FC = () =>
             console.log("Error fetching semesters/each in semesters/page.tsx : 93\n", error);
         }
     }, []);
-
     useEffect(() => 
     {
         fetchSemesterIDs();
     }, [fetchSemesterIDs]);
+
 
 	//weird logic but it works; don't blame me blame react
 	const fetchSubjects = useCallback( async () => 
@@ -107,8 +108,11 @@ const SemesterPage: React.FC = () =>
 		if(!semesterIDs) return; //this is probably the 50th hack i've implemented in this project
 		//console.log(semesterIDs[selectedSemester - 1 ]);
 	    try
-	    
 	    {
+			//std::cout type behaviour
+			setPastQ([]);
+			setNotes([]);
+			setSubjects(null);
 			const data = await getAPI(`semesters/${semesterIDs[selectedSemester - 1]}`);
 			setSubjects(data[0].subjects);
 			setSelectedSubject(0);
@@ -118,11 +122,11 @@ const SemesterPage: React.FC = () =>
 			console.log("Error fetching semesters/id in semesters/page.tsx : 71")
 	    }
 	}, [selectedSemester, semesterIDs]);
-
 	useEffect(()=> 
 	{
 		fetchSubjects();
 	}, [fetchSubjects]);
+
 	const getSelectedSubjectName = () => 
 	{
 		return subjects && subjects[selectedSubject].name || "";
