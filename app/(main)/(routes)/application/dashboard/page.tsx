@@ -8,6 +8,7 @@ import { deleteCookie } from 'cookies-next';
 import { getAPI, putAPI } from '@/lib/api'; 
 import { getUserInfoLocal, setUserInfoLocal, deleteUserInfoLocal, deleteToken } from '@/lib/utils';
 import UpdateInfoForm from '@/components/dashboard/UpdateInfo';
+import { defpfpURL } from '@/lib/data';
 
 const Dashboard = () => {
 	//why do it like this when interfaces exist
@@ -111,15 +112,20 @@ const Dashboard = () => {
 	};
 
 
+	if(!userInfo.profile_pic)
+	{
+		return null;
+	}
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center p-8 text-center text-white">
 			<h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
 
 			<div className="mb-4 relative w-48 h-48">
 			<Image
-			src={userInfo.profile_pic || ''}
+			src={userInfo.profile_pic}
 			alt="Loading..."
 			fill
+			priority
 			className="rounded-full mx-auto"
 			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 			/>

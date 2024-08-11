@@ -58,7 +58,7 @@ const LoginPage = () =>
 				secure: true, 
 				sameSite: "none"
 			});
-			console.log(`Hijacked Cookie: ${document.cookie}`);
+			//console.log(`Hijacked Cookie: ${document.cookie}`);
 
 			router.push('/application/dashboard');
 		} 

@@ -118,7 +118,7 @@ const Chat: React.FC<ChatProps> = (
 	useEffect(() =>
 	{
 		newMessageScroll.current?.scrollIntoView({ behavior: 'smooth' });
-		console.log(messages);
+		//console.log(messages);
 	}, [messages]);
 
     const sendMessage = useCallback(async (e: React.FormEvent) => {

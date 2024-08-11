@@ -38,6 +38,7 @@ export function NavigationItem({ id, imageUrl, name }: NavigationItemProps)
 		<div className={"relative group flex mx-3 rounded-[100px] transition-all"}>
 		<Image 
 		src={imageUrl} 
+		priority
 		alt="Tabs"
 		width="50"
 		height="50"

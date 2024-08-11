@@ -115,8 +115,7 @@ const ResourceForm: React.FC<ResourceFormProps> = (
 		<div className="flex justify-end">
 		<button
 		type="submit"
-		className={cn("px-4 py-2 text-white rounded",
-					sending ? "bg-grey-600" : "bg-blue-600 hover:bg-blue-700")}
+		className={cn("px-4 py-2 text-white rounded", sending ? "bg-grey-600" : "bg-blue-600 hover:bg-blue-700")}
 		disabled={sending}
 		>
 		{sending && "Submitting..." || "Submit"}
@@ -125,8 +124,7 @@ const ResourceForm: React.FC<ResourceFormProps> = (
 		<button
 		type="button"
 		onClick={onClose}
-		className={cn("ml-4 px-4 py-2 text-white rounded", 
-					  sending ? "bg-grey-600" : "bg-red-600 hover:bg-red-700")}
+		className={cn("ml-4 px-4 py-2 text-white rounded", sending ? "bg-grey-600" : "bg-red-600 hover:bg-red-700")}
 		disabled={sending}
 		>
 		Cancel

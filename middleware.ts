@@ -1,10 +1,30 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
+import { getUserInfoLocal, setUserInfoLocal } from './lib/utils';
+import { getAPI } from './lib/api';
+
 //two redirects are defined 
 //if the route is not public and the user is not authenticated, redirect to login
 //if the route is public and the user is authenticated, redirect to dashboard with the exception of the home page
 const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/register']
+
+const fetchUserInfo = async () =>
+{
+	try 
+	{
+		const userId = getUserInfoLocal().user_id;
+		const data = await getAPI(`users/${userId}`);
+		if (data)
+		{
+			setUserInfoLocal(data[0]);
+		}
+	}
+	catch (error)
+	{
+		console.error("Failed to fetch user information", error);
+	}
+};
 
 export const middleware = (request: NextRequest) =>
 {
@@ -25,9 +45,10 @@ export const middleware = (request: NextRequest) =>
 			return NextResponse.redirect(new URL('/login', request.url));
 		}
 	}
-	else
+	else if (cookie)
 	{
-		if(cookie && pathname!=='/') return NextResponse.redirect(new URL('/application/dashboard', request.url));
+		fetchUserInfo();
+		if(pathname!=='/') return NextResponse.redirect(new URL('/application/dashboard', request.url));
 	}
 
 	return NextResponse.next();
