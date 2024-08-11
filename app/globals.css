@@ -4,117 +4,133 @@
 
 html,
 body,
-:root {
+:root 
+{
 	height: 100%;
 }
 
-.button
+.button 
 {
 	@apply px-4 py-2 mr-2 text-white rounded focus:outline-none focus:ring-2;
 }
-.btn-blue
+.btn-blue 
 {
 	@apply bg-blue-500 focus:ring-blue-600;
 }
-.btn-red
+.btn-red 
 {
 	@apply bg-red-500 focus:ring-red-600;
 }
-.btn-green
+.btn-green 
 {
 	@apply bg-green-500 focus:ring-green-600;
 }
 
-.image-spin
+.image-spin 
 {
 	animation: scaleRotate 10s infinite;
 }
-@keyframes scaleRotate
+@keyframes scaleRotate 
 {
-	0%
+	0% 
 	{
 		transform: scale(1.2) rotate(0deg);
 	}
 
-	50%
+	50% 
 	{
 		transform: scale(1.4) rotate(45deg);
 	}
 
-	75%
+	75% 
 	{
 		transform: scale(1.4) rotate(315deg);
 	}
-	100%
+	100% 
 	{
 		transform: scale(1.2) rotate(360deg);
 	}
 }
 
-.image-scale
+.image-scale 
 {
 	animation: scale 10s infinite;
 }
-@keyframes scale
+@keyframes scale 
 {
-	0%
+	0% 
 	{
 		transform: scale(0.95);
 	}
 
-	50%
+	50% 
 	{
 		transform: scale(1.07);
 	}
 
-	100%
+	100% 
 	{
 		transform: scale(0.95);
 	}
 }
 
-.listItem
+.listItem 
 {
 	@apply rounded border-2 border-violet-900 hover:bg-indigo-900 
 }
-.blue-gradient
+.blue-gradient 
 {
 	background: linear-gradient(to right, #1a237e, #000000);
 	color: #ffffff;
 }
-.light-blue-gradient
+.light-blue-gradient 
 {
 	background: linear-gradient(to right, #1e88e5, #64b5f6);
 	color: #ffffff;
 }
-.green-gradient
+.green-gradient 
 {
 	background: linear-gradient(to right, #2e7d32, #388e3c);
 	color: #ffffff;
 }
 
-.slick-scrollbar {
+.slick-scrollbar 
+{
 	overflow-y: auto;
 	padding: 1rem;
 }
-.slick-scrollbar::-webkit-scrollbar {
+.slick-scrollbar::-webkit-scrollbar 
+{
 	width: 8px;
 }
-.slick-scrollbar::-webkit-scrollbar-track {
+.slick-scrollbar::-webkit-scrollbar-track 
+{
 	background: #1a237e;
 	border-radius: 4px;
 }
-.slick-scrollbar::-webkit-scrollbar-thumb {
+.slick-scrollbar::-webkit-scrollbar-thumb 
+{
 	background: #05003b;
 	border-radius: 4px;
 }
-.slick-scrollbar::-webkit-scrollbar-thumb:hover {
-  background: #05003b;
-  border-radius: 4px;
+.slick-scrollbar::-webkit-scrollbar-thumb:hover 
+{
+	background: #05003b;
+	border-radius: 4px;
 }
 
-@layer base {
+@layer base 
+{
+	.font-outline-2 
+	{
+		-webkit-text-stroke: 2px black;
+	}
+	.font-outline-4 
+	{
+		-webkit-text-stroke: 4px black;
+	}
 	:root 
+	
 	{
 		--background: 0 0% 100%;
 		--foreground: 0 0% 3.9%;
@@ -147,7 +163,7 @@ body,
 		--radius: 0.5rem;
 	}
 
-	.dark
+	.dark 
 	{
 		--background: 0 0% 3.9%;
 		--foreground: 0 0% 98%;
@@ -179,8 +195,10 @@ body,
 	}
 }
 
-@layer base {
-	* {
+@layer base 
+{
+	* 
+	{
 		@apply border-border;
 	}
 	body 

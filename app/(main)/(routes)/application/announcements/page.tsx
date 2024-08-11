@@ -7,6 +7,7 @@ import { getAPI, deleteAPI, putAPI, postAPI } from '@/lib/api';
 import { AnnouncementItemProps } from '@/components/announcements/AnnouncementItem';
 import { AnnouncementFormProps } from '@/components/announcements/AnnouncementForm';
 import { TabsProps } from '@/components/announcements/Tabs';
+import LoadingAnnouncementsPage from '@/components/loading/loadingAnnouncements';
 
 const AnnouncementItem = dynamic<AnnouncementItemProps>(() => import('@/components/announcements/AnnouncementItem').then((mod) => mod.default), {ssr:false});
 const AnnouncementForm = dynamic<AnnouncementFormProps>(() => import('@/components/announcements/AnnouncementForm').then((mod) => mod.default), {ssr:false});
@@ -168,6 +169,10 @@ const AnnouncementsPage: React.FC = () =>
 		setError("");
 	}, []);
 
+	if(announcements[activeTab].length === (0 as number ))
+	{
+		return <LoadingAnnouncementsPage/>;
+	}
 
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden p-6">

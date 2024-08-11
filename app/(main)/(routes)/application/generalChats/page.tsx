@@ -8,6 +8,7 @@ import { ChatProps } from '@/components/Chat';
 const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default), {ssr:false});
 import { getAPI } from "@/lib/api";
 import {getToken, getUserInfoLocal } from '@/lib/utils';
+import LoadingGeneralChatsPage from '@/components/loading/LoadingGeneralChats';
 
 //useless fields are commneted out for now
 interface Channel
@@ -57,7 +58,7 @@ const GeneralChatsPage: React.FC = () =>
 
 	if(!channels)
 	{
-		return null;
+		return <LoadingGeneralChatsPage/>;
 	}
 
 	return (

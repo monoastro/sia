@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback } from 'react';
-import { ChevronDownIcon } from '@heroicons/react/20/solid';
 
+import { ChevronDownIcon } from '@heroicons/react/20/solid';
 import { getAPI, postAPI } from "@/lib/api";
 import {getToken, getUserInfoLocal } from '@/lib/utils';
 
@@ -13,6 +13,7 @@ import { ResourceFormProps } from '@/components/semesters/ResourceForm';
 
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { CirclePlus, LibraryBig, MessageSquareDot, NotebookPen, ScrollTextIcon } from 'lucide-react';
+import LoadingSemesterPage from '@/components/loading/loadingSemester';
 
 const Chat = dynamic<ChatProps>(() => import('@/components/Chat').then((mod) => mod.default) );
 const MarkdownRenderer = dynamic<markdownProps>(() => import('@/components/markdownRenderer').then((mod) => mod.default) );
@@ -179,7 +180,7 @@ const SemesterPage: React.FC = () =>
 
 	if(!subjects) 
 	{
-		return null;
+		return <LoadingSemesterPage/>;
 	}
     return (
 		<div className="flex flex-col h-screen text-white ">

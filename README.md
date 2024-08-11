@@ -15,7 +15,7 @@ If you are too lazy to click the link, here's a little preview of the website.
 ![loginPage](public/loginPage.png)
 ## Getting Started
 
-First, install the necessary packages using the npm as:
+First, install the necessary packages using the npm as(If you're fancy you can even use pnpm):
 ```bash
 npm i
 ```
