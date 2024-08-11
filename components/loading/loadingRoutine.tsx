@@ -17,13 +17,12 @@ const LoadingRoutinePage = () =>
 		</div>
 
 		<div className="justify-between flex mb-2">
-		{index7.map((_, index7) => ( <Skeleton key={index7} className="w-40 h-12" />))}
+		{index7.map((_, index) => ( <Skeleton key={index} className="w-40 h-12" />))}
 		</div>
 
 		<div className="justify-between flex">
-
 		<div>
-		{index6.map((_, index7) => <Skeleton key={index7} className="w-40 h-24 mb-2" />)}
+		{index6.map((_, index) => <Skeleton key={index} className="w-40 h-24 mb-2" />)}
 		</div>
 
 		<div>
@@ -67,8 +66,6 @@ const LoadingRoutinePage = () =>
 		<Skeleton className="w-40 h-48 mb-2" />
 		<Skeleton className="w-40 h-24 mb-2" />
 		</div>
-
-
 		</div>
 
 

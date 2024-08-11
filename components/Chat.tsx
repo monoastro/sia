@@ -62,8 +62,8 @@ const Chat: React.FC<ChatProps> = (
 	{
 		try
 		{
+			setMessages([]);
 			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=15`);
-
 			setMessages(response.messages);
 		}
 		catch (error)
@@ -191,7 +191,7 @@ const Chat: React.FC<ChatProps> = (
 		{
 			case fileType.startsWith('image'):
 				return (
-					<div className="mt-2">
+					<div>
 					<Image
 					src={filePath}
 					alt={originalName}
@@ -277,7 +277,7 @@ const Chat: React.FC<ChatProps> = (
 			{msg.message}
 			<div className="flex flex-wrap">
 			{msg.attachments?.map((file, i) => (
-				<div key={i} className="m-1">
+				<div key={i} >
 				{renderAttachment(file)}
 				</div>
 			))}
@@ -292,7 +292,7 @@ const Chat: React.FC<ChatProps> = (
 		{error && <div className="text-red-500 mt-2 px-2">{error}</div>}
 
 		{attachments.length > 0 && (
-			<div className="mt-2 p-2 rounded-lg flex flex-wrap bg-gray-100">
+			<div className="mt-2 p-2 rounded-lg flex flex-wrap ">
 			{attachments.map((file, index) => (
 				<div
 				key={index}

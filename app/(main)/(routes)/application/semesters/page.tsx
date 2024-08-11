@@ -135,6 +135,9 @@ const SemesterPage: React.FC = () =>
 		if(!subjects) return;
 		try 
 		{
+			//std::cout type behaviour
+			setPastQ([]);
+			setNotes([]);
 			const resources = await getAPI(`resources/subject/${subjects[selectedSubject].subject_id}`);
 			//const res : Resource = (resources.filter((resources: Resource) => resources.category === selectedTab));
 			//console.log("Logging resource\n" + JSON.stringify(res));
@@ -269,13 +272,6 @@ const SemesterPage: React.FC = () =>
 		</div>
 
 
-		{selectedTab === "Syllabus" && (
-			<div className="ml-3">
-			<h2 className="text-xl mb-4 font-bold">Syllabus for {getSelectedSubjectName()}</h2>
-			{subjects && subjects[selectedSubject].description}
-			{subjects && <MarkdownRenderer markdownContent={ subjects[selectedSubject].syllabus} /> }
-			</div>
-		)}
 		{selectedTab === "Chat" && subjects && 
 			<Chat
 			chatId={subjects[selectedSubject].chat.chat_id || ""}
@@ -286,20 +282,29 @@ const SemesterPage: React.FC = () =>
 			token={token || ''}
 			/>
 		}
+		{selectedTab === "Syllabus" && (
+			<div className="ml-3">
+			<h2 className="text-xl mb-4 font-bold">Syllabus for {getSelectedSubjectName()}</h2>
+			{subjects && subjects[selectedSubject].description}
+			{subjects && <MarkdownRenderer markdownContent={ subjects[selectedSubject].syllabus} /> }
+			</div>
+		)}
 
-		<ScrollArea className="flex-1 w-full slick-scrollbar">
+		<ScrollArea className="flex-1 w-full mb-2">
 		{selectedTab === "Notes" && notes && (
 			<div className="ml-3">
-			<h2 className="text-xl mb-4 font-bold">Notes and Assignments for {getSelectedSubjectName()}</h2>
+			<h2 className="text-xl mb-3 font-bold">Notes and Assignments for {getSelectedSubjectName()}</h2>
 			{notes.map((resource : Resource, index) => (
-				<div key={index} className="p-4 mb-2 ">
+				<div key={index} className="rounded hover:bg-indigo-900 px-2 py-2 mr-3">
 				{<a href={resource.file_path} className="text-blue-600 font-bold underline hover:text-blue-700">{index+1}. {resource.name}</a>}
 				<p className="mt-1"> {resource.description}</p>
-
+ 
+				<div className='justify-center flex'>
 				<RenderFileLink
 				name={resource.name}
 				file_path={resource.file_path}
 				/>
+				</div>
 
 				</div>
 			))}
@@ -311,7 +316,7 @@ const SemesterPage: React.FC = () =>
 			<div className="ml-3">
 			<h2 className="text-xl mb-3 font-bold">Question Papers and Resources for {getSelectedSubjectName()}</h2>
 			{pastQ.map((resource : Resource, index) => (
-				<div key={index} className="mt-1">
+				<div key={index} className="rounded hover:bg-indigo-900 px-2 py-2 mr-3">
 				<a href={resource.file_path} className="text-blue-600 underline hover:text-blue-700">{index+1}. {resource.name}</a>
 
 				<p className=""> {resource.description}</p>
@@ -323,7 +328,7 @@ const SemesterPage: React.FC = () =>
 			))}
 			</div>
 		)}
-
+		</ScrollArea>
 		{addResource && subjects && (
 			<ResourceForm
 			subject_id={subjects[selectedSubject].subject_id}
@@ -331,7 +336,6 @@ const SemesterPage: React.FC = () =>
 			onClose={()=>setAddResource(false)}
 			/>
 		)}
-		</ScrollArea>
 		</div>
 	);
 };
