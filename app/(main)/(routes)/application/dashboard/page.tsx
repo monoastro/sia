@@ -6,7 +6,6 @@ import Image from 'next/image';
 import { deleteCookie } from 'cookies-next';
 
 import { getAPI, putAPI } from '@/lib/api'; 
-import { defpfpURL } from "@/lib/data";
 import { getUserInfoLocal, setUserInfoLocal, deleteUserInfoLocal, deleteToken } from '@/lib/utils';
 import UpdateInfoForm from '@/components/dashboard/UpdateInfo';
 

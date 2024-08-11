@@ -39,7 +39,8 @@ const RoutinePage: React.FC = () =>
 		{
 			const data = await getAPI('routines');
 			setRoutines(data);
-		} catch (error) 
+		}
+		catch (error) 
 		{
 			console.error(error);
 		}
@@ -91,7 +92,7 @@ const RoutinePage: React.FC = () =>
 		const startTime = moment(routine.start_time, 'HH:mm:ss');
 		const endTime = moment(routine.end_time, 'HH:mm:ss');
 		const diff = endTime.diff(startTime, 'minutes');
-		return diff / 50; // 50 is the interval
+		return diff / 50;
 	}, []);
 
 	const downloadAsCSV = useCallback(() => 

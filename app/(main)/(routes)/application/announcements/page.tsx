@@ -169,10 +169,7 @@ const AnnouncementsPage: React.FC = () =>
 		setError("");
 	}, []);
 
-	if(announcements[activeTab].length === (0 as number ))
-	{
-		return <LoadingAnnouncementsPage/>;
-	}
+
 
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden p-6">
