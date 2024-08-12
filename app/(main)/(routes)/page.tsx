@@ -37,7 +37,7 @@ export default function LandingPage()
 		<button onClick={() => router.push('/login')}>
 		<Image
 		src="https://raw.githubusercontent.com/monoastro/sia/main/public/static/emma.svg"
-		alt="SIA Logo"
+		alt="EMotional support aniMAl"
 		width={300}
 		height={300}
 		className="image-spin" />
