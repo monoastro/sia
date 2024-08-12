@@ -14,26 +14,32 @@ Just click the link listed on the side or below. If you are too lazy to click th
 ![loginPage](public/loginPage.png)
 
 ## Dependencies
+- Node.js
 - npm/pnpm
 
 ## Getting Started
-
-First, install the necessary packages using the npm as(If you're fancy you can even use pnpm):
+1. First step open up a terminal of your choice(Alacritty/Kitty is preferred) and install the required depdencies, which is literally just one package using a package manager of your choice:
+```bash
+sudo pacman -S nodejs npm
+```
+2. Clone the repo and cd into the folder using the following commands:
+```bash
+git clone https://github.com/monoastro/sia.git
+cd sia
+```
+3. install the necessary packages using the npm as(If you're fancy you can even use pnpm):
 ```bash
 npm i
 ```
-Complex command, I know. Now then, let's run the development server:
-
+4. Complex command, I know. Now then, let's run the development server:
 ```bash
-
 npm run dev
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to view the locally hosted website.
+5. Open [http://localhost:3000](http://localhost:3000) with your browser to view the locally hosted website.
 
 
 ## Building the project
-
+To build the project for deployment, run the following command:
 ```bash
 npm run build
 ```
@@ -54,14 +60,30 @@ Which might be confusing to the create-next-app crowd, but checkout package.json
 6. Learning Platform with a dynamic library of resources required for every semester
 7. Interactive UI designed with user experience in mind
 
+## Tech Stack
+* ![Next.js(Frontend)](https://nextjs.org/)
+* ![Express.js(Backend)](https://expressjs.com/)
+* ![Postgresql(Database)](https://www.postgresql.org/)
+* ![Socket.io(Real Time Chat)](https://socket.io/)
+* ![Vercel(Frontend Deployment)](https://vercel.com/)
+* ![Render(Backend Deployment)](https://render.com/)
+* ![shadcn/ui(UI Components)](https://ui.shadcn.com/docs/components/)
+* ![TailwindCSS(Styling)](https://tailwindcss.com/)
+* ![Axios(HTTP Requests)](https://devdocs.io/axios/api_intro)
+
+## Development Environment
+* ![Alacritty]( https://alacritty.org/ )
+* ![Neovim]( https://neovim.io/ )
+* ![Tmux](https://github.com/tmux/tmux/wiki)
 
 ## Deployed website
-
 This project is deployed @ [Vercel](https://sia-electrocord.vercel.app/)
 
 ## Wanna read stuff?
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Next.js Documentation](https://nextjs.org/docs)
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- [TailwindCSS Documentation](https://tailwindcss.com/docs) - reference for tailwind classes.
+
 
 ## Bugs
 > - If you find any bugs, please report them to the issues section of this repository.
