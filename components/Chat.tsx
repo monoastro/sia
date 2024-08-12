@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { SendIcon, CirclePlus, ListTree, ArrowUpToLine, ArrowDownToLine, ChevronDownIcon } from 'lucide-react';
+import { SendIcon, CirclePlus, ListTree, ArrowUpToLine, ArrowDownToLine } from 'lucide-react';
 import { getAPI, postAPI } from '@/lib/api';
 import io, { Socket } from 'socket.io-client';
 import { defpfpURL, apiBaseUrl } from '@/lib/data';
@@ -65,7 +65,7 @@ const Chat: React.FC<ChatProps> = (
 		try
 		{
 			setMessages([]);
-			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=40`);
+			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=30`);
 			setMessages(response.messages);
 			setHasMore(!(pageCount === response.totalPages));
 			//use this in the event of implementation of infinite scroll
@@ -319,7 +319,7 @@ const Chat: React.FC<ChatProps> = (
 			<button
 			onClick={() => setPageCount(1)}
 			className="hover:text-blue-600">
-			Return to active chat page <ChevronDownIcon />
+			Return to active chat page
 			</button>
 			</div>
 		}
