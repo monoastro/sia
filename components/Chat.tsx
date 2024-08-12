@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { SendIcon, CirclePlus, ListTree, ArrowUpToLine, ArrowDownToLine } from 'lucide-react';
+import { SendIcon, CirclePlus, ListTree, ArrowUpToLine, ArrowDownToLine, ChevronDownIcon } from 'lucide-react';
 import { getAPI, postAPI } from '@/lib/api';
 import io, { Socket } from 'socket.io-client';
 import { defpfpURL, apiBaseUrl } from '@/lib/data';
@@ -97,9 +97,9 @@ const Chat: React.FC<ChatProps> = (
 				newSocket.emit('join', { userId, chatId });
 			});
 
-			newSocket.on('chatMessage', (data) => 
+			newSocket.on('chatMessage', (newMessage) => 
 			{
-				setMessages((prevMessages) => [data, ...prevMessages]);
+				pageCount===1 && setMessages((prevMessages) => [newMessage, ...prevMessages]);
 			});
 
 			newSocket.on('disconnect', () => 
@@ -117,7 +117,7 @@ const Chat: React.FC<ChatProps> = (
 				}
 			};
 		}
-	}, [chatId, token, userId, populateMessages]);
+	}, [chatId, token, userId, populateMessages, pageCount]);
 
 
 	useEffect(() =>
@@ -150,14 +150,15 @@ const Chat: React.FC<ChatProps> = (
             attachments: uploadedUrls,
         };
 
-        if (isConnected && socket) {
+        if (isConnected && socket) 
+		{
             socket.emit('chatMessage', payload);
-            setMessages((prevMessages) => [newMessage, ...prevMessages]);
+            pageCount===1 && setMessages((prevMessages) => [newMessage, ...prevMessages]);
             setMessage('');
             setAttachments([]);
             setError('');
         }
-    }, [message, attachments, isConnected, socket, chatId, userId, userName, userPfp]);
+    }, [message, attachments, isConnected, socket, chatId, pageCount, userId, userName, userPfp]);
 
     const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const files = Array.from(e.target.files || []);
@@ -313,6 +314,15 @@ const Chat: React.FC<ChatProps> = (
 		</div>
 
 		{error && <div className="text-red-500 mt-2 px-2">{error}</div>}
+		{pageCount!==1 && 
+			<div className="font-black flex justify-center">
+			<button
+			onClick={() => setPageCount(1)}
+			className="hover:text-blue-600">
+			Return to active chat page <ChevronDownIcon />
+			</button>
+			</div>
+		}
 
 		{attachments.length > 0 && (
 			<div className="mt-2 p-2 rounded-lg flex flex-wrap ">
@@ -328,9 +338,7 @@ const Chat: React.FC<ChatProps> = (
 			</div>
 		)}
 
-		<div className="m-2">
-		<div className="flex items-center">
-
+		<div className="m-2 flex items-center">
 		<button
 		onClick={() => document.getElementById('attachment-input')?.click()}
 		className="px-4 py-2 bg-blue-900 text-white rounded-l hover:bg-blue-600 focus:outline-none"
@@ -383,7 +391,6 @@ const Chat: React.FC<ChatProps> = (
 		>
 		<SendIcon />
 		</Button>
-		</div>
 		</div>
 		</div>
 	);
