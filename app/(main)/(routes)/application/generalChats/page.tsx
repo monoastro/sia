@@ -112,7 +112,6 @@ const GeneralChatsPage: React.FC = () =>
 		token={token || ''}
 		/>
 		}
-		
 		</div>
 	);
 };

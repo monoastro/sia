@@ -60,6 +60,11 @@ const Chat: React.FC<ChatProps> = (
 
 	const newMessageScroll = useRef<null | HTMLDivElement>(null);
 
+	useEffect(() =>
+	{
+		//console.log("ChatId changed, resetting page count");
+		setPageCount(1);		
+	}, [chatId]);
 	const populateMessages = useCallback(async () =>
 	{
 		try
@@ -144,7 +149,8 @@ const Chat: React.FC<ChatProps> = (
             createdAt: new Date().toISOString()
         };
 
-        const payload = {
+        const payload =
+		{
             chatId,
             ...newMessage,
             attachments: uploadedUrls,
@@ -160,7 +166,8 @@ const Chat: React.FC<ChatProps> = (
         }
     }, [message, attachments, isConnected, socket, chatId, pageCount, userId, userName, userPfp]);
 
-    const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) =>
+	{
         const files = Array.from(e.target.files || []);
         if (files.length + attachments.length > 5)
 		{
@@ -362,10 +369,7 @@ const Chat: React.FC<ChatProps> = (
 		/>
 		
 		<Button
-		onClick={() => 
-		{
-			hasMore && setPageCount((prev) => prev + 1);
-		}}
+		onClick={() => hasMore && setPageCount((prev) => prev + 1)}
 		className="bg-blue-900 hover:bg-blue-600 rounded-none"
 		>
 		<ArrowUpToLine />
