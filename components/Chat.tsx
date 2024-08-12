@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
-import { SendIcon, CirclePlus, ListTree } from 'lucide-react';
+import { SendIcon, CirclePlus, ListTree, ArrowUpToLine, ArrowDownToLine } from 'lucide-react';
 import { getAPI, postAPI } from '@/lib/api';
 import io, { Socket } from 'socket.io-client';
 import { defpfpURL, apiBaseUrl } from '@/lib/data';
@@ -56,6 +56,7 @@ const Chat: React.FC<ChatProps> = (
 	const [compactMode, setCompactMode] = useState(false);
 
 	const [pageCount, setPageCount] = useState<number>(1);
+	const [hasMore, setHasMore] = useState<boolean>(true);
 
 	const newMessageScroll = useRef<null | HTMLDivElement>(null);
 
@@ -64,8 +65,11 @@ const Chat: React.FC<ChatProps> = (
 		try
 		{
 			setMessages([]);
-			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=30`);
+			const response = await getAPI(`messages/paginated/${chatId}?page=${pageCount}&limit=40`);
 			setMessages(response.messages);
+			setHasMore(!(pageCount === response.totalPages));
+			//use this in the event of implementation of infinite scroll
+			//setMessages([...messages, ...response.messages]);
 		}
 		catch (error)
 		{
@@ -119,7 +123,6 @@ const Chat: React.FC<ChatProps> = (
 	useEffect(() =>
 	{
 		newMessageScroll.current?.scrollIntoView({ behavior: 'smooth' });
-		//console.log(messages);
 	}, [messages]);
 
     const sendMessage = useCallback(async (e: React.FormEvent) => {
@@ -350,6 +353,22 @@ const Chat: React.FC<ChatProps> = (
 		onKeyDown={(e) => e.key === 'Enter' && sendMessage(e)}
 		/>
 		
+		<Button
+		onClick={() => 
+		{
+			hasMore && setPageCount((prev) => prev + 1);
+		}}
+		className="bg-blue-900 hover:bg-blue-600 rounded-none"
+		>
+		<ArrowUpToLine />
+		</Button>
+
+		<Button
+		onClick={() => pageCount > 1 && setPageCount((prev) => prev - 1)} 
+		className="bg-blue-900 hover:bg-blue-600 rounded-none"
+		>
+		<ArrowDownToLine />
+		</Button>
 
 		<Button
 		onClick={() => setCompactMode((prev) => !prev)}

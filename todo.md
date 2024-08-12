@@ -14,3 +14,4 @@
 - [ ] generalize the file rederer block (left: chat)
 - [ ] fix routine's horrible css
 - [ ] add everything to resources
+- [ ] use react's default loading method for the loading ui

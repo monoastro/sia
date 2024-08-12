@@ -1,30 +1,10 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-import { getUserInfoLocal, setUserInfoLocal } from './lib/utils';
-import { getAPI } from './lib/api';
-
 //two redirects are defined 
 //if the route is not public and the user is not authenticated, redirect to login
 //if the route is public and the user is authenticated, redirect to dashboard with the exception of the home page
 const publicRoutes = ['/', '/forgotPassword', '/login', '/otp-verification', '/register']
-
-const fetchUserInfo = async () =>
-{
-	try 
-	{
-		const userId = getUserInfoLocal().user_id;
-		const data = await getAPI(`users/${userId}`);
-		if (data)
-		{
-			setUserInfoLocal(data[0]);
-		}
-	}
-	catch (error)
-	{
-		console.error("Failed to fetch user information", error);
-	}
-};
 
 export const middleware = (request: NextRequest) =>
 {
@@ -37,6 +17,8 @@ export const middleware = (request: NextRequest) =>
 	//server will read the cookie, validate it, and return the user information which solves the problem of non-constant user information
 	//if the cookie is invalid, the server will return null and the frontend will redirect to login
 
+	//nah do not do this, with how slow the server is this is gonna slow the perfomance by a lot
+
 	if(!publicRoutes.includes(pathname))
 	{
 		if(!cookie) 
@@ -47,8 +29,6 @@ export const middleware = (request: NextRequest) =>
 	}
 	else
 	{
-		//this might be a bit of a performance hit because the server is too damn slow, find an alternative; if you do put it back in, check for cookie in else if
-		//fetchUserInfo();
 		if(pathname!=='/' && cookie ) return NextResponse.redirect(new URL('/application/dashboard', request.url));
 	}
 

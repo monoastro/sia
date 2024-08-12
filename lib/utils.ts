@@ -63,10 +63,14 @@ const deleteToken = () =>
 }
 
 
+const wait = async (ms: number) =>
+{
+	return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 //not making a setToken because it's only required at login(for now i guess);
 
-export { cn, getUserInfoLocal, setUserInfoLocal, deleteUserInfoLocal , getToken, deleteToken}
+export { cn, getUserInfoLocal, setUserInfoLocal, deleteUserInfoLocal , getToken, deleteToken, wait}
 
 // <button onClick={test} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors"> Test </button>
 
