@@ -7,6 +7,7 @@
 </p>
 
 Front end of DBMS project made with [Next.js](https://nextjs.org/) bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+The backend is located @ [Electrocord](https://github.com/whoisdinanath/electrocord).
 
 ## How it looks
 Just click the link listed on the side or below. If you are too lazy to click the link, here's a little preview of the website.
@@ -18,11 +19,11 @@ Just click the link listed on the side or below. If you are too lazy to click th
 - npm/pnpm
 
 ## Getting Started
-1. First step open up a terminal of your choice(Alacritty/Kitty is preferred) and install the required depdencies, which is literally just one package using a package manager of your choice:
+1. First step open up a terminal of your choice(Alacritty/Kitty is preferred) and install the required depdencies(which is literally just two packages), using a package manager of your choice:
 ```bash
 sudo pacman -S nodejs npm
 ```
-2. Clone the repo and cd into the folder using the following commands:
+2. Clone the repo somewhere into your computer and cd into the cloned repo using the following commands:
 ```bash
 git clone https://github.com/monoastro/sia.git
 cd sia
@@ -61,20 +62,20 @@ Which might be confusing to the create-next-app crowd, but checkout package.json
 7. Interactive UI designed with user experience in mind
 
 ## Tech Stack
-* ![Next.js(Frontend)](https://nextjs.org/)
-* ![Express.js(Backend)](https://expressjs.com/)
-* ![Postgresql(Database)](https://www.postgresql.org/)
-* ![Socket.io(Real Time Chat)](https://socket.io/)
-* ![Vercel(Frontend Deployment)](https://vercel.com/)
-* ![Render(Backend Deployment)](https://render.com/)
-* ![shadcn/ui(UI Components)](https://ui.shadcn.com/docs/components/)
-* ![TailwindCSS(Styling)](https://tailwindcss.com/)
-* ![Axios(HTTP Requests)](https://devdocs.io/axios/api_intro)
+* [Next.js(Frontend)](https://nextjs.org/)
+* [Express.js(Backend)](https://expressjs.com/)
+* [Postgresql(Database)](https://www.postgresql.org/)
+* [Socket.io(Real Time Chat)](https://socket.io/)
+* [Vercel(Frontend Deployment)](https://vercel.com/)
+* [Render(Backend Deployment)](https://render.com/)
+* [shadcn/ui(UI Components)](https://ui.shadcn.com/docs/components/)
+* [TailwindCSS(Styling)](https://tailwindcss.com/)
+* [Axios(HTTP Requests)](https://devdocs.io/axios/api_intro)
 
 ## Development Environment
-* ![Alacritty]( https://alacritty.org/ )
-* ![Neovim]( https://neovim.io/ )
-* ![Tmux](https://github.com/tmux/tmux/wiki)
+* [Alacritty]( https://alacritty.org/ )
+* [Neovim]( https://neovim.io/ )
+* [Tmux](https://github.com/tmux/tmux/wiki)
 
 ## Deployed website
 This project is deployed @ [Vercel](https://sia-electrocord.vercel.app/)
