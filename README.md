@@ -1,4 +1,4 @@
-# SIA (Social Interaction Application/(platform for Academia) - whatever sounds better)
+# SIA (Social Interaction Application)
 <p align="center">
     <img 
     src="public/static/emma.svg"
