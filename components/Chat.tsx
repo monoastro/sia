@@ -332,13 +332,13 @@ const Chat: React.FC<ChatProps> = (
 		}
 
 		{attachments.length > 0 && (
-			<div className="mt-2 p-2 rounded-lg flex flex-wrap ">
+			<div className="p-1 rounded-lg flex flex-wrap ml-1 ">
 			{attachments.map((file, index) => (
 				<div
 				key={index}
-				className="relative w-16 h-16 p-2 m-1 bg-gray-300 rounded-md flex flex-col items-center"
+				className="relative w-16 h-16 bg-violet-900 rounded-md flex flex-col items-center"
 				>
-				<span className="text-xs text-gray-600 truncate">{file.name}</span>
+				<span className="text-xs truncate">{file.name}</span>
 				<span className="justify-center">📄</span>
 				</div>
 			))}

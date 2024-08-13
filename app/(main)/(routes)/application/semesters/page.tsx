@@ -190,18 +190,25 @@ const SemesterPage: React.FC = () =>
 		return <LoadingSemesterPage/>;
 	}
     return (
-		<div className="flex flex-col h-screen text-white ">
+		<div className="flex flex-col h-screen">
 
-		<div className="flex px-3 py-4 justify-between items-center">
+		<div className="px-3 py-4 flex flex-col sm:flex-row justify-between sm:items-center">
 
-		<div className="flex space-x-4">
+		<div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4 w-full sm:w-auto">
 
-		<div className="relative">
+		<div className="relative w-full sm:w-auto">
 		<button
 		onClick={() => { setIsSemesterDropdownOpen(!isSemesterDropdownOpen); setIsSubjectDropdownOpen(false);}} 
-		className="px-4 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900" >
-		Semester {selectedSemester} <ChevronDownIcon className="w-5 h-5 ml-3" />
+		className="w-full px-4 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900"
+		>
+		<div className="flex-grow overflow-hidden">
+		<span className="truncate">
+		Semester {selectedSemester}
+		</span>
+		</div>
+		<ChevronDownIcon className="w-5 h-5 ml-2 flex-shrink-0" />
 		</button>
+
 
 		{isSemesterDropdownOpen && (
 			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
@@ -218,12 +225,19 @@ const SemesterPage: React.FC = () =>
 		)}
 		</div>
 
-		<div className="relative">
+		<div className="relative w-full sm:w-auto">
 		<button
 		onClick={() => {setIsSubjectDropdownOpen(!isSubjectDropdownOpen); setIsSemesterDropdownOpen(false);}}
-		className="px-4 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900" >
-		{getSelectedSubjectName()} <ChevronDownIcon className="w-5 h-5 ml-2" />
+		className="w-full px-4 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900"
+		>
+		<div className="flex-grow overflow-hidden">
+		<span className="truncate">
+		{getSelectedSubjectName()}
+		</span>
+		</div>
+		<ChevronDownIcon className="w-5 h-5 ml-2 flex-shrink-0" />
 		</button>
+
 		{isSubjectDropdownOpen && (
 			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
 			{subjects && subjects.map((subject, index) => (
@@ -232,6 +246,7 @@ const SemesterPage: React.FC = () =>
 				onClick={() => { setSelectedSubject(index); setIsSubjectDropdownOpen(false); } }
 				className="block w-full text-left px-4 py-2 hover:bg-blue-700"
 				>
+
 				{subject.name}
 				</button>
 			))}
@@ -243,12 +258,11 @@ const SemesterPage: React.FC = () =>
 		<div>
  		<button 
 		onClick={() => setAddResource(true)} 
-		className="px-4 py-2 rounded flex border-2 border-violet-900 hover:bg-indigo-900 transition-colors">
+		className="px-4 py-2 rounded border-2 border-violet-900 hover:bg-indigo-900 transition-colors">
 		<CirclePlus />
 		</button>
 		</div>
 		)}
-
 		</div>
 
 
@@ -290,7 +304,7 @@ const SemesterPage: React.FC = () =>
 		}
 		{selectedTab === "Syllabus" && (
 			<div className="ml-3">
-			<h2 className="text-xl mb-4 font-bold">Syllabus for {getSelectedSubjectName()}</h2>
+			<h2 className="text-xl mb-3 font-bold">Syllabus for {getSelectedSubjectName()}</h2>
 			{subjects && subjects[selectedSubject].description}
 			{subjects && <MarkdownRenderer markdownContent={ subjects[selectedSubject].syllabus} /> }
 			</div>

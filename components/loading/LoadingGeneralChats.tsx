@@ -25,7 +25,7 @@ const LoadingGeneralChatsPage = () => {
       </div>
 
       <div className="flex-grow space-y-4 overflow-hidden">
-        {[...Array(8)].map((_, index) => (
+        {[...Array(7)].map((_, index) => (
           <div key={index} className="flex items-start space-x-3">
             <Skeleton className="w-10 h-10 rounded-full" />
             <div className="space-y-2 flex-grow">
