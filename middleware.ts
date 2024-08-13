@@ -17,8 +17,6 @@ export const middleware = (request: NextRequest) =>
 	//server will read the cookie, validate it, and return the user information which solves the problem of non-constant user information
 	//if the cookie is invalid, the server will return null and the frontend will redirect to login
 
-	//nah do not do this, with how slow the server is this is gonna slow the perfomance by a lot
-
 	if(!publicRoutes.includes(pathname))
 	{
 		if(!cookie) 
@@ -29,7 +27,7 @@ export const middleware = (request: NextRequest) =>
 	}
 	else
 	{
-		if(pathname!=='/' && cookie ) return NextResponse.redirect(new URL('/application/dashboard', request.url));
+		if(cookie && pathname!=='/') return NextResponse.redirect(new URL('/application/dashboard', request.url));
 	}
 
 	return NextResponse.next();
