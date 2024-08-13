@@ -345,7 +345,7 @@ const Chat: React.FC<ChatProps> = (
 			</div>
 		)}
 
-		<div className="m-2 flex items-center">
+		<div className="mb-2 flex items-center">
 		<button
 		onClick={() => document.getElementById('attachment-input')?.click()}
 		className="px-2 py-2 bg-blue-900 text-white rounded-l hover:bg-blue-600 focus:outline-none"

@@ -65,7 +65,7 @@ const GeneralChatsPage: React.FC = () =>
 		<div className="flex flex-col h-screen">
 		<div className="px-3 py-4 flex flex-col sm:flex-row justify-between sm:items-center">
 
-		<div className="relative w-full sm:w-auto mb-4 sm:mb-0">
+		<div className="relative w-full sm:w-auto sm:mb-0">
 		<button
 		onClick={() => setIsDropdownOpen(!isDropdownOpen)}
 		className="px-3 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900 w-full sm:w-auto"
@@ -74,8 +74,9 @@ const GeneralChatsPage: React.FC = () =>
 		#{(channels && channels[selectedChannel].name) || "off-topic"}
 		</span>
 		<ChevronDownIcon className="w-5 h-5 ml-1 mr-1 flex-shrink-0" />
-
 		<p className="mr-2"> | </p>
+
+
 		<p className="mr-2 truncate" >
 		{(channels && channels[selectedChannel].description) || "Chat about anything unrelated to the main topics"}
 		</p>
@@ -95,6 +96,9 @@ const GeneralChatsPage: React.FC = () =>
 		)}
 		</div>
 
+		{/*
+		//yeah this turned out to be completely useless unless there's an endpoint for this
+		//because searching on 30 messages is completely useless
 		<div className="flex items-center">
 		<div className="relative mr-2 ml-2 w-full sm:w-auto">
 		<input
@@ -105,6 +109,7 @@ const GeneralChatsPage: React.FC = () =>
 		<MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white" />
 		</div>
 		</div>
+		*/}
 
 		</div>
 

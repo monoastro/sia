@@ -35,7 +35,7 @@ const Tabs: React.FC<TabsProps> = ({ tabs, activeTab, setActiveTab, setShowAddFo
 			aria-label="Add Announcement"
 			>
 			+
-				</button>
+			</button>
 		)}
 		</div>
 	);

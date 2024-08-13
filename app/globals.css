@@ -78,6 +78,10 @@ body,
 {
 	@apply rounded border-2 border-violet-900 hover:bg-indigo-900 
 }
+.purple-gradient
+{
+	@apply bg-gradient-to-t from-purple-400 via-purple-600 to-purple-800;
+}
 .blue-gradient 
 {
 	background: linear-gradient(to right, #1a237e, #000000);

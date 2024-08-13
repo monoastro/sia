@@ -25,6 +25,8 @@ const MainLayout = ({ children }: { children: React.ReactNode }) =>
 			</div>
 		)}
 
+	
+
 		</div>
 	);
 };

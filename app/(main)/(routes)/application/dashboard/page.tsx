@@ -127,6 +127,7 @@ const Dashboard = () => {
 
 	return (
 		<div className="min-h-screen flex flex-col items-center justify-center p-8 text-center text-white">
+
 			<h1 className="text-2xl font-bold mb-4">Welcome to Your Dashboard</h1>
 
 			<div className="mb-4 relative w-48 h-48">
@@ -178,6 +179,7 @@ const Dashboard = () => {
 				/>
 			)}
 		</div>
+
 	);
 };
 

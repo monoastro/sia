@@ -310,7 +310,7 @@ const SemesterPage: React.FC = () =>
 			</div>
 		)}
 
-		<ScrollArea className="flex-1 w-full mb-2">
+		<ScrollArea className="flex-1 w-full">
 		{selectedTab === "Notes" && notes && (
 			<div className="ml-3">
 			<h2 className="text-xl mb-3 font-bold">Notes and Assignments for {getSelectedSubjectName()}</h2>

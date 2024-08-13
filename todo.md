@@ -5,13 +5,17 @@
 - [x] cache the active/last fetched results so that it doesn't have to fetch every time the tab is switched again(semesters/general chat, syllabus, notes, qp, routine) ; maybe make a general caching component ::: Use memoization
 - [x]  Memoize the logout stuff -- eh the non memoized error ignored stuff works fine for now 
 - [x] fix the array order of semesters in semesters page
+- [x] optimize the routine page
 - [-] implement create, update and delete feature for semester, subject, resources
-- [ ] implements the chats array as a circular buffer / inf scroll or paging; any of these will do
+- [-] implements the chats array as a circular buffer / inf scroll or paging; any of these will do
 - [ ] implement message update feature and if possible add, update and delete general chats as well
 - [ ] Do the double token thing
-- [ ] optimize the routine page
 - [ ] cache the active last tab/state on pages that have multiple states
 - [ ] generalize the file rederer block (left: chat)
 - [ ] fix routine's horrible css
 - [ ] add everything to resources
-- [ ] use react's default loading method for the loading ui
+- [ ] https://ui.shadcn.com/docs/components/textarea - chat
+- [ ] https://ui.shadcn.com/docs/components/avatar 
+- [ ] https://ui.shadcn.com/docs/components/aspect-ratio - images
+- [ ] https://ui.shadcn.com/docs/components/dialog - forms
+- [ ] https://ui.shadcn.com/docs/components/sheet - dashboard

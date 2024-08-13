@@ -7,7 +7,7 @@ const AuthLayout = ({ children }: { children: React.ReactNode }) =>
 {
 	const router = useRouter();    
 	return (
-		<div className="min-h-screen flex flex-col lg:flex-row bg-gradient-to-t from-purple-400 via-purple-600 to-purple-800">
+		<div className="min-h-screen flex flex-col lg:flex-row purple-gradient ">
 
 		<div className="flex-1 p-8 flex items-center justify-center">
 		<div className="w-full max-w-10xl lg:ml-16">
