@@ -260,6 +260,13 @@ const Chat: React.FC<ChatProps> = (
 		}
 	}, []);
 
+	/*
+	make that loading skeleton twoparted
+	if(!messages.length)
+	{
+		return <div>Loading...</div>;
+	}
+	*/
 	return (
 		<div className="flex flex-col h-full max-h-full overflow-hidden">
 
