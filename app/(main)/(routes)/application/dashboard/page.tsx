@@ -8,7 +8,6 @@ import { deleteCookie } from 'cookies-next';
 import { getAPI, putAPI } from '@/lib/api'; 
 import { getUserInfoLocal, setUserInfoLocal, deleteUserInfoLocal, deleteToken } from '@/lib/utils';
 import UpdateInfoForm from '@/components/dashboard/UpdateInfo';
-import { defpfpURL } from '@/lib/data';
 
 const Dashboard = () => {
 	//why do it like this when interfaces exist
@@ -27,13 +26,13 @@ const Dashboard = () => {
 	const [error, setError] = useState("");
 
 	const router = useRouter();
-
 	const handleLogout = () =>
 	{
 		deleteCookie("token");
 		deleteUserInfoLocal();
 		deleteToken();
-		router.push("/login");
+		//router.push('/login');
+		router.refresh();
 		console.log("Logging out...");
 	};
 

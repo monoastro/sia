@@ -21,7 +21,7 @@ export const middleware = (request: NextRequest) =>
 	{
 		if(!cookie) 
 		{
-			console.error("Cookie expired or not found. Please login again.");
+			console.log("Redirecting to login.");
 			return NextResponse.redirect(new URL('/login', request.url));
 		}
 	}
