@@ -25,18 +25,18 @@ const RenderFileLink : React.FC<FileLink> = ({name, file_path }) =>
 			className="rounded object-cover cursor-pointer"
 			sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 			onClick={() => setIsModalOpen(true)}
-			onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
+			onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/emma.svg'; }}
 			/>
 			{isModalOpen && (
 				<Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} imageUrl={file_path || ''}>
 				<Image
-				src={file_path || '/static/fallback.png'}
+				src={file_path || '/static/emma.svg'}
 				alt="Attachment"
 				width={600}
 				height={600}
 				className="rounded object-cover"
 				sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-				onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
+				onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/emma.svg'; }}
 				/>
 				</Modal>
 				)}

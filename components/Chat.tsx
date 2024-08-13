@@ -212,7 +212,7 @@ const Chat: React.FC<ChatProps> = (
 					className="rounded object-cover cursor-pointer"
 					sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
 					onClick={() => window.open(filePath, '_blank')}
-					onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/fallback.png'; }}
+					onError={(e) => { (e.currentTarget as HTMLImageElement).src = '/static/emma.svg'; }}
 					/>
 					</div>
 			);
@@ -310,7 +310,6 @@ const Chat: React.FC<ChatProps> = (
 			</div>
 			</div>
 			</div>
-
 
 			{compactMode && (
 			<div className="ml-1">
