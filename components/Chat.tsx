@@ -348,7 +348,7 @@ const Chat: React.FC<ChatProps> = (
 		<div className="m-2 flex items-center">
 		<button
 		onClick={() => document.getElementById('attachment-input')?.click()}
-		className="px-4 py-2 bg-blue-900 text-white rounded-l hover:bg-blue-600 focus:outline-none"
+		className="px-2 py-2 bg-blue-900 text-white rounded-l hover:bg-blue-600 focus:outline-none"
 		>
 		<CirclePlus />
 		</button>
@@ -364,33 +364,33 @@ const Chat: React.FC<ChatProps> = (
 		value={message}
 		onChange={(e) => setMessage(e.target.value)}
 		placeholder={`Message ${chatName}`}
-		className="flex-grow bg-blue-900 px-4 py-2 focus:outline-none text-white"
+		className="flex-grow bg-blue-900 px-2 py-2 focus:outline-none text-white min-w-0"
 		onKeyDown={(e) => e.key === 'Enter' && sendMessage(e)}
 		/>
 		
 		<Button
 		onClick={() => hasMore && setPageCount((prev) => prev + 1)}
-		className="bg-blue-900 hover:bg-blue-600 rounded-none"
+		className="bg-blue-900 hover:bg-blue-600 rounded-none px-2"
 		>
 		<ArrowUpToLine />
 		</Button>
 
 		<Button
 		onClick={() => pageCount > 1 && setPageCount((prev) => prev - 1)} 
-		className="bg-blue-900 hover:bg-blue-600 rounded-none"
+		className="bg-blue-900 hover:bg-blue-600 rounded-none px-2"
 		>
 		<ArrowDownToLine />
 		</Button>
 
 		<Button
 		onClick={() => setCompactMode((prev) => !prev)}
-		className="bg-blue-900 hover:bg-blue-600 rounded-none"
+		className="bg-blue-900 hover:bg-blue-600 rounded-none px-2"
 		>
 		<ListTree />
 		</Button>
 		<Button
 		type="submit"
-		className="bg-blue-900 hover:bg-blue-600 rounded-none rounded-r"
+		className="bg-blue-900 hover:bg-blue-600 rounded-none rounded-r px-2"
 		onClick={sendMessage}
 		>
 		<SendIcon />

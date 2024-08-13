@@ -64,20 +64,21 @@ const GeneralChatsPage: React.FC = () =>
 	return (
 		<div className="flex flex-col h-screen text-white">
 
-		<div className="px-3 py-4 flex justify-between items-center">
-		<div className="relative">
+		<div className="px-3 py-4 flex flex-col sm:flex-row justify-between items-start sm:items-center">
+		<div className="relative w-full sm:w-auto mb-4 sm:mb-0">
 		<button
 		onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-		className="text-white px-3 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900"
+		className="text-white px-3 py-2 rounded flex items-center border-2 border-violet-900 hover:bg-indigo-900 w-full sm:w-auto"
 		>
-		#{(channels && channels[selectedChannel].name) || "off-topic"}
-		<ChevronDownIcon className="w-5 h-5 ml-1 mr-2" /> |
+		<span className="truncate">#{(channels && channels[selectedChannel].name) || "off-topic"}</span>
+		<ChevronDownIcon className="w-5 h-5 ml-1 mr-2 flex-shrink-0" />
+
 		<p className="ml-2" >
 		{(channels && channels[selectedChannel].description) || "Chat about anything unrelated to the main topics"}
 		</p>
 		</button>
 		{isDropdownOpen && (
-			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10">
+			<div className="absolute top-full left-0 mt-1 bg-violet-900 rounded shadow-lg z-10 w-full sm:w-auto ">
 			{channels.map((channel, index) => (
 				<button
 				key={channel.id}
@@ -90,12 +91,13 @@ const GeneralChatsPage: React.FC = () =>
 			</div>
 		)}
 		</div>
-		<div className="flex items-center">
-		<div className="relative mr-4">
+
+		<div className="flex items-center w-full sm:w-auto">
+		<div className="relative mr-4 w-full sm:w-auto">
 		<input
 		type="text"
 		placeholder="Search"
-		className="bg-transparent text-white pl-10 pr-4 py-2 rounded"
+		className="bg-transparent text-white pl-10 pr-4 py-2 rounded w-full sm:w-auto"
 		/>
 		<MagnifyingGlassIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-white" />
 		</div>

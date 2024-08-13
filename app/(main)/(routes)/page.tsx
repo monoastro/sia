@@ -15,8 +15,8 @@ export default function LandingPage()
 			try
 			{
 				console.log("Pinging electrocord");
-				const pong = await fetch("https://electrocord.onrender.com/");
-				console.log(pong);
+				await fetch("https://electrocord.onrender.com/");
+				//console.log(pong);
 			}
 			catch (error)
 			{
